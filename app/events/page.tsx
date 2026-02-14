@@ -2,7 +2,7 @@ import React from 'react';
 
 const UPCOMING_EVENTS = [
   {
-    title: "Wall Street Recruitment Panel",
+    title: "Sample Event: Wall Street Recruitment Panel",
     date: "20260315T180000Z", // Format: YYYYMMDDTHHMMSSZ
     endDate: "20260315T200000Z",
     displayDate: "March 15, 2026",
@@ -12,7 +12,7 @@ const UPCOMING_EVENTS = [
     category: "Professional Development"
   },
   {
-    title: "Spring Networking Mixer",
+    title: "Sample Event: Spring Networking Mixer",
     date: "20260322T190000Z",
     endDate: "20260322T210000Z",
     displayDate: "March 22, 2026",

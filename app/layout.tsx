@@ -30,7 +30,7 @@ export default function RootLayout({
             </div>
             <div className="flex gap-8 text-xs font-bold uppercase tracking-widest">
               <a href="https://linkedin.com" target="_blank" className="hover:text-[#C4D8E2] transition-colors">LinkedIn</a>
-              <a href="https://instagram.com" target="_blank" className="hover:text-[#C4D8E2] transition-colors">Instagram</a>
+              <a href="https://www.instagram.com/gsbs_columbia/" target="_blank" className="hover:text-[#C4D8E2] transition-colors">Instagram</a>
               <p className="text-gray-400">© 2026</p>
             </div>
           </div>

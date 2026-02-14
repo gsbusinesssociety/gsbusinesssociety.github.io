@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h1 className="font-serif text-5xl md:text-6xl text-[#333333] mb-8">Our Mission</h1>
           <p className="font-serif italic text-2xl md:text-3xl text-[#6D6E71] leading-relaxed">
-            "Something."
+            We aim to increase GS students' engagement in the pre-professional life.
           </p>
         </div>
       </section>
@@ -29,8 +29,7 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6 text-[#6D6E71] leading-relaxed">
               <p>
-                The GS Business Society is the premier professional organization dedicated to students at the School of General Studies. We recognize the unique backgrounds, diverse experiences, and professional maturity that non-traditional students bring to the table.
-              </p>
+The Columbia GS Business Society aims to increase GS students' engagement in the pre-professional life. By bringing in industry professionals, offering hands-on training, and fostering community through social events, we build an inclusive space for gs students and others from non-traditional backgrounds to learn, connect, and grow.              </p>
               <p>
                 Founded on the principles of community and excellence, we provide our members with the resources, network, and mentorship necessary to navigate competitive industries.
               </p>
@@ -74,7 +73,7 @@ export default function AboutPage() {
           We open applications for junior board positions at the beginning of every semester.
         </p>
         <a 
-          href="/contact" 
+          href="https://forms.gle/example" 
           className="inline-block border border-[#333333] text-[#333333] px-10 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#333333] hover:text-white transition-all"
         >
           Get in Touch

@@ -26,7 +26,7 @@ export default function Home() {
           </p>
         </div>
       </section>
-          {/* 3. Spacing for next section */}
+          {/* 3. Spacing for next section
       <section className="py-20 text-center">
         <h2 className="text-[#6D6E71] uppercase tracking-widest text-sm font-semibold">
           <p>Scroll to explore </p>
@@ -37,7 +37,7 @@ export default function Home() {
           <p>Scroll to explore </p>
 
         </h2>
-      </section>
+      </section> */}
       {/* 3. Core Pillars Section */}
       <CorePillars />
       {/* 4. Newsletter Subscription */}

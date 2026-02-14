@@ -1,11 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Close menu if window is resized to desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setIsOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -16,11 +25,11 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/90 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* LOGO */}
         <div className="flex items-center">
-          <Link href="/">
+          <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image 
               src="/small.png" 
               alt="GS Business Society" 
@@ -43,34 +52,40 @@ export default function Navbar() {
 
         {/* MOBILE HAMBURGER BUTTON */}
         <button 
-          className="md:hidden text-[#6D6E71] focus:outline-none"
+          className="md:hidden text-[#6D6E71] p-2 focus:outline-none z-50"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle Menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-            )}
-          </svg>
+          <div className="w-6 h-5 relative flex flex-col justify-between">
+            <span className={`h-0.5 w-full bg-current transform transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+            <span className={`h-0.5 w-full bg-current transform transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </div>
         </button>
       </div>
 
-      {/* MOBILE MENU DROPDOWN */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-b border-gray-100 px-6 py-6 space-y-4 shadow-xl">
-          {navLinks.map((link) => (
+      {/* ANIMATED MOBILE MENU */}
+      <div 
+        className={`absolute top-20 left-0 w-full bg-white border-b border-gray-100 transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
+          isOpen ? 'max-h-[400px] opacity-100 shadow-xl' : 'max-h-0 opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="px-6 py-8 space-y-6">
+          {navLinks.map((link, i) => (
             <Link 
               key={link.name} 
               href={link.href} 
               onClick={() => setIsOpen(false)}
-              className="block text-sm font-medium uppercase tracking-widest text-[#6D6E71] hover:text-[#C4D8E2]"
+              style={{ transitionDelay: `${i * 50}ms` }}
+              className={`block text-sm font-medium uppercase tracking-widest text-[#6D6E71] hover:text-[#C4D8E2] transition-all duration-300 ${
+                isOpen ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
+              }`}
             >
               {link.name}
             </Link>
           ))}
         </div>
-      )}
+      </div>
     </nav>
   );
 }

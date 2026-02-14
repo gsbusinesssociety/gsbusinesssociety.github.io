@@ -73,7 +73,7 @@ The Columbia GS Business Society aims to increase GS students' engagement in the
           We open applications for junior board positions at the beginning of every semester.
         </p>
         <a 
-          href="https://forms.gle/example" 
+          href="https://forms.gle/FiH8WrxAP7WMifx99" 
           className="inline-block border border-[#333333] text-[#333333] px-10 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#333333] hover:text-white transition-all"
         >
           Get in Touch

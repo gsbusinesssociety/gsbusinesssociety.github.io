@@ -20,7 +20,7 @@ export default function Navbar() {
     { name: 'Home', href: '/' },
     { name: 'Events', href: '/events' },
     { name: 'About', href: '/about' },
-    { name: 'Newsletter', href: '/#newsletter' },
+    // { name: 'Newsletter', href: '/#newsletter' },
     { name: 'Contact', href: '/contact' },
   ];
 

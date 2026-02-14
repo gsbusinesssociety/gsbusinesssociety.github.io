@@ -1,10 +1,20 @@
 import React from 'react';
 
 const BOARD_MEMBERS = [
-  { name: "someone someone", role: "President", school: "GS '27" },
-  { name: "someone someone", role: "Vice President", school: "GS '27" },
-  { name: "someone someone", role: "Director of Operations", school: "GS '28" },
-  { name: "someone someone", role: "Head of External Affairs", school: "GS '28" },
+{ 
+    name: "Someone Someone", 
+    role: "President", 
+    school: "GS '27", 
+    linkedin: "https://linkedin.com/in/username",
+    image: "/board/president.jpg" // Path to their photo in /public
+  },
+  { name: "someone someone", role: "Vice President", school: "GS '27", linkedin: "https://linkedin.com/in/username", image: "/board/vice-president.jpg" },
+  { name: "someone someone", role: "Director of Operations", school: "GS '28", linkedin: "https://linkedin.com/in/username", image: "/board/director-of-operations.jpg" },
+  { name: "someone someone", role: "Head of External Affairs", school: "GS '28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-external-affairs.jpg" },
+  { name: "someone someone", role: "Head of Technology", school: "GS '27", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-technology.jpg" },
+  { name: "someone someone", role: "Head of Finance", school: "GS '28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-finance.jpg" },
+  { name: "someone someone", role: "Head of Communications", school: "GS '27", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpg" },
+  { name: "someone someone", role: "Head of Something else", school: "GS '28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-something-else.jpg" },
 ];
 
 export default function AboutPage() {
@@ -35,7 +45,7 @@ The Columbia GS Business Society aims to increase GS students' engagement in the
               </p>
             </div>
           </div>
-          {/* Placeholder for an Image of Columbia Campus or Board */}
+          {/* Placeholder for an Image of Board */}
           <div className="bg-[#C4D8E2]/20 h-96 flex items-center justify-center border border-[#C4D8E2]">
             <span className="text-[#C4D8E2] font-serif italic uppercase tracking-widest">
               Est. 2020
@@ -51,8 +61,25 @@ The Columbia GS Business Society aims to increase GS students' engagement in the
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {BOARD_MEMBERS.map((member, index) => (
               <div key={index} className="text-center group">
-                {/* Profile Placeholder */}
-                <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 grayscale group-hover:grayscale-0 transition-all border-2 border-transparent group-hover:border-[#C4D8E2]"></div>
+                
+                {/* LINKEDIN WRAPPER AROUND IMAGE */}
+                <a 
+                  href={member.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block relative w-32 h-32 mx-auto mb-6"
+                >
+                  <div className="w-full h-full bg-gray-200 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-[#C4D8E2] relative">
+                    {/* If you have images, use the Next.js Image component here */}
+                    {/* <Image src={member.image} alt={member.name} fill className="object-cover" /> */}
+                    
+                    {/* Simple overlay effect on hover */}
+                    <div className="absolute inset-0 bg-[#C4D8E2]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                       <span className="text-[10px] font-bold text-[#333333] uppercase tracking-tighter bg-white/80 px-2 py-1 rounded">View Profile</span>
+                    </div>
+                  </div>
+                </a>
+
                 <h3 className="font-serif text-xl text-[#333333]">{member.name}</h3>
                 <p className="text-[#C4D8E2] text-xs font-bold uppercase tracking-widest mt-1">
                   {member.role}
@@ -73,7 +100,8 @@ The Columbia GS Business Society aims to increase GS students' engagement in the
           We open applications for junior board positions at the beginning of every semester.
         </p>
         <a 
-          href="https://forms.gle/FiH8WrxAP7WMifx99" 
+          href="https://forms.gle/FiH8WrxAP7WMifx99"                   target="_blank" 
+                  rel="noopener noreferrer"
           className="inline-block border border-[#333333] text-[#333333] px-10 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#333333] hover:text-white transition-all"
         >
           Get in Touch

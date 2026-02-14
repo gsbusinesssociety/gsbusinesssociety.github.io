@@ -69,7 +69,7 @@ const handleCopyEmail = async () => {
   >
     {/* The actual Email Address */}
     <p className="text-[#333333] text-lg group-hover:text-[#C4D8E2] transition-colors duration-300">
-      gsbs@columbia.edu
+      gsbusinesssociety@gmail.com
     </p>
     
     {/* The Dynamic Label: This area swaps between "Click to copy" and "Copied!" */}

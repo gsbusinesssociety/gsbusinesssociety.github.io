@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 1. Define your uploaded font */
+@font-face {
+  font-family: 'Miller Display';
+  src: url('/fonts/miller-display.woff2') format('woff2'); /* Adjust path to your font file */
+  font-weight: normal;
+  font-style: normal;
 }
+
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #333333;
+  --columbia-blue: #C4D8E2;
+  --accent-grey: #6D6E71;
+  
+  /* 2. Link the CSS variable to your font name */
+  --font-miller: "Miller Display", Georgia, serif;
+}
+
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* 3. This tells Tailwind: whenever I use 'font-serif', use Miller */
+  --font-serif: var(--font-miller);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1A1A1A;      /* Deep Grey/Black */
+    --foreground: #F2F2F2;      /* Off-white/Light Grey */
+    --columbia-blue: #9BCBEB;   /* Slightly desaturated for dark mode contrast */
   }
 }
+
+/* body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-miller);
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+  /* 4. This sets Miller as the default for the WHOLE site */
+  /* font-family: var(--font-miller);
+} */

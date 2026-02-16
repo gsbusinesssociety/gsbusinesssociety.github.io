@@ -38,7 +38,7 @@ export default function Newsletter() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <header className="mb-8">
             <h2 className="font-serif text-3xl md:text-4xl text-[#333333] mb-3">
-              subscribe
+              Subscribe
             </h2>
             <p className="text-[#6D6E71] text-sm md:text-base leading-relaxed">
               Sign up with your email address to receive news and updates.

@@ -7,7 +7,6 @@ import Link from 'next/link';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close menu if window is resized to desktop size
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) setIsOpen(false);
@@ -20,12 +19,11 @@ export default function Navbar() {
     { name: 'Home', href: '/' },
     { name: 'Events', href: '/events' },
     { name: 'About', href: '/about' },
-    // { name: 'Newsletter', href: '/#newsletter' },
     { name: 'Contact', href: '/contact' },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/90 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/90 backdrop-blur-md ">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* LOGO */}
         <div className="flex items-center">
@@ -42,7 +40,7 @@ export default function Navbar() {
         </div>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-[#6D6E71]">
+        <div className="hidden md:flex gap-8 text-sm uppercase tracking-[0.2em] text-[#6D6E71]">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href} className="hover:text-[#C4D8E2] transition-colors">
               {link.name}
@@ -77,7 +75,7 @@ export default function Navbar() {
               href={link.href} 
               onClick={() => setIsOpen(false)}
               style={{ transitionDelay: `${i * 50}ms` }}
-              className={`block text-sm font-medium uppercase tracking-widest text-[#6D6E71] hover:text-[#C4D8E2] transition-all duration-300 ${
+              className={`block text-sm uppercase tracking-[0.2em] text-[#6D6E71] hover:text-[#C4D8E2] transition-all duration-300 ${
                 isOpen ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
               }`}
             >

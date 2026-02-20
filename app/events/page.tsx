@@ -2,25 +2,15 @@ import React from 'react';
 
 const UPCOMING_EVENTS = [
   {
-    title: "Sample Event: Wall Street Recruitment Panel",
-    date: "20260315T180000Z", // Format: YYYYMMDDTHHMMSSZ
-    endDate: "20260315T200000Z",
-    displayDate: "March 15, 2026",
-    time: "6:00 PM - 8:00 PM",
-    location: "Lerner Hall, Room 402",
-    description: "Join alumni from Goldman Sachs and JP Morgan for a recruitment deep dive.",
+    title: "Launch Event: Tell Your Leadership Story with Your Non-Traditional Story",
+    date: "20260225T183000Z", // Feb 25, 2026, 6:30 PM
+    endDate: "20260225T203000Z", // Feb 25, 2026, 8:30 PM
+    displayDate: "Wednesday, February 25, 2026",
+    time: "6:30 PM - 8:30 PM",
+    location: "TBD (Check back for room details)", 
+    description: "Our official launch featuring a networking session and a panel discussion with leaders from Morgan Stanley and Columbia University. Explore how unconventional backgrounds shape powerful leadership stories.",
     category: "Professional Development"
   },
-  {
-    title: "Sample Event: Spring Networking Mixer",
-    date: "20260322T190000Z",
-    endDate: "20260322T210000Z",
-    displayDate: "March 22, 2026",
-    time: "7:00 PM - 9:00 PM",
-    location: "Faculty House",
-    description: "A formal evening of networking with GS alumni and peers.",
-    category: "Networking"
-  }
 ];
 
 export default function EventsPage() {

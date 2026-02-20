@@ -3,9 +3,10 @@ import React from 'react';
 const UPCOMING_EVENTS = [
   {
     title: "Launch Event: Tell Your Leadership Story with Your Non-Traditional Story",
-    date: "20260225T183000Z", // Feb 25, 2026, 6:30 PM
-    endDate: "20260225T203000Z", // Feb 25, 2026, 8:30 PM
-    displayDate: "Wednesday, February 25, 2026",
+// 6:30 PM EST is 11:30 PM UTC (23:30)
+  date: "20260225T233000Z", 
+  // 8:30 PM EST is 01:30 AM UTC the next day (Feb 26)
+  endDate: "20260226T013000Z",    displayDate: "Wednesday, February 25, 2026",
     time: "6:30 PM - 8:30 PM",
     location: "TBD (Check back for room details)", 
     description: "Our official launch featuring a networking session and a panel discussion with leaders from Morgan Stanley and Columbia University. Explore how unconventional backgrounds shape powerful leadership stories.",

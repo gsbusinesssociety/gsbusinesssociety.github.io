@@ -22,7 +22,7 @@ export default function Home() {
             We are GS Business Society
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto font-serif">
-            Columbia's blah blah subtitle.
+            Columbia's premier organization for professional excellence.
           </p>
         </div>
       </section>

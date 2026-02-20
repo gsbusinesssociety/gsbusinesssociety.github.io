@@ -2,7 +2,7 @@ import React from 'react';
 
 const BOARD_MEMBERS = [
   { name: "Bayron Aguilar", role: "President", school: "'27", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/president.jpeg" },
-  { name: "Gavin Xue", role: "Vice President", school: "'27", linkedin: "https://linkedin.com/in/Gavin-Xue", image: "/board/vice-president.jpeg" },
+  { name: "Gavin Xue", role: "Vice President", school: "'27", linkedin: "https://linkedin.com/in/username", image: "/board/vice-president.jpeg" },
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-finance.jpeg" },
   { name: "Thomas Ryder", role: "Head of Development", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-development.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-events.jpeg" },
@@ -67,6 +67,7 @@ The Columbia GS Business Society aims to increase GS students' engagement in the
       >
         <div className="w-full h-full bg-gray-200 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-[#C4D8E2] relative shadow-sm">
           {/* Use your <img> or <Image> tag here */}
+          <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-[#C4D8E2]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
              <span className="text-[10px] font-bold text-[#333333] uppercase tracking-tighter bg-white/80 px-2 py-1 rounded">View Profile</span>
           </div>

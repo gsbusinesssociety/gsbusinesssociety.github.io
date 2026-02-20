@@ -2,16 +2,19 @@
 
 :root {
   --background: #FFFFFF;
-  --foreground: #333333;
-  --columbia-blue: #C4D8E2;
-  --accent-grey: #6D6E71;
+  --foreground: #222222;      /* Slightly darker than #333 for better contrast */
+  /* This is a slightly deeper Columbia Blue for accessibility on white */
+  --columbia-blue: #0072CE;   /* Official Columbia Blue (Pantone 292 is too light for text) */
+  --accent-grey: #545659;     /* Darkened from #6D6E71 to pass 4.5:1 ratio */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1A1A1A;      /* Deep Grey/Black */
-    --foreground: #F2F2F2;      /* Off-white/Light Grey */
-    --columbia-blue: #9BCBEB;   /* Slightly desaturated for dark mode contrast */
+    --background: #121212;    /* Standard Material Dark depth */
+    --foreground: #FFFFFF;
+    /* A very light version of Columbia Blue for dark mode text/icons */
+    --columbia-blue: #B9D9EB; 
+    --accent-grey: #A1A1A1;
   }
 }
 

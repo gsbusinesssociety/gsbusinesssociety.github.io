@@ -3,10 +3,9 @@ import React from 'react';
 const UPCOMING_EVENTS = [
   {
     title: "Launch Event: Tell Your Leadership Story with Your Non-Traditional Story",
-// 6:30 PM EST is 11:30 PM UTC (23:30)
-  date: "20260225T233000Z", 
-  // 8:30 PM EST is 01:30 AM UTC the next day (Feb 26)
-  endDate: "20260226T013000Z",    displayDate: "Wednesday, February 25, 2026",
+    date: "20260225T233000Z", 
+    endDate: "20260226T013000Z",
+    displayDate: "Wednesday, February 25, 2026",
     time: "6:30 PM - 8:30 PM",
     location: "TBD (Check back for room details)", 
     description: "Our official launch featuring a networking session and a panel discussion with leaders from Morgan Stanley and Columbia University. Explore how unconventional backgrounds shape powerful leadership stories.",
@@ -14,62 +13,83 @@ const UPCOMING_EVENTS = [
   },
 ];
 
+const PAST_EVENTS = [
+  {
+    title: "Spring Strategy Mixer",
+    date: "December 2025",
+    description: "An informal gathering for GS students to discuss recruitment cycles and peer mentorship.",
+    image: "/past-event-1.jpg" // Add a grayscale photo here later
+  }
+];
+
 export default function EventsPage() {
   return (
-    <main className="min-h-screen bg-white pb-24">
-      {/* Page Header */}
-      <header className="bg-[#F2F2F2] py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <h1 className="font-serif text-5xl text-[#333333] mb-4 text-center md:text-left">Events</h1>
-          <p className="text-[#6D6E71] text-lg max-w-2xl text-center md:text-left mx-auto md:mx-0 font-serif">
-            Upcoming opportunities for the GS Business Society community.
+    <main className="min-h-screen bg-[var(--background)] pb-24 transition-colors duration-300">
+      
+      {/* COMPACT HEADER */}
+      <header className="py-12 border-b border-gray-100 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-baseline gap-4">
+          <h1 className="font-serif text-4xl text-[var(--foreground)]">Upcoming Events</h1>
+          <p className="text-[var(--accent-grey)] text-sm font-serif italic">
+            Connecting non-traditional backgrounds with elite professional paths.
           </p>
         </div>
       </header>
 
-      {/* Events List */}
-      <section className="max-w-7xl mx-auto px-6 mt-16">
-        <div className="space-y-16">
+      {/* UPCOMING EVENTS LIST */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="space-y-12">
           {UPCOMING_EVENTS.map((event, index) => {
-            // Generate Google Calendar Link
             const gCalLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.date}/${event.endDate}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
 
             return (
-              <div key={index} className="flex flex-col md:flex-row gap-8 items-start border-b border-gray-50 pb-16 last:border-0">
-                <div className="w-full md:w-48 pt-1">
-                  <p className="font-bold text-[#333333]">{event.displayDate}</p>
-                  <p className="text-sm text-[#6D6E71]">{event.time}</p>
+              <div key={index} className="flex flex-col md:flex-row gap-8 items-start bg-gray-50/50 dark:bg-white/5 p-8 rounded-sm">
+                <div className="w-full md:w-48">
+                  <p className="font-bold text-[var(--foreground)] leading-tight">{event.displayDate}</p>
+                  <p className="text-xs text-[var(--accent-grey)] mt-1 uppercase tracking-widest">{event.time}</p>
                 </div>
                 
                 <div className="flex-1">
-                  <span className="text-[#C4D8E2] text-xs font-bold uppercase tracking-widest">{event.category}</span>
-                  <h4 className="font-serif text-3xl text-[#333333] mt-2">{event.title}</h4>
-                  <p className="text-[#6D6E71] mt-4 text-sm leading-relaxed max-w-2xl">
+                  <span className="text-[var(--columbia-blue)] text-[10px] font-bold uppercase tracking-widest">{event.category}</span>
+                  <h4 className="font-serif text-2xl text-[var(--foreground)] mt-1">{event.title}</h4>
+                  <p className="text-[var(--accent-grey)] mt-3 text-sm leading-relaxed max-w-2xl italic">
                     {event.description}
-                  </p>
-                  <p className="text-[#333333] font-medium text-xs mt-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[#C4D8E2] rounded-full"></span>
-                    {event.location}
                   </p>
                 </div>
 
-                {/* Button Group */}
-                <div className="flex flex-col gap-3 w-full md:w-auto pt-2">
-                  <button className="bg-[#C4D8E2] text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#A9C4D1] transition-all text-center">
+                <div className="flex flex-col gap-2 w-full md:w-auto">
+                  <button className="bg-[#0072CE] text-white px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all">
                     RSVP
                   </button>
-                  <a 
-                    href={gCalLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="border border-gray-200 text-[#6D6E71] px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-50 transition-all text-center"
-                  >
-                    + Google Calendar
+                  <a href={gCalLink} target="_blank" rel="noopener noreferrer" className="border border-gray-300 dark:border-gray-600 text-[var(--accent-grey)] px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white dark:hover:bg-gray-800 transition-all text-center">
+                    + Calendar
                   </a>
                 </div>
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* PAST EVENTS SECTION */}
+      <section className="max-w-7xl mx-auto px-6 pt-16 border-t border-gray-100 dark:border-gray-800">
+        <h2 className="font-serif text-2xl text-[var(--foreground)] mb-10">Past Highlights</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {PAST_EVENTS.map((event, index) => (
+            <div key={index} className="group cursor-default">
+              <div className="aspect-video bg-gray-200 dark:bg-gray-800 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                {/* Once you have a photo, use <img src={event.image} /> here */}
+                <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-widest">
+                   Archive Photo
+                </div>
+              </div>
+              <h3 className="font-serif text-lg text-[var(--foreground)]">{event.title}</h3>
+              <p className="text-[10px] text-[var(--columbia-blue)] font-bold uppercase tracking-tighter mb-2">{event.date}</p>
+              <p className="text-xs text-[var(--accent-grey)] leading-relaxed line-clamp-2">
+                {event.description}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     </main>

@@ -23,7 +23,9 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/90 backdrop-blur-md ">
+    /* 1. Use var(--background) with opacity 
+       2. Use dark:border-gray-800 for dark mode contrast */
+    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 dark:border-gray-800 bg-[var(--background)]/90 backdrop-blur-md transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* LOGO */}
         <div className="flex items-center">
@@ -33,16 +35,23 @@ export default function Navbar() {
               alt="GS Business Society" 
               width={140} 
               height={40} 
-              className="object-contain"
+              /* This filter ensures a dark logo turns white in dark mode automatically */
+              className="object-contain dark:invert transition-all"
               priority 
             />
           </Link>
         </div>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex gap-8 text-sm uppercase tracking-[0.2em] text-[#6D6E71]">
+        {/* Changed text-[#6D6E71] to var(--accent-grey) */}
+        <div className="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent-grey)]">
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} className="hover:text-[#C4D8E2] transition-colors">
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              /* Hover state now uses the accessible blue variable */
+              className="hover:text-[var(--columbia-blue)] transition-colors"
+            >
               {link.name}
             </Link>
           ))}
@@ -50,7 +59,7 @@ export default function Navbar() {
 
         {/* MOBILE HAMBURGER BUTTON */}
         <button 
-          className="md:hidden text-[#6D6E71] p-2 focus:outline-none z-50"
+          className="md:hidden text-[var(--foreground)] p-2 focus:outline-none z-50"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
@@ -64,7 +73,8 @@ export default function Navbar() {
 
       {/* ANIMATED MOBILE MENU */}
       <div 
-        className={`absolute top-20 left-0 w-full bg-white border-b border-gray-100 transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
+        /* Added dark mode background and border colors */
+        className={`absolute top-20 left-0 w-full bg-[var(--background)] border-b border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
           isOpen ? 'max-h-[400px] opacity-100 shadow-xl' : 'max-h-0 opacity-0 pointer-events-none'
         }`}
       >
@@ -75,7 +85,7 @@ export default function Navbar() {
               href={link.href} 
               onClick={() => setIsOpen(false)}
               style={{ transitionDelay: `${i * 50}ms` }}
-              className={`block text-sm uppercase tracking-[0.2em] text-[#6D6E71] hover:text-[#C4D8E2] transition-all duration-300 ${
+              className={`block text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent-grey)] hover:text-[var(--columbia-blue)] transition-all duration-300 ${
                 isOpen ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
               }`}
             >

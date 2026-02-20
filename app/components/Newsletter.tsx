@@ -11,7 +11,6 @@ export default function Newsletter() {
     setStatus('loading');
 
     try {
-      // Use your actual Formspree ID here
       const response = await fetch("https://formspree.io/f/xdaleqqe", {
         method: 'POST',
         body: JSON.stringify({ email }),
@@ -33,21 +32,22 @@ export default function Newsletter() {
   };
 
   return (
-    <section id="newsletter" className="py-24 bg-white flex justify-center">
+    /* Change bg-white to var(--background) */
+    <section id="newsletter" className="py-24 bg-[var(--background)] flex justify-center transition-colors duration-300">
       <div className="w-full max-w-[600px] px-6 text-center">
         <form onSubmit={handleSubmit} className="space-y-6">
           <header className="mb-8">
-            <h2 className="font-serif text-3xl md:text-4xl text-[#333333] mb-3">
+            <h2 className="font-serif text-3xl md:text-4xl text-[var(--foreground)] mb-3">
               Subscribe
             </h2>
-            <p className="text-[#6D6E71] text-sm md:text-base leading-relaxed">
+            <p className="text-[var(--accent-grey)] text-sm md:text-base leading-relaxed">
               Sign up with your email address to receive news and updates.
             </p>
           </header>
 
           <div className="flex flex-col items-center gap-6">
             <div className="w-full text-left">
-              <label htmlFor="email-field" className="block text-sm font-medium text-[#333333] mb-2">
+              <label htmlFor="email-field" className="block text-sm font-medium text-[var(--foreground)] mb-2">
                 Email Address
               </label>
               <input
@@ -58,7 +58,8 @@ export default function Newsletter() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="uni@columbia.edu"
-                className="w-full px-4 py-4 bg-[#fafafa] border border-gray-200 focus:outline-none focus:border-[#C4D8E2] transition-colors"
+                /* Improved input contrast and dark mode support */
+                className="w-full px-4 py-4 bg-gray-50 dark:bg-[#2A2A2A] border border-gray-200 dark:border-gray-700 text-[var(--foreground)] focus:outline-none focus:border-[var(--columbia-blue)] transition-colors placeholder:text-gray-400"
               />
             </div>
 
@@ -66,13 +67,13 @@ export default function Newsletter() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="group relative w-full md:w-auto min-w-[160px] bg-[#C4D8E2] hover:bg-[#A9C4D1] text-white font-bold py-4 px-10 transition-all uppercase tracking-widest text-xs disabled:opacity-70 overflow-hidden"
+                /* FIX: Changed bg to the darker Columbia Blue variable for white text contrast */
+                className="group relative w-full md:w-auto min-w-[160px] bg-[#0072CE] hover:bg-[#005da8] text-white font-bold py-4 px-10 transition-all uppercase tracking-widest text-xs disabled:opacity-70 overflow-hidden shadow-sm"
               >
                 <span className={`flex items-center justify-center gap-2 transition-all duration-300 ${status === 'loading' ? 'opacity-0' : 'opacity-100'}`}>
                   Sign Up
                 </span>
                 
-                {/* LOADING SPINNER */}
                 {status === 'loading' && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -85,15 +86,15 @@ export default function Newsletter() {
             </div>
           </div>
 
-          {/* SUCCESS/ERROR MESSAGES */}
           <div className="h-8 transition-all duration-500">
             {status === 'success' && (
-              <p className="text-[#C4D8E2] font-serif text-lg italic animate-in fade-in slide-in-from-bottom-2 duration-500">
+              /* FIX: Success text uses the darker blue variable for readability */
+              <p className="text-[var(--columbia-blue)] font-serif text-lg italic animate-in fade-in slide-in-from-bottom-2 duration-500">
                 Thank you! You&apos;ve been added to our list.
               </p>
             )}
             {status === 'error' && (
-              <p className="text-red-400 text-sm animate-in fade-in duration-300">
+              <p className="text-red-600 dark:text-red-400 text-sm animate-in fade-in duration-300 font-medium">
                 Something went wrong. Please try again.
               </p>
             )}

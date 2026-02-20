@@ -36,7 +36,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--background)] transition-colors duration-300">
+    <main className=" bg-[var(--background)] transition-colors duration-300">
       
       {/* 1. COMPACT HEADER */}
       {/* <header className="py-12 border-b border-gray-100 dark:border-gray-800">
@@ -72,7 +72,7 @@ export default function ContactPage() {
           </div>
 
           {/* 3. RIGHT COLUMN (8/12 space): THE FORM */}
-          <div className="lg:col-span-8 bg-gray-50/50 dark:bg-white/5 p-8 md:p-12 rounded-sm border border-gray-100 dark:border-gray-800">
+          <div className="lg:col-span-8">
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-1">
@@ -113,23 +113,29 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* 4. NEW FOOTER SECTION TO FILL SPACE */}
-      <section className="py-24 border-t border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-black/10">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h4 className="font-serif text-xl text-[var(--foreground)] mb-4">Board Recruitment</h4>
-            <p className="text-sm text-[var(--accent-grey)] leading-relaxed">
-              Applications for Junior Board positions typically open in September and January. Follow our Instagram for announcements.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-serif text-xl text-[var(--foreground)] mb-4">Partnership Opportunities</h4>
-            <p className="text-sm text-[var(--accent-grey)] leading-relaxed">
-              We offer companies direct access to the most diverse and experienced talent pool at Columbia. Contact us for our recruitment prospectus.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* 4. NEW FOOTER SECTION TO FILL SPACE but remove dead space */}
+<section className="py-16 border-t border-gray-100 dark:border-gray-800">
+  <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div>
+      <h4 className="font-serif text-xl text-[var(--foreground)] mb-3">Board Recruitment</h4>
+      <p className="text-sm text-[var(--accent-grey)] leading-relaxed">
+        Applications for Junior Board positions open in September and January. We review all applications carefully and aim to respond within two weeks of the deadline.
+      </p>
+    </div>
+    <div>
+      <h4 className="font-serif text-xl text-[var(--foreground)] mb-3">Corporate Partnerships</h4>
+      <p className="text-sm text-[var(--accent-grey)] leading-relaxed">
+        We offer companies direct access to Columbia's most driven business talent. Reach out for our recruitment prospectus and we'll follow up within 2–3 business days.
+      </p>
+    </div>
+    <div>
+      <h4 className="font-serif text-xl text-[var(--foreground)] mb-3">General Inquiries</h4>
+      <p className="text-sm text-[var(--accent-grey)] leading-relaxed">
+        For anything else — press, collaborations, or questions about our events — send us a message and a board member will get back to you shortly.
+      </p>
+    </div>
+  </div>
+</section>
     </main>
   );
 }

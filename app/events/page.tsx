@@ -13,31 +13,28 @@ const UPCOMING_EVENTS = [
   },
 ];
 
-const PAST_EVENTS = [
-  {
-    title: "Spring Strategy Mixer",
-    date: "December 2025",
-    description: "An informal gathering for GS students to discuss recruitment cycles and peer mentorship.",
-    image: "/past-event-1.jpg" // Add a grayscale photo here later
-  }
-];
+// const PAST_EVENTS = [
+//   {
+//     title: "Spring Strategy Mixer",
+//     date: "December 2025",
+//     description: "An informal gathering for GS students to discuss recruitment cycles and peer mentorship.",
+//     image: "/past-event-1.jpg" // Add a grayscale photo here later
+//   }
+// ];
+
+
 
 export default function EventsPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] pb-24 transition-colors duration-300">
-      
-      {/* COMPACT HEADER */}
-      <header className="py-12 border-b border-gray-100 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-baseline gap-4">
-          <h1 className="font-serif text-4xl text-[var(--foreground)]">Upcoming Events</h1>
-          <p className="text-[var(--accent-grey)] text-sm font-serif italic">
-            Connecting non-traditional backgrounds with elite professional paths.
-          </p>
-        </div>
-      </header>
+      {/* COMPACT HEADER that matches past highlights  */}
+<section className="pt-16 pb-4 max-w-7xl mx-auto px-6">
+  <h2 className="font-serif text-2xl text-[var(--foreground)] mb-4">Upcoming events</h2>
+  <div className="h-1 w-20 bg-[var(--columbia-blue)]"></div>
+</section>
 
       {/* UPCOMING EVENTS LIST */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section className="max-w-7xl mx-auto px-6 py-8">
         <div className="space-y-12">
           {UPCOMING_EVENTS.map((event, index) => {
             const gCalLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.date}/${event.endDate}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
@@ -62,7 +59,7 @@ export default function EventsPage() {
                     RSVP
                   </button>
                   <a href={gCalLink} target="_blank" rel="noopener noreferrer" className="border border-gray-300 dark:border-gray-600 text-[var(--accent-grey)] px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white dark:hover:bg-gray-800 transition-all text-center">
-                    + Calendar
+                    + Google Calendar
                   </a>
                 </div>
               </div>
@@ -75,10 +72,10 @@ export default function EventsPage() {
       <section className="max-w-7xl mx-auto px-6 pt-16 border-t border-gray-100 dark:border-gray-800">
         <h2 className="font-serif text-2xl text-[var(--foreground)] mb-10">Past Highlights</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {PAST_EVENTS.map((event, index) => (
+          {/* {PAST_EVENTS.map((event, index) => (
             <div key={index} className="group cursor-default">
               <div className="aspect-video bg-gray-200 dark:bg-gray-800 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                {/* Once you have a photo, use <img src={event.image} /> here */}
+                Once you have a photo, use <img src={event.image} /> here
                 <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-widest">
                    Archive Photo
                 </div>
@@ -89,7 +86,7 @@ export default function EventsPage() {
                 {event.description}
               </p>
             </div>
-          ))}
+          ))} */}
         </div>
       </section>
     </main>

@@ -13,7 +13,7 @@ export default function Home() {
         {/* HERO IMAGE BACKGROUND */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/lewisohnBuilding.jpeg" 
+            src="lewisohnbuilding.jpeg" 
             alt="Columbia University Campus" 
             fill 
             className="object-cover opacity-60" 

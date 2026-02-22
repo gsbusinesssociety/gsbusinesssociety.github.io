@@ -6,7 +6,7 @@ const BOARD_MEMBERS = [
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-finance.jpeg" },
   { name: "Thomas Ryder", role: "Head of Development", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-development.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-events.jpeg" },
-  { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'27", linkedin: "https://linkedin.com/in/mehdishak", image: "/board/head-of-technology.jpeg" },
+  { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'27", linkedin: "https://linkedin.com/in/mehdishak", image: "/board/head-of-technology.png" },
   { name: "Brian Van Dort", role: "Head of Communications", school: "'27", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
   { name: "Noah Jaehyeok Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" },
   { name: "Sanaalee Troupe", role: "Head of Education", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-education.jpeg" },

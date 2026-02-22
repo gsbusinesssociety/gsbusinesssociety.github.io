@@ -36,7 +36,7 @@ export default function Navbar() {
               width={140} 
               height={40} 
               /* This filter ensures a dark logo turns white in dark mode automatically */
-              className="object-contain dark:invert transition-all"
+              className="object-contain  transition-all"
               priority 
             />
           </Link>

@@ -2,14 +2,15 @@ import React from 'react';
 
 const BOARD_MEMBERS = [
   { name: "Gavin Xue", role: "Founder and President", school: "'28", linkedin: "https://www.linkedin.com/in/gx2173", image: "/board/president.jpg" },
-  { name: "Bayron Aguilar", role: "Founder and Vice President", school: "'29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president.jpeg" },
+  { name: "Bayron Aguilar", role: "Founder and Vice President", school: "'29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president1.jpeg" },
+  { name: "Eren Yesiltepe", role: "Founder and Vice President", school: "'29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president2.jpeg" },
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-finance.jpeg" },
   { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'28", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
-  { name: "Thomas Ryder", role: "Head of Development", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-development.jpeg" },
+  { name: "Joshua Becher", role: "Head of Development", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-development.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-events.jpeg" },
-  { name: "Brian Van Dort", role: "Head of Communications", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
-  { name: "Noah Jaehyeok Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" },
-  { name: "Sanaalee Troupe", role: "Head of Education", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-education.jpeg" },
+  { name: "Brian Van Dort", role: "Head of Communication", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
+  { name: "Noah Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" },
+
 ];
 
 export default function AboutPage() {

@@ -1,13 +1,13 @@
 import React from 'react';
 
 const BOARD_MEMBERS = [
-  { name: "Bayron Aguilar", role: "President", school: "'27", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/president.jpeg" },
-  { name: "Gavin Xue", role: "Vice President", school: "'27", linkedin: "https://linkedin.com/in/username", image: "/board/vice-president.jpeg" },
+  { name: "Gavin Xue", role: "Founder and President", school: "'28", linkedin: "https://www.linkedin.com/in/gx2173", image: "/board/vice-president.jpeg" },
+  { name: "Bayron Aguilar", role: "Founder and Vice President", school: "'29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/president.jpeg" },
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-finance.jpeg" },
+  { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'28", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
   { name: "Thomas Ryder", role: "Head of Development", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-development.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-events.jpeg" },
-  { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
-  { name: "Brian Van Dort", role: "Head of Communications", school: "'27", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
+  { name: "Brian Van Dort", role: "Head of Communications", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
   { name: "Noah Jaehyeok Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" },
   { name: "Sanaalee Troupe", role: "Head of Education", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-education.jpeg" },
 ];

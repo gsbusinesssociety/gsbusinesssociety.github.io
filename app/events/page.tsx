@@ -2,14 +2,15 @@ import React from 'react';
 
 const UPCOMING_EVENTS = [
   {
-    title: "Launch Event: Tell Your Leadership Story with Your Non-Traditional Story",
+    title: "Tell Your Leadership Story with Your Non-Traditional Story",
     date: "20260225T233000Z", 
     endDate: "20260226T013000Z",
     displayDate: "Wednesday, February 25, 2026",
     time: "6:30 PM - 8:30 PM",
-    location: "TBD (Check back for room details)", 
-    description: "Our official launch featuring a networking session and a panel discussion with leaders from Morgan Stanley and Columbia University. Explore how unconventional backgrounds shape powerful leadership stories.",
-    category: "Professional Development"
+    location: "Schermerhorn Hall 614", 
+    description: "GSBS is Columbia's first pre-professional society built for GS students, celebrating the resilience and unique perspectives that come from non-traditional paths. Join us for our launch event featuring a networking session and panel discussion with a CBS director, a Morgan Stanley associate, and the Dean of Students of GS.",
+    category: "Professional Development",
+    rsvpLink: "https://forms.gle/RtaYtec3PZXGVtkGA"
   },
 ];
 
@@ -33,7 +34,7 @@ export default function EventsPage() {
   <div className="h-1 w-20 bg-[var(--columbia-blue)]"></div>
 </section>
 
-      {/* UPCOMING EVENTS LIST */}
+{/* UPCOMING EVENTS LIST  */}
       <section className="max-w-7xl mx-auto px-6 py-8">
         <div className="space-y-12">
           {UPCOMING_EVENTS.map((event, index) => {
@@ -41,9 +42,17 @@ export default function EventsPage() {
 
             return (
               <div key={index} className="flex flex-col md:flex-row gap-8 items-start bg-gray-50/50 dark:bg-white/5 p-8 rounded-sm">
-                <div className="w-full md:w-48">
+                
+                {/* LOGISTICS COLUMN (DATE, TIME, LOCATION) */}
+                <div className="w-full md:w-48 shrink-0">
                   <p className="font-bold text-[var(--foreground)] leading-tight">{event.displayDate}</p>
                   <p className="text-xs text-[var(--accent-grey)] mt-1 uppercase tracking-widest">{event.time}</p>
+                  
+                  {/* Location added here */}
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:mt-2 md:pt-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--columbia-blue)] mb-0.5">Location</p>
+                    <p className="text-sm text-[var(--foreground)] leading-snug">{event.location}</p>
+                  </div>
                 </div>
                 
                 <div className="flex-1">
@@ -55,9 +64,9 @@ export default function EventsPage() {
                 </div>
 
                 <div className="flex flex-col gap-2 w-full md:w-auto">
-                  <button className="bg-[#0072CE] text-white px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all">
+                  <a href={event.rsvpLink} target="_blank" rel="noopener noreferrer" className="bg-[#0072CE] text-white px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all text-center">
                     RSVP
-                  </button>
+                  </a>
                   <a href={gCalLink} target="_blank" rel="noopener noreferrer" className="border border-gray-300 dark:border-gray-600 text-[var(--accent-grey)] px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white dark:hover:bg-gray-800 transition-all text-center">
                     + Google Calendar
                   </a>
@@ -67,7 +76,7 @@ export default function EventsPage() {
           })}
         </div>
       </section>
-
+      
       {/* PAST EVENTS SECTION */}
       <section className="max-w-7xl mx-auto px-6 pt-16 border-t border-gray-100 dark:border-gray-800">
         <h2 className="font-serif text-2xl text-[var(--foreground)] mb-10">Past Highlights</h2>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar"; 
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: "GS Business Society",
@@ -23,7 +24,8 @@ export default function RootLayout({
       <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col transition-colors duration-300">
         
         <Navbar />
-
+        <GoogleAnalytics gaId="G-ZY4HTMYZ76" />
+        
         {/* PAGE CONTENT */}
         <main className="flex-grow">
           {children}

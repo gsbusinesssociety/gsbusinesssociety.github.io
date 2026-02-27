@@ -10,8 +10,7 @@ const BOARD_MEMBERS = [
   { name: "Joshua Becher", role: "Co-head of Development", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-development2.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'28", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
   { name: "Brian Van Dort", role: "Head of Communication", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
-  { name: "Noah Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" },
-``
+  { name: "Noah Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" }
 ];
 
 export default function AboutPage() {

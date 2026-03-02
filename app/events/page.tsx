@@ -1,7 +1,20 @@
 import React from 'react';
 
 // 1. Clear out upcoming events for now (or add your next one!)
-const UPCOMING_EVENTS = [];
+const UPCOMING_EVENTS = [
+  {
+    title: "Insight Partners Office Visit",
+    date: "20260326T160000Z", 
+    endDate: "20260326T180000Z", 
+    displayDate: "Thursday, March 26, 2026",
+    time: "4:00 PM",
+    location: "Insight Partners Office (NYC)", // What shows on the site
+    fullAddress: "1114 Avenue of the Americas, New York, NY 10036", // For Google Maps
+    description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
+    category: "Site Visit & Networking",
+    rsvpLink: "https://linktr.ee/gsbs_columbia"
+  }
+];
 
 // 2. Transformed the LinkedIn post into a clean highlight object
 const PAST_EVENTS = [
@@ -27,7 +40,50 @@ export default function EventsPage() {
       <section className="max-w-7xl mx-auto px-6 py-8">
         {UPCOMING_EVENTS.length > 0 ? (
           <div className="space-y-12">
-            {/* ... keep your existing .map logic here ... */}
+{/* UPCOMING EVENTS LIST */}
+<section className="max-w-7xl mx-auto px-6 py-8">
+  <div className="space-y-12">
+    {UPCOMING_EVENTS.map((event, index) => {
+      // FIX: Use fullAddress for the URL if it exists, otherwise fallback to location
+      const calendarLocation = encodeURIComponent(event.fullAddress || event.location);
+      
+      const gCalLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.date}/${event.endDate}&details=${encodeURIComponent(event.description)}&location=${calendarLocation}`;
+
+      return (
+        <div key={index} className="flex flex-col md:flex-row gap-8 items-start bg-gray-50/50 dark:bg-white/5 p-8 rounded-sm">
+          
+          {/* LOGISTICS COLUMN (DATE, TIME, LOCATION) */}
+          <div className="w-full md:w-48 shrink-0">
+            <p className="font-bold text-[var(--foreground)] leading-tight">{event.displayDate}</p>
+            <p className="text-xs text-[var(--accent-grey)] mt-1 uppercase tracking-widest">{event.time}</p>
+            
+            {/* Displaying the clean "Branded" location on the UI */}
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:mt-2 md:pt-0">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--columbia-blue)] mb-0.5">Location</p>
+              <p className="text-sm text-[var(--foreground)] leading-snug">{event.location}</p>
+            </div>
+          </div>
+          
+          <div className="flex-1">
+            <span className="text-[var(--columbia-blue)] text-[10px] font-bold uppercase tracking-widest">{event.category}</span>
+            <h4 className="font-serif text-2xl text-[var(--foreground)] mt-1">{event.title}</h4>
+            <p className="text-[var(--accent-grey)] mt-3 text-sm leading-relaxed max-w-2xl italic">
+              {event.description}
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 w-full md:w-auto">
+            <a href={event.rsvpLink} target="_blank" rel="noopener noreferrer" className="bg-[#0072CE] text-white px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all text-center">
+              RSVP
+            </a>
+            <a href={gCalLink} target="_blank" rel="noopener noreferrer" className="border border-gray-300 dark:border-gray-600 text-[var(--accent-grey)] px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white dark:hover:bg-gray-800 transition-all text-center">
+              + Google Calendar
+            </a>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
           </div>
         ) : (
           <p className="text-[var(--accent-grey)] text-sm italic font-serif">

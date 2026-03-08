@@ -2,6 +2,18 @@ import React from 'react';
 
 // 1. Clear out upcoming events for now (or add your next one!)
 const UPCOMING_EVENTS = [
+    {
+    title: "New York Stock Exchange Site Visit (Session 1)",
+    date: "20260313T150000Z", 
+    endDate: "20260313T170000Z", 
+    displayDate: "Friday, March 13, 2026",
+    time: "3:00 PM",
+    location: "New York Stock Exchange",
+    fullAddress: "11 Wall St, New York, NY 10005",
+    description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Note: Registrations are reviewed on a rolling basis.",
+    category: "Site Visit",
+    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
+  },
   {
     title: "Insight Partners Office Visit",
     date: "20260326T160000Z", 
@@ -13,6 +25,30 @@ const UPCOMING_EVENTS = [
     description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
     category: "Site Visit & Networking",
     rsvpLink: "https://linktr.ee/gsbs_columbia"
+  },
+  {
+    title: "New York Stock Exchange Site Visit (Session 2)",
+    date: "20260403T150000Z", 
+    endDate: "20260403T170000Z", 
+    displayDate: "Friday, April 3, 2026",
+    time: "3:00 PM",
+    location: "New York Stock Exchange",
+    fullAddress: "11 Wall St, New York, NY 10005",
+    description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Note: Registrations are reviewed on a rolling basis.",
+    category: "Site Visit",
+    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
+  },
+  {
+    title: "New York Stock Exchange Site Visit (Session 3)",
+    date: "20260410T150000Z", 
+    endDate: "20260410T170000Z", 
+    displayDate: "Friday, April 10, 2026",
+    time: "3:00 PM",
+    location: "New York Stock Exchange",
+    fullAddress: "11 Wall St, New York, NY 10005",
+    description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Note: Registrations are reviewed on a rolling basis.",
+    category: "Site Visit",
+    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
   }
 ];
 

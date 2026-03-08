@@ -1,11 +1,12 @@
 import React from 'react';
 
 // 1. Clear out upcoming events for now (or add your next one!)
+// 1. Clear out upcoming events for now (or add your next one!)
 const UPCOMING_EVENTS = [
-    {
+  {
     title: "New York Stock Exchange Site Visit (Session 1)",
-    date: "20260313T150000Z", 
-    endDate: "20260313T170000Z", 
+    date: "20260313T190000Z",
+    endDate: "20260313T210000Z",
     displayDate: "Friday, March 13, 2026",
     time: "3:00 PM",
     location: "New York Stock Exchange",
@@ -16,20 +17,20 @@ const UPCOMING_EVENTS = [
   },
   {
     title: "Insight Partners Office Visit",
-    date: "20260326T160000Z", 
-    endDate: "20260326T180000Z", 
+    date: "20260326T200000Z",
+    endDate: "20260326T220000Z",
     displayDate: "Thursday, March 26, 2026",
     time: "4:00 PM",
-    location: "Insight Partners Office (NYC)", // What shows on the site
-    fullAddress: "1114 Avenue of the Americas, New York, NY 10036", // For Google Maps
+    location: "Insight Partners Office (NYC)",
+    fullAddress: "1114 Avenue of the Americas, New York, NY 10036",
     description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
     category: "Site Visit & Networking",
-    rsvpLink: "https://linktr.ee/gsbs_columbia"
+    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
   },
   {
     title: "New York Stock Exchange Site Visit (Session 2)",
-    date: "20260403T150000Z", 
-    endDate: "20260403T170000Z", 
+    date: "20260403T190000Z",
+    endDate: "20260403T210000Z",
     displayDate: "Friday, April 3, 2026",
     time: "3:00 PM",
     location: "New York Stock Exchange",
@@ -40,8 +41,8 @@ const UPCOMING_EVENTS = [
   },
   {
     title: "New York Stock Exchange Site Visit (Session 3)",
-    date: "20260410T150000Z", 
-    endDate: "20260410T170000Z", 
+    date: "20260410T190000Z",
+    endDate: "20260410T210000Z",
     displayDate: "Friday, April 10, 2026",
     time: "3:00 PM",
     location: "New York Stock Exchange",

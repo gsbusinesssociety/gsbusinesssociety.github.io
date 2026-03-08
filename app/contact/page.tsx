@@ -61,7 +61,7 @@ export default function ContactPage() {
               <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--columbia-blue)] mb-4">Direct Email</h3>
               <div className="cursor-pointer group" onClick={handleCopyEmail}>
                 <p className="text-[var(--foreground)] text-lg group-hover:text-[var(--columbia-blue)] transition-colors">
-                  gsbusinesssociety@gmail.com
+                  partner@columbiagsbs.com
                 </p>
                 <p className="text-[10px] uppercase tracking-widest text-gray-400 mt-1">
                   {copied ? 'Copied to clipboard' : 'Click to copy'}

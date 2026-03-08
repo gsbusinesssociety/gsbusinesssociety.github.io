@@ -35,8 +35,7 @@ export default function Navbar() {
               alt="GS Business Society" 
               width={140} 
               height={40} 
-              /* This filter ensures a dark logo turns white in dark mode automatically */
-              className="object-contain  transition-all"
+              className="object-contain transition-all dark:brightness-0 dark:invert"
               priority 
             />
           </Link>

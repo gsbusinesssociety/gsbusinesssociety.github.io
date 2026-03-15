@@ -9,8 +9,8 @@ const BOARD_MEMBERS = [
   { name: "Noah Kim", role: "Head of Marketing", school: "'27", linkedin: "www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
   { name: "Thomas Ryder", role: "Co-head of Development", school: "'27", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
-  { name: "Joshua Becher", role: "Co-head of Development", school: "'28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },
-  { name: "Brian Van Dort", role: "Co-Head of Communication", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
+  // { name: "Joshua Becher", role: "Co-head of Development", school: "'28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },
+  // { name: "Brian Van Dort", role: "Co-Head of Communication", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
   { name: "William Hamilton", role: "Co-head of Communication", school: "'30", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications2.jpeg" },
 ];
 

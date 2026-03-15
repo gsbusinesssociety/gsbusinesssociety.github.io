@@ -6,7 +6,7 @@ const BOARD_MEMBERS = [
   { name: "Eren Yesiltepe", role: "Founder and Vice President", school: "'28", linkedin: "https://www.linkedin.com/in/erenyesiltepe/", image: "/board/vice-president2.jpeg" },
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://www.linkedin.com/in/tom-rosenzweig-073219339/", image: "/board/head-of-finance.jpeg" },
   { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
-  { name: "Noah Kim", role: "Head of Marketing", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-marketing.jpeg" },
+  { name: "Noah Kim", role: "Head of Marketing", school: "'27", linkedin: "www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
   { name: "Thomas Ryder", role: "Co-head of Development", school: "'27", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
   { name: "Joshua Becher", role: "Co-head of Development", school: "'28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },

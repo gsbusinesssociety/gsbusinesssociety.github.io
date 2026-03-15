@@ -40,7 +40,7 @@ const UPCOMING_EVENTS = [
 ];
 const PAST_EVENTS = [
   {
-    title: "NYSE Floor Visit: Markets in Motion",
+    title: "NYSE Floor Visit (Session 1)",
     date: "March 13, 2026",
     description: "The first session of our NYSE site visit series. Members went behind the scenes at 11 Wall Street to witness the opening of the world's most iconic trading floor and discuss market mechanics with seasoned floor brokers.",
     category: "Site Visit",
@@ -145,7 +145,7 @@ export default function EventsPage() {
           {event.date}
         </p>
         
-        {/* Content Wrapper - This ensures everything inside stays aligned */}
+        {/* Content Wrapper */}
         <div className="flex flex-col flex-grow">
           <h3 className="font-serif text-xl text-[var(--foreground)] mb-3 leading-tight group-hover:text-[var(--columbia-blue)] transition-colors min-h-[3rem]">
             {event.title}

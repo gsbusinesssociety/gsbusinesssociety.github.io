@@ -1,20 +1,6 @@
 import React from 'react';
 
-// 1. Clear out upcoming events for now (or add your next one!)
-// 1. Clear out upcoming events for now (or add your next one!)
 const UPCOMING_EVENTS = [
-  {
-    title: "New York Stock Exchange Site Visit (Session 1)",
-    date: "20260313T190000Z",
-    endDate: "20260313T210000Z",
-    displayDate: "Friday, March 13, 2026",
-    time: "3:00 PM",
-    location: "New York Stock Exchange",
-    fullAddress: "11 Wall St, New York, NY 10005",
-    description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Note: Registrations are reviewed on a rolling basis.",
-    category: "Site Visit",
-    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
-  },
   {
     title: "Insight Partners Office Visit",
     date: "20260326T200000Z",
@@ -52,9 +38,15 @@ const UPCOMING_EVENTS = [
     rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
   }
 ];
-
-// 2. Transformed the LinkedIn post into a clean highlight object
 const PAST_EVENTS = [
+  {
+    title: "NYSE Floor Visit: Markets in Motion",
+    date: "March 13, 2026",
+    description: "The first session of our NYSE site visit series. Members went behind the scenes at 11 Wall Street to witness the opening of the world's most iconic trading floor and discuss market mechanics with seasoned floor brokers.",
+    category: "Site Visit",
+    image: "/nyse-visit-1.jpeg", // Ensure this filename matches your uploaded image!
+    link: "#" // Replace with your LinkedIn post link when ready
+  },
   {
     title: "GSBS Launch Event: The Power of Non-Traditional Leadership",
     date: "February 25, 2026",
@@ -129,42 +121,54 @@ export default function EventsPage() {
         )}
       </section>
       
-      {/* PAST HIGHLIGHTS SECTION */}
-      <section className="max-w-7xl mx-auto px-6 pt-16 border-t border-gray-100 dark:border-gray-800">
-        <h2 className="font-serif text-2xl text-[var(--foreground)] mb-10">Past Highlights</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {PAST_EVENTS.map((event, index) => (
-            <div key={index} className="group cursor-default">
-              <div className="relative aspect-video bg-gray-200 dark:bg-gray-800 mb-6 overflow-hidden transition-all duration-500">
-                 {/* Once you upload the photo, uncomment the img tag below */}
-                <img src={event.image} alt={event.title} className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700" />
-                <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-widest border border-dashed border-gray-300 dark:border-gray-700">
-                   {event.category}
-                </div>
-              </div>
-              
-              <p className="text-[10px] text-[var(--columbia-blue)] font-bold uppercase tracking-[0.2em] mb-2">
-                {event.date}
-              </p>
-              <h3 className="font-serif text-xl text-[var(--foreground)] mb-3 leading-tight group-hover:text-[var(--columbia-blue)] transition-colors">
-                {event.title}
-              </h3>
-              <p className="text-xs text-[var(--accent-grey)] leading-relaxed mb-4">
-                {event.description}
-              </p>
-              
-              <a 
-                href={event.link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-[10px] font-bold uppercase tracking-widest border-b border-[var(--columbia-blue)] pb-1 hover:text-[var(--columbia-blue)] transition-all"
-              >
-                View on LinkedIn
-              </a>
-            </div>
-          ))}
+{/* PAST HIGHLIGHTS SECTION */}
+<section className="max-w-7xl mx-auto px-6 pt-16 border-t border-gray-100 dark:border-gray-800">
+  <h2 className="font-serif text-2xl text-[var(--foreground)] mb-10">Past Highlights</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    {PAST_EVENTS.map((event, index) => (
+      <div key={index} className="group cursor-default flex flex-col h-full">
+        
+        {/* Image Container */}
+        <div className="relative aspect-video bg-gray-200 dark:bg-gray-800 mb-6 overflow-hidden transition-all duration-500 rounded-sm">
+          <img 
+            src={event.image} 
+            alt={event.title} 
+            className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700" 
+          />
+          <div className="absolute top-2 right-2 bg-[var(--background)] px-2 py-1 text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+             {event.category}
+          </div>
         </div>
-      </section>
-    </main>
+        
+        {/* Date Label */}
+        <p className="text-[10px] text-[var(--columbia-blue)] font-bold uppercase tracking-[0.2em] mb-2">
+          {event.date}
+        </p>
+        
+        {/* Content Wrapper - This ensures everything inside stays aligned */}
+        <div className="flex flex-col flex-grow">
+          <h3 className="font-serif text-xl text-[var(--foreground)] mb-3 leading-tight group-hover:text-[var(--columbia-blue)] transition-colors min-h-[3rem]">
+            {event.title}
+          </h3>
+          
+          <p className="text-xs text-[var(--accent-grey)] leading-relaxed mb-6 flex-grow">
+            {event.description}
+          </p>
+          
+          <div className="mt-auto pt-2">
+            <a 
+              href={event.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-block text-[10px] font-bold uppercase tracking-widest border-b border-[var(--columbia-blue)] pb-1 hover:text-[var(--columbia-blue)] transition-all"
+            >
+              View on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>    </main>
   );
 }

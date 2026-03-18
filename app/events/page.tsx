@@ -2,6 +2,18 @@ import React from 'react';
 
 const UPCOMING_EVENTS = [
   {
+   title: "McKinsey & Company Talent Acquisition Event",
+   date: "20260402T190000", // April 2, 7:00 PM
+   endDate: "20260402T200000",
+   displayDate: "Thursday, April 2, 2026",
+   time: "7:00 PM - 8:00 PM",
+   location: "To be notified by email",
+   fullAddress: "Check confirmation email for campus location", 
+   description: "Join us for an interactive session with Özgü Kokal, a Columbia Business School alum and current McKinsey Associate. Gain insight into the recruiting process at one of the world's most prestigious consulting firms.",
+   category: "Talent Acquisition",
+   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
+  },
+  {
     title: "Insight Partners Office Visit",
     date: "20260326T200000Z",
     endDate: "20260326T220000Z",
@@ -44,15 +56,15 @@ const PAST_EVENTS = [
     date: "March 13, 2026",
     description: "The first session of our NYSE site visit series. Members went behind the scenes at 11 Wall Street to witness the opening of the world's most iconic trading floor and discuss market mechanics with seasoned floor brokers.",
     category: "Site Visit",
-    image: "/nyse-visit-1.jpeg", // Ensure this filename matches your uploaded image!
-    link: "#" // Replace with your LinkedIn post link when ready
+    image: "/nyse-visit-1.jpeg", 
+    link: "https://www.linkedin.com/posts/gx2173_inside-where-capital-markets-happen-a-gsbs-activity-7439448996751806464-ahuz?utm_source=share&utm_medium=member_desktop&rcm=ACoAABY3M8EB69xaH0QG60BC3VGy1Lc8o8jeAaQhttps://www.linkedin.com/posts/gx2173_inside-where-capital-markets-happen-a-gsbs-activity-7439448996751806464-ahuz?utm_source=share&utm_medium=member_desktop&rcm=ACoAABY3M8EB69xaH0QG60BC3VGy1Lc8o8jeAaQ" // Replace with your LinkedIn post link when ready
   },
   {
     title: "GSBS Launch Event: The Power of Non-Traditional Leadership",
     date: "February 25, 2026",
     description: "Our inaugural event featuring Dean Marlyn Delva and panelists from Morgan Stanley and the CBS community. We explored how unique life detours forge the resilient leadership qualities needed in the professional world.",
     category: "Panel & Networking",
-    image: "/launch-event.jpeg", // Replace with a real photo from last night!
+    image: "/launch-event.jpeg", 
     link: "https://www.linkedin.com/posts/gx2173_columbia-general-studies-business-society-ugcPost-7432836934500061184-DS-A?utm_source=share&utm_medium=member_desktop&rcm=ACoAABY3M8EB69xaH0QG60BC3VGy1Lc8o8jeAaQ" // Link to your post
   }
 ];
@@ -169,6 +181,7 @@ export default function EventsPage() {
       </div>
     ))}
   </div>
-</section>    </main>
+</section>   
+ </main>
   );
 }

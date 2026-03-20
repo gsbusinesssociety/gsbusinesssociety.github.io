@@ -2,19 +2,6 @@ import React from 'react';
 
 const UPCOMING_EVENTS = [
   {
-    title: "McKinsey & Company Talent Acquisition Event",
-    date: "20260402T190000",
-    endDate: "20260402T200000",
-    displayDate: "April 2, 2026",
-    dayOfWeek: "Thursday",
-    time: "7:00 PM – 8:00 PM",
-    location: "To be notified by email",
-    fullAddress: "Check confirmation email for campus location",
-    description: "Join us for an interactive session with Özgü Kokal, a Columbia Business School alum and current McKinsey Associate. Gain insight into the recruiting process at one of the world's most prestigious consulting firms.",
-    category: "Talent Acquisition",
-    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
-  },
-  {
     title: "Insight Partners Office Visit",
     date: "20260326T200000Z",
     endDate: "20260326T220000Z",
@@ -26,6 +13,19 @@ const UPCOMING_EVENTS = [
     description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
     category: "Site Visit & Networking",
     rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
+  },
+    {
+    title: "McKinsey & Company Talent Acquisition Event",
+    date: "20260402T190000",
+    endDate: "20260402T200000",
+    displayDate: "April 2, 2026",
+    dayOfWeek: "Thursday",
+    time: "7:00 PM – 8:00 PM",
+    location: "To be notified by email",
+    fullAddress: "Check confirmation email for campus location",
+    description: "Join us for an interactive session with Özgü Kokal, a Columbia Business School alum and current McKinsey Associate. Gain insight into the recruiting process at one of the world's most prestigious consulting firms.",
+    category: "Talent Acquisition",
+    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
   },
   {
     title: "New York Stock Exchange Site Visit (Session 2)",

@@ -56,7 +56,7 @@ export default function Home() {
           GS students come from every kind of background -- veterans, career
           changers, transfer students, working professionals. GSBS exists to
           give that community the access, connections, and professional
-          foundation that the traditional path assumes you already have.
+          foundation.
         </p>
 
         {/* CTAs */}

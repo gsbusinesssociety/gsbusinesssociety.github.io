@@ -45,7 +45,7 @@ export default function Newsletter() {
               Stay close to the community.
             </h2>
             <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed max-w-sm">
-              Members receive early access to event invitations, RSVP links, and post-event recaps — along with occasional spotlights on people doing interesting work.
+              Members receive early access to event invitations, RSVP links, and post-event recaps -- along with occasional spotlights on people doing interesting work.
             </p>
 
             <ul className="pt-2 space-y-3">

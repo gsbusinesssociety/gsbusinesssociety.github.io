@@ -1,19 +1,24 @@
+/* Navbar*/
 'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const InstagramIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+  </svg>
+);
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) setIsOpen(false);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [scrolled, setScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const pathname = usePathname();
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -22,75 +27,145 @@ export default function Navbar() {
     { name: 'Contact', href: '/contact' },
   ];
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setIsOpen(false);
+    };
+    const handleScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    /* 1. Use var(--background) with opacity 
-       2. Use dark:border-gray-800 for dark mode contrast */
-    <nav className="sticky top-0 z-50 w-full border-b border-gray-100 dark:border-gray-800 bg-[var(--background)]/90 backdrop-blur-md transition-colors duration-300">
+    <nav
+      className={`sticky top-0 z-50 w-full transition-all duration-500 ${
+        scrolled
+          ? 'bg-[var(--background)]/95 backdrop-blur-md shadow-[0_1px_24px_0_rgba(0,0,0,0.07)] border-b border-gray-100 dark:border-gray-800'
+          : 'bg-[var(--background)]/80 backdrop-blur-sm border-b border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
         {/* LOGO */}
-        <div className="flex items-center">
-          <Link href="/" className="hover:opacity-80 transition-opacity">
-            <Image 
-              src="/small.png" 
-              alt="GS Business Society" 
-              width={140} 
-              height={40} 
-              className="object-contain transition-all dark:brightness-0 dark:invert"
-              priority 
-            />
-          </Link>
-        </div>
+        <Link href="/" className="group flex items-center transition-opacity duration-200 hover:opacity-90">
+          <Image
+            src="/small.png"
+            alt="GS Business Society"
+            width={140}
+            height={40}
+            className="object-contain transition-transform duration-300 dark:brightness-0 dark:invert group-hover:scale-[1.02]"
+            priority
+          />
+        </Link>
 
         {/* DESKTOP NAV */}
-        {/* Changed text-[#6D6E71] to var(--accent-grey) */}
-        <div className="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent-grey)]">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              /* Hover state now uses the accessible blue variable */
-              className="hover:text-[var(--columbia-blue)] transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center gap-1">
+          {navLinks.map((link, i) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={`relative px-4 py-2 text-[13px] font-medium rounded-md transition-colors duration-200 group ${
+                  isActive
+                    ? 'text-[var(--columbia-blue)]'
+                    : 'text-[var(--accent-grey)] hover:text-[var(--foreground)]'
+                }`}
+              >
+                {/* hover pill */}
+                <span
+                  className={`absolute inset-0 rounded-md bg-[var(--columbia-blue)]/6 transition-opacity duration-200 ${
+                    hoveredIndex === i ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+                <span className="relative">{link.name}</span>
+                {/* animated underline */}
+                <span
+                  className={`absolute bottom-1 left-4 right-4 h-[1.5px] bg-[var(--columbia-blue)] rounded-full transition-all duration-300 origin-left ${
+                    isActive
+                      ? 'scale-x-100 opacity-100'
+                      : 'scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-60'
+                  }`}
+                />
+              </Link>
+            );
+          })}
+
+          {/* INSTAGRAM */}
+          <a
+            href="https://www.instagram.com/gsbs_columbia/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="ml-3 p-2 rounded-md text-[var(--accent-grey)] hover:text-[var(--columbia-blue)] hover:bg-[var(--columbia-blue)]/6 transition-all duration-200 hover:scale-110 active:scale-95"
+          >
+            <InstagramIcon />
+          </a>
         </div>
 
-        {/* MOBILE HAMBURGER BUTTON */}
-        <button 
-          className="md:hidden text-[var(--foreground)] p-2 focus:outline-none z-50"
+        {/* MOBILE HAMBURGER */}
+        <button
+          className="md:hidden text-[var(--foreground)] p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 focus:outline-none z-50"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
-          <div className="w-6 h-5 relative flex flex-col justify-between">
-            <span className={`h-0.5 w-full bg-current transform transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
-            <span className={`h-0.5 w-full bg-current transform transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <div className="w-5 h-4 relative flex flex-col justify-between">
+            <span className={`h-[1.5px] w-full bg-current transform transition-all duration-300 ease-in-out ${isOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+            <span className={`h-[1.5px] bg-current transition-all duration-200 ease-in-out ${isOpen ? 'opacity-0 w-0' : 'opacity-100 w-full'}`} />
+            <span className={`h-[1.5px] w-full bg-current transform transition-all duration-300 ease-in-out ${isOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
           </div>
         </button>
       </div>
 
-      {/* ANIMATED MOBILE MENU */}
-      <div 
-        /* Added dark mode background and border colors */
-        className={`absolute top-20 left-0 w-full bg-[var(--background)] border-b border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
+      {/* MOBILE MENU */}
+      <div
+        className={`absolute top-20 left-0 w-full bg-[var(--background)]/98 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
           isOpen ? 'max-h-[400px] opacity-100 shadow-xl' : 'max-h-0 opacity-0 pointer-events-none'
         }`}
       >
-        <div className="px-6 py-8 space-y-6">
-          {navLinks.map((link, i) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              onClick={() => setIsOpen(false)}
-              style={{ transitionDelay: `${i * 50}ms` }}
-              className={`block text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent-grey)] hover:text-[var(--columbia-blue)] transition-all duration-300 ${
-                isOpen ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="px-6 py-6 space-y-1">
+          {navLinks.map((link, i) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                style={{ transitionDelay: isOpen ? `${i * 40}ms` : '0ms' }}
+                className={`flex items-center gap-2 px-3 py-3 rounded-md text-[13px] font-medium transition-all duration-300 ${
+                  isOpen ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
+                } ${
+                  isActive
+                    ? 'text-[var(--columbia-blue)] bg-[var(--columbia-blue)]/6'
+                    : 'text-[var(--accent-grey)] hover:text-[var(--foreground)] hover:bg-gray-50 dark:hover:bg-gray-900'
+                }`}
+              >
+                {isActive && <span className="w-1 h-1 rounded-full bg-[var(--columbia-blue)] inline-block" />}
+                {link.name}
+              </Link>
+            );
+          })}
+
+          {/* INSTAGRAM in mobile */}
+          <a
+            href="https://www.instagram.com/gsbs_columbia/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsOpen(false)}
+            style={{ transitionDelay: isOpen ? `${navLinks.length * 40}ms` : '0ms' }}
+            className={`flex items-center gap-3 px-3 py-3 rounded-md text-[13px] font-medium text-[var(--accent-grey)] hover:text-[var(--columbia-blue)] hover:bg-[var(--columbia-blue)]/6 transition-all duration-300 ${
+              isOpen ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
+            }`}
+          >
+            <InstagramIcon />
+            Instagram
+          </a>
         </div>
       </div>
     </nav>

@@ -1,14 +1,15 @@
 import React from 'react';
+import Link from 'next/link';
 
 const BOARD_MEMBERS = [
   { name: "Gavin Xue", role: "Founder and President", school: "'28", linkedin: "https://www.linkedin.com/in/gx2173", image: "/board/president.jpg" },
   { name: "Bayron Aguilar", role: "Founder and Vice President", school: "'29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president1.jpeg" },
   { name: "Eren Yesiltepe", role: "Founder and Vice President", school: "'28", linkedin: "https://www.linkedin.com/in/erenyesiltepe/", image: "/board/vice-president2.jpeg" },
+    { name: "Thomas Ryder", role: "Co-head of Development", school: "'27", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://www.linkedin.com/in/tom-rosenzweig-073219339/", image: "/board/head-of-finance.jpeg" },
   { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
-  { name: "Noah Kim", role: "Head of Marketing", school: "'27", linkedin: "www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
+  { name: "Noah Kim", role: "Head of Marketing", school: "'27", linkedin: "https://www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
-  { name: "Thomas Ryder", role: "Co-head of Development", school: "'27", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
   // { name: "Joshua Becher", role: "Co-head of Development", school: "'28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },
   // { name: "Brian Van Dort", role: "Co-Head of Communication", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
   { name: "William Hamilton", role: "Co-head of Communication", school: "'30", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications2.jpeg" },
@@ -16,90 +17,113 @@ const BOARD_MEMBERS = [
 
 export default function AboutPage() {
   return (
-    /* Changed bg-white to var(--background) and text to var(--foreground) */
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300">
-      
-      {/* 2. Who We Are Section */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+
+      {/* ── WHO WE ARE ────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 pt-24 pb-32">
+
+        <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--columbia-blue)] mb-8">
+          About
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+
+          {/* Left — text */}
           <div>
-            <h2 className="font-serif text-3xl mb-6 border-b border-[var(--columbia-blue)] pb-2 inline-block">
+            <h1 className="font-serif text-4xl md:text-5xl text-[var(--foreground)] leading-[1.08] mb-10">
               Who We Are
-            </h2>
-            <div className="space-y-6 text-[var(--accent-grey)] leading-relaxed">
+            </h1>
+            <div className="space-y-6 text-[var(--accent-grey)] text-[15px] leading-[1.8]">
               <p>
-                The Columbia GS Business Society aims to increase GS students' engagement in pre-professional life. By bringing in industry professionals, offering hands-on training, and fostering community through social events, we build an inclusive space for GS students and others from non-traditional backgrounds to learn, connect, and grow.
-              </p>
-              <p>
-                Founded on the principles of community and excellence, we provide our members with the resources, network, and mentorship necessary to navigate competitive industries.
+                The Columbia GS Business Society aims to increase GS students'
+                engagement in pre-professional life. By bringing in industry
+                professionals, offering hands-on training, and fostering community
+                through social events, we build an inclusive space for GS students
+                and others from non-traditional backgrounds to learn, connect, and grow.
               </p>
             </div>
           </div>
-          
-          {/* adjusted for Dark Mode visibility */}
-          <div className="bg-gray-50 dark:bg-white/5 h-96 flex items-center justify-center border border-gray-100 dark:border-gray-800">
-            <span className="text-[var(--columbia-blue)] font-serif italic uppercase tracking-widest text-sm text-center px-10 opacity-60">
-              Placeholder for an image of the board!
+
+          {/* Right — image placeholder */}
+          <div className="h-80 md:h-96 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-gray-800 rounded-xl flex items-center justify-center">
+            <span className="font-serif italic text-sm text-[var(--accent-grey)] opacity-50 text-center px-10">
+              Photo coming soon
             </span>
           </div>
+
         </div>
       </section>
 
-      {/* 3. Leadership Section */}
-      <section className="py-24 bg-gray-50 dark:bg-[#1f1f1f] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="font-serif text-4xl mb-16 text-center">Executive Board</h2>
-          
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-16 max-w-6xl mx-auto">
-            {BOARD_MEMBERS.map((member, index) => (
-              <div key={index} className="text-center group w-64"> 
-                <a 
-                  href={member.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block relative w-32 h-32 mx-auto mb-6"
-                >
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-[var(--columbia-blue)] relative shadow-sm">
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                    
-                    {/* Hover Overlay adjusted for Dark Mode text contrast */}
-                    <div className="absolute inset-0 bg-[var(--columbia-blue)]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                       <span className="text-[10px] font-bold text-black uppercase tracking-tighter bg-white/90 px-2 py-1 rounded">
-                          View Profile
-                       </span>
-                    </div>
-                  </div>
-                </a>
+      {/* ── EXECUTIVE BOARD ───────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 pb-32">
 
-                <h3 className="font-serif text-lg leading-tight">{member.name}</h3>
-                <p className="text-[var(--columbia-blue)] text-[10px] font-bold uppercase tracking-widest mt-1">
-                  {member.role}
-                </p>
-                <p className="text-[var(--accent-grey)] text-xs mt-1 italic">
-                   {member.school}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Contact CTA */}
-      <section className="py-24 text-center">
-        <h2 className="font-serif text-3xl mb-6">Interested in Joining the Board?</h2>
-        <p className="text-[var(--accent-grey)] mb-8 max-w-lg mx-auto">
-          We open applications for junior board positions at the beginning of every semester.
+        <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--columbia-blue)] mb-12">
+          Executive Board
         </p>
-        <a 
-          href="https://forms.gle/FiH8WrxAP7WMifx99" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          /* Link buttons now use var(--foreground) for high-contrast dark mode support */
-          className="inline-block border border-[var(--foreground)] text-[var(--foreground)] px-10 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
-        >
-          Get in Touch
-        </a>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-12">
+          {BOARD_MEMBERS.map((member, index) => (
+            <a
+              key={index}
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col items-center text-center"
+            >
+              {/* Photo */}
+              <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-800 mb-4 grayscale group-hover:grayscale-0 ring-2 ring-transparent group-hover:ring-[var(--columbia-blue)]/30 transition-all duration-500">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Name */}
+              <p className="font-serif text-[15px] text-[var(--foreground)] leading-tight mb-1 group-hover:text-[var(--columbia-blue)] transition-colors duration-200">
+                {member.name}
+              </p>
+
+              {/* Role */}
+              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[var(--accent-grey)] leading-snug mb-1">
+                {member.role}
+              </p>
+
+              {/* Class year */}
+              <p className="text-[11px] text-[var(--accent-grey)] opacity-60 italic">
+                {member.school}
+              </p>
+            </a>
+          ))}
+        </div>
+
       </section>
+
+      {/* ── JOIN THE BOARD ────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 pb-32">
+        <div className="grid md:grid-cols-[1fr_auto] gap-10 items-center border-t border-gray-100 dark:border-gray-800 pt-16">
+
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--columbia-blue)] mb-4">
+              Get Involved
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[var(--foreground)] leading-tight mb-4">
+              Join the board.
+            </h2>
+            <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed max-w-lg">
+              We open applications for junior board positions at the beginning of
+              every semester. If you're a GS student looking to build the org from
+              the inside, we'd love to hear from you.
+            </p>
+          </div>
+
+          <p className="text-[var(--accent-grey)] text-sm italic whitespace-nowrap">
+            Applications open each semester.
+          </p>
+
+        </div>
+      </section>
+
     </main>
   );
 }

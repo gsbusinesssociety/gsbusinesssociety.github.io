@@ -37,9 +37,8 @@ export default function AboutPage() {
               <p>
                 The Columbia GS Business Society aims to increase GS students'
                 engagement in pre-professional life. By bringing in industry
-                professionals, offering hands-on training, and fostering community
-                through social events, we build an inclusive space for GS students
-                and others from non-traditional backgrounds to learn, connect, and grow.
+                professionals, offering training, and fostering community,
+                we build an inclusive space for GS students.
               </p>
             </div>
           </div>

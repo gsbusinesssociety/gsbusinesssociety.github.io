@@ -60,7 +60,7 @@ export default function ContactPage() {
           <div className="space-y-8">
             <div className="space-y-4 text-[15px] leading-[1.8]">
               <p className="text-[var(--accent-grey)]">
-                The fastest way to reach us is directly — or fill out the form on the right.
+                The fastest way to reach us is directly.
               </p>
               <div>
                 <button
@@ -85,7 +85,7 @@ export default function ContactPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]">Name</label>
+                <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]">Name*</label>
                 <input
                   name="name"
                   required
@@ -106,7 +106,7 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]">Email Address</label>
+              <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]">Email Address*</label>
               <input
                 name="email"
                 required
@@ -117,7 +117,7 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]">Message</label>
+              <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]">Message*</label>
               <textarea
                 name="message"
                 required
@@ -143,12 +143,12 @@ export default function ContactPage() {
 
               {status === 'success' && (
                 <p className="mt-5 font-serif italic text-[var(--columbia-blue)] text-[15px]">
-                  Message received — we'll be in touch shortly.
+                  Message received. We'll be in touch shortly.
                 </p>
               )}
               {status === 'error' && (
                 <p className="mt-5 text-red-500 dark:text-red-400 text-sm">
-                  Something went wrong — please try again or email us directly.
+                  Something went wrong. Please email us directly.
                 </p>
               )}
             </div>

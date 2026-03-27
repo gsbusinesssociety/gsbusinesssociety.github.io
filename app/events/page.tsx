@@ -14,6 +14,7 @@ const UPCOMING_EVENTS = [
   //   category: "Site Visit & Networking",
   //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
   // },
+
     {
     title: "McKinsey & Company Talent Acquisition Event",
     date: "20260402T190000",
@@ -40,6 +41,19 @@ const UPCOMING_EVENTS = [
     category: "Site Visit",
     rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
   },
+    {
+  "title": "Finance Careers in the Age of AI",
+  "date": "20260408T180000",
+  "endDate": "20260408T200000",
+  "displayDate": "April 8, 2026",
+  "dayOfWeek": "Wednesday",
+  "time": "6:00 PM – 8:00 PM",
+  "location": "SCEP 414",
+  "fullAddress": "SCEP 414, Columbia University (exact building details not specified)",
+  "description": "Join Orina Chang, a Columbia GS alum with 30 years of experience on Wall Street at Carlyle, Oppenheimer Funds, and Morgan Stanley. She brings deep expertise in private equity, hedge funds, and global wealth management. Currently, she leads ESG initiatives, advises governments, teaches future asset managers, and founded ZiVA Wealth, a financial education platform for women.",
+  "category": "Speaker Event",
+  "rsvpLink": "https://docs.google.com/forms/d/e/1FAIpQLSfrPDpdt5v5vceeYTxgq3pz7-N_7HBpsK0iOwDO5_kw38gB5A/viewform"
+},
   {
     title: "New York Stock Exchange Site Visit (Session 3)",
     date: "20260410T190000Z",

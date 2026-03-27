@@ -4,7 +4,7 @@ import Navbar from "@/app/components/Navbar";
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
-  title: "GS Business Society",
+  title: "General Studies Business Society",
   description: "Columbia's premier organization for professional excellence.",
   icons: {
     icon: "/favicon.ico",
@@ -59,7 +59,7 @@ export default function RootLayout({
             {/* Bottom row */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
               <p className="font-serif text-[var(--foreground)] text-base">
-                GS Business Society
+                General Studies Business Society
               </p>
               <p className="text-[11px] text-[var(--accent-grey)]">
                 © 2026 Columbia University

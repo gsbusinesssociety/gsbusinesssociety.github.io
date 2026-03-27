@@ -48,7 +48,7 @@ export default function Home() {
 
         {/* Headline */}
         <h1 className="font-serif text-5xl md:text-6xl lg:text-[4.5rem] text-[var(--foreground)] leading-[1.08] max-w-3xl mb-10">
-          GS Business Society
+          General Studies Business Society
         </h1>
 
         {/* Body — give it room */}

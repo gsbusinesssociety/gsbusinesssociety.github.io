@@ -1,19 +1,19 @@
 import React from 'react';
 
 const UPCOMING_EVENTS = [
-  {
-    title: "Insight Partners Office Visit",
-    date: "20260326T200000Z",
-    endDate: "20260326T220000Z",
-    displayDate: "March 26, 2026",
-    dayOfWeek: "Thursday",
-    time: "4:00 PM",
-    location: "Insight Partners, NYC",
-    fullAddress: "1114 Avenue of the Americas, New York, NY 10036",
-    description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
-    category: "Site Visit & Networking",
-    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
-  },
+  // {
+  //   title: "Insight Partners Office Visit",
+  //   date: "20260326T200000Z",
+  //   endDate: "20260326T220000Z",
+  //   displayDate: "March 26, 2026",
+  //   dayOfWeek: "Thursday",
+  //   time: "4:00 PM",
+  //   location: "Insight Partners, NYC",
+  //   fullAddress: "1114 Avenue of the Americas, New York, NY 10036",
+  //   description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
+  //   category: "Site Visit & Networking",
+  //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
+  // },
     {
     title: "McKinsey & Company Talent Acquisition Event",
     date: "20260402T190000",

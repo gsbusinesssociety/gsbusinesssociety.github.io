@@ -50,18 +50,31 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
-        {/* LOGO */}
-        <Link href="/" className="group flex items-center transition-opacity duration-200 hover:opacity-90">
+{/* LOGO */}
+        <Link 
+          href="/" 
+          className="group flex items-center p-1 focus:outline-none focus:ring-2 focus:ring-[var(--columbia-blue)] rounded-lg"
+        >
           <Image
-            src="/small.png"
+            src="/big.png"
             alt="GS Business Society"
-            width={140}
-            height={40}
-            className="object-contain transition-transform duration-300 dark:brightness-0 dark:invert group-hover:scale-[1.02]"
+            // Increased dimensions for more prominence
+            width={180} 
+            height={52}
+            className="
+              object-contain 
+              priority
+              dark:brightness-0 dark:invert 
+              /* Smooth transitions for all effects */
+              transition-all duration-300 ease-out
+              /* The subtle hover: slight scale and a soft drop-shadow */
+              group-hover:scale-105 
+              group-hover:drop-shadow-[0_0_8px_rgba(117,178,221,0.4)]
+              group-active:scale-95
+            "
             priority
           />
         </Link>
-
         {/* DESKTOP NAV */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link, i) => {

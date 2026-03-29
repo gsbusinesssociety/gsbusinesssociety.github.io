@@ -9,11 +9,11 @@ const BOARD_MEMBERS = [
   { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'GS 27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
   { name: "Noah Kim", role: "Head of Marketing", school: "'GS 27", linkedin: "https://www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "'GS 27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
-  { name: "Julia Zhang", role: "Co-head of Education", school: "'CC 27", linkedin: "https://www.linkedin.com/in/julia-zhang-2298a4354", image: "/board/head-of-education1.jpeg" },
   // { name: "Joshua Becher", role: "Co-head of Development", school: "'GS 28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },
   // { name: "Brian Van Dort", role: "Co-Head of Communication", school: "'GS 28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "'GS 28", linkedin: "https://www.linkedin.com/in/tom-rosenzweig-073219339/", image: "/board/head-of-finance.jpeg" },
   { name: "Gal Winter", role: "Co-head of Education", school: "'GS 28", linkedin: "https://www.linkedin.com/in/galwinter/", image: "/board/head-of-education2.jpeg" },
+  { name: "Julia Zhang", role: "Co-head of Education", school: "'CC 28", linkedin: "https://www.linkedin.com/in/julia-zhang-2298a4354", image: "/board/head-of-education1.jpeg" },
   { name: "William Hamilton", role: "Co-head of Communication", school: "'GS 30", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications2.jpeg" },
 
 ];

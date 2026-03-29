@@ -2,17 +2,20 @@ import React from 'react';
 import Link from 'next/link';
 
 const BOARD_MEMBERS = [
-  { name: "Gavin Xue", role: "Founder and President", school: "'28", linkedin: "https://www.linkedin.com/in/gx2173", image: "/board/president.jpg" },
-  { name: "Bayron Aguilar", role: "Founder and Vice President", school: "'29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president1.jpeg" },
-  { name: "Eren Yesiltepe", role: "Founder and Vice President", school: "'28", linkedin: "https://www.linkedin.com/in/erenyesiltepe/", image: "/board/vice-president2.jpeg" },
-    { name: "Thomas Ryder", role: "Co-head of Development", school: "'27", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
-  { name: "Tom Rosenzweig", role: "Head of Finance", school: "'28", linkedin: "https://www.linkedin.com/in/tom-rosenzweig-073219339/", image: "/board/head-of-finance.jpeg" },
-  { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
-  { name: "Noah Kim", role: "Head of Marketing", school: "'27", linkedin: "https://www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
-  { name: "Fatine Mohattane", role: "Head of Events", school: "'27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
-  // { name: "Joshua Becher", role: "Co-head of Development", school: "'28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },
-  // { name: "Brian Van Dort", role: "Co-Head of Communication", school: "'28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
-  { name: "William Hamilton", role: "Co-head of Communication", school: "'30", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications2.jpeg" },
+  { name: "Gavin Xue", role: "Founder and President", school: "'GS 28", linkedin: "https://www.linkedin.com/in/gx2173", image: "/board/president.jpg" },
+  { name: "Bayron Aguilar", role: "Founder and Vice President", school: "'GS 29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president1.jpeg" },
+  { name: "Eren Yesiltepe", role: "Founder and Vice President", school: "'GS 28", linkedin: "https://www.linkedin.com/in/erenyesiltepe/", image: "/board/vice-president2.jpeg" },
+    { name: "Thomas Ryder", role: "Co-head of Development", school: "'GS 27", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
+  { name: "Mehdi Shakibapour", role: "Head of Technology", school: "'GS 27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
+  { name: "Noah Kim", role: "Head of Marketing", school: "'GS 27", linkedin: "https://www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
+  { name: "Fatine Mohattane", role: "Head of Events", school: "'GS 27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
+  { name: "Julia Zhang", role: "Co-head of Education", school: "'CC 27", linkedin: "https://www.linkedin.com/in/julia-zhang-2298a4354", image: "/board/head-of-education1.jpeg" },
+  // { name: "Joshua Becher", role: "Co-head of Development", school: "'GS 28", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development2.jpeg" },
+  // { name: "Brian Van Dort", role: "Co-Head of Communication", school: "'GS 28", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications.jpeg" },
+  { name: "Tom Rosenzweig", role: "Head of Finance", school: "'GS 28", linkedin: "https://www.linkedin.com/in/tom-rosenzweig-073219339/", image: "/board/head-of-finance.jpeg" },
+  { name: "Gal Winter", role: "Co-head of Education", school: "'GS 28", linkedin: "https://www.linkedin.com/in/galwinter/", image: "/board/head-of-education2.jpeg" },
+  { name: "William Hamilton", role: "Co-head of Communication", school: "'GS 30", linkedin: "https://linkedin.com/in/username", image: "/board/head-of-communications2.jpeg" },
+
 ];
 
 export default function AboutPage() {

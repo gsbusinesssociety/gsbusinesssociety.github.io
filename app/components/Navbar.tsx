@@ -53,7 +53,7 @@ export default function Navbar() {
 {/* LOGO */}
         <Link 
           href="/" 
-          className="group flex items-center p-1 focus:outline-none focus:ring-2 focus:ring-[var(--columbia-blue)] rounded-lg"
+          className="group flex items-center p-1"
         >
           <Image
             src="/big.png"

@@ -1,20 +1,6 @@
 import React from 'react';
 
 const UPCOMING_EVENTS = [
-  // {
-  //   title: "Insight Partners Office Visit",
-  //   date: "20260326T200000Z",
-  //   endDate: "20260326T220000Z",
-  //   displayDate: "March 26, 2026",
-  //   dayOfWeek: "Thursday",
-  //   time: "4:00 PM",
-  //   location: "Insight Partners, NYC",
-  //   fullAddress: "1114 Avenue of the Americas, New York, NY 10036",
-  //   description: "Join CQBS and GSBS for an exclusive site visit to Insight Partners. RSVP required by March 20th.",
-  //   category: "Site Visit & Networking",
-  //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
-  // },
-
   //   {
   //   title: "McKinsey & Company Talent Acquisition Event",
   //   date: "20260402T190000",
@@ -28,19 +14,19 @@ const UPCOMING_EVENTS = [
   //   category: "Talent Acquisition",
   //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
   // },
-  {
-    title: "New York Stock Exchange Site Visit (Session 2)",
-    date: "20260403T190000Z",
-    endDate: "20260403T210000Z",
-    displayDate: "April 3, 2026",
-    dayOfWeek: "Friday",
-    time: "3:00 PM",
-    location: "New York Stock Exchange",
-    fullAddress: "11 Wall St, New York, NY 10005",
-    description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
-    category: "Site Visit",
-    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
-  },
+  // {
+  //   title: "New York Stock Exchange Site Visit (Session 2)",
+  //   date: "20260403T190000Z",
+  //   endDate: "20260403T210000Z",
+  //   displayDate: "April 3, 2026",
+  //   dayOfWeek: "Friday",
+  //   time: "3:00 PM",
+  //   location: "New York Stock Exchange",
+  //   fullAddress: "11 Wall St, New York, NY 10005",
+  //   description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
+  //   category: "Site Visit",
+  //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
+  // },
     {
   "title": "Finance Careers in the Age of AI",
   "date": "20260408T180000",

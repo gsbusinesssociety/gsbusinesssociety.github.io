@@ -15,19 +15,19 @@ const UPCOMING_EVENTS = [
   //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfhB2kPU08AKkB1M0hRi1P7sEhJV4ZwV_YxeMpxXrWHtj9Qw/viewform"
   // },
 
-    {
-    title: "McKinsey & Company Talent Acquisition Event",
-    date: "20260402T190000",
-    endDate: "20260402T200000",
-    displayDate: "April 2, 2026",
-    dayOfWeek: "Thursday",
-    time: "7:00 PM – 8:00 PM",
-    location: "To be notified by email",
-    fullAddress: "Check confirmation email for campus location",
-    description: "Join us for an interactive session with Özgü Kokal, a Columbia Business School alum and current McKinsey Associate. Gain insight into the recruiting process at one of the world's most prestigious consulting firms.",
-    category: "Talent Acquisition",
-    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
-  },
+  //   {
+  //   title: "McKinsey & Company Talent Acquisition Event",
+  //   date: "20260402T190000",
+  //   endDate: "20260402T200000",
+  //   displayDate: "April 2, 2026",
+  //   dayOfWeek: "Thursday",
+  //   time: "7:00 PM – 8:00 PM",
+  //   location: "To be notified by email",
+  //   fullAddress: "Check confirmation email for campus location",
+  //   description: "Join us for an interactive session with Özgü Kokal, a Columbia Business School alum and current McKinsey Associate. Gain insight into the recruiting process at one of the world's most prestigious consulting firms.",
+  //   category: "Talent Acquisition",
+  //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
+  // },
   {
     title: "New York Stock Exchange Site Visit (Session 2)",
     date: "20260403T190000Z",
@@ -70,6 +70,14 @@ const UPCOMING_EVENTS = [
 ];
 
 const PAST_EVENTS = [
+  {
+    title: "Insight Partners x CQBS: Venture Capital & Growth Equity",
+    date: "March 26, 2026",
+    description: "A collaborative office visit with the Columbia Queer Business Society. We explored software business evaluation and product-market fit with Zachary Rosenfeld and Kedar Venkatesh at a firm with over $90B in AUM.",
+    category: "Office Visit & Networking",
+    image: "/insight-visit.jpeg",
+    link: "https://www.linkedin.com/posts/the-columbia-gs-business-society_last-week-the-general-studies-business-society-activity-7445693369340551168-JIDd"
+  },
   {
     title: "NYSE Floor Visit (Session 1)",
     date: "March 13, 2026",

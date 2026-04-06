@@ -1,6 +1,19 @@
 import React from 'react';
 
 const UPCOMING_EVENTS = [
+  {
+    title: "Evercore Office Visit with Ahmet Yetis",
+    date: "20260416T130000", // April 16, 1:00 PM
+    endDate: "20260416T143000 ", // April 16, 2:30 PM
+    dayOfWeek: "Thursday",
+    displayDate: "April 16, 2026",
+    time: "1:00 PM - 2:30 PM",
+    location: "Evercore Headquarters",
+    fullAddress: "55 E 52nd St, New York, NY 10055",
+    description: "  Join us for an inside look at Evercore, one of WallStreet's most respected independent investment banks. We'll be hearing from Ahmet Yetis, Senior Managing Director in Private Capital Advisory and a 20+ year veteran. Don't miss your chance to go behind the scenes and connect with a leader at the top of the industry.",
+    category: "Office Visit",
+    rsvpLink: "https://tr.ee/LxZuPBY5N_"
+  },
   //   {
   //   title: "McKinsey & Company Talent Acquisition Event",
   //   date: "20260402T190000",
@@ -41,7 +54,7 @@ const UPCOMING_EVENTS = [
   "rsvpLink": "https://docs.google.com/forms/d/e/1FAIpQLSfrPDpdt5v5vceeYTxgq3pz7-N_7HBpsK0iOwDO5_kw38gB5A/viewform"
 },
   {
-    title: "New York Stock Exchange Site Visit (Session 3)",
+    title: "New York Stock Exchange Site Visit (Session 2)",
     date: "20260410T190000Z",
     endDate: "20260410T210000Z",
     displayDate: "April 10, 2026",

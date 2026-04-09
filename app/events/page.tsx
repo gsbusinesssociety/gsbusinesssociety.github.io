@@ -1,19 +1,6 @@
 import React from 'react';
 
 const UPCOMING_EVENTS = [
-  {
-    title: "Evercore Office Visit with Ahmet Yetis",
-    date: "20260416T130000", // April 16, 1:00 PM
-    endDate: "20260416T143000 ", // April 16, 2:30 PM
-    dayOfWeek: "Thursday",
-    displayDate: "April 16, 2026",
-    time: "1:00 PM - 2:30 PM",
-    location: "Evercore Headquarters",
-    fullAddress: "55 E 52nd St, New York, NY 10055",
-    description: "  Join us for an inside look at Evercore, one of WallStreet's most respected independent investment banks. We'll be hearing from Ahmet Yetis, Senior Managing Director in Private Capital Advisory and a 20+ year veteran. Don't miss your chance to go behind the scenes and connect with a leader at the top of the industry.",
-    category: "Office Visit",
-    rsvpLink: "https://tr.ee/LxZuPBY5N_"
-  },
   //   {
   //   title: "McKinsey & Company Talent Acquisition Event",
   //   date: "20260402T190000",
@@ -65,7 +52,21 @@ const UPCOMING_EVENTS = [
     description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
     category: "Site Visit",
     rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
-  }
+  },
+    {
+    title: "Evercore Office Visit with Ahmet Yetis",
+    date: "20260416T130000", // April 16, 1:00 PM
+    endDate: "20260416T143000 ", // April 16, 2:30 PM
+    dayOfWeek: "Thursday",
+    displayDate: "April 16, 2026",
+    time: "1:00 PM - 2:30 PM",
+    location: "Evercore Headquarters",
+    fullAddress: "55 E 52nd St, New York, NY 10055",
+    description: "  Join us for an inside look at Evercore, one of WallStreet's most respected independent investment banks. We'll be hearing from Ahmet Yetis, Senior Managing Director in Private Capital Advisory and a 20+ year veteran. Don't miss your chance to go behind the scenes and connect with a leader at the top of the industry.",
+    category: "Office Visit",
+    rsvpLink: "https://forms.gle/4VMVGujbMzcdf37y9"
+  },
+
 ];
 
 const PAST_EVENTS = [

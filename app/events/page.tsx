@@ -27,32 +27,32 @@ const UPCOMING_EVENTS = [
   //   category: "Site Visit",
   //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
   // },
-    {
-  "title": "Finance Careers in the Age of AI",
-  "date": "20260408T180000",
-  "endDate": "20260408T200000",
-  "displayDate": "April 8, 2026",
-  "dayOfWeek": "Wednesday",
-  "time": "6:00 PM – 8:00 PM",
-  "location": "SCEP 414",
-  "fullAddress": "SCEP 414, Columbia University (exact building details not specified)",
-  "description": "Join Orina Chang, a Columbia GS alum with 30 years of experience on Wall Street at Carlyle, Oppenheimer Funds, and Morgan Stanley. She brings deep expertise in private equity, hedge funds, and global wealth management. Currently, she leads ESG initiatives, advises governments, teaches future asset managers, and founded ZiVA Wealth, a financial education platform for women.",
-  "category": "Speaker Event",
-  "rsvpLink": "https://docs.google.com/forms/d/e/1FAIpQLSfrPDpdt5v5vceeYTxgq3pz7-N_7HBpsK0iOwDO5_kw38gB5A/viewform"
-},
-  {
-    title: "New York Stock Exchange Site Visit (Session 2)",
-    date: "20260410T190000Z",
-    endDate: "20260410T210000Z",
-    displayDate: "April 10, 2026",
-    dayOfWeek: "Friday",
-    time: "3:00 PM",
-    location: "New York Stock Exchange",
-    fullAddress: "11 Wall St, New York, NY 10005",
-    description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
-    category: "Site Visit",
-    rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
-  },
+//     {
+//   "title": "Finance Careers in the Age of AI",
+//   "date": "20260408T180000",
+//   "endDate": "20260408T200000",
+//   "displayDate": "April 8, 2026",
+//   "dayOfWeek": "Wednesday",
+//   "time": "6:00 PM – 8:00 PM",
+//   "location": "SCEP 414",
+//   "fullAddress": "SCEP 414, Columbia University (exact building details not specified)",
+//   "description": "Join Orina Chang, a Columbia GS alum with 30 years of experience on Wall Street at Carlyle, Oppenheimer Funds, and Morgan Stanley. She brings deep expertise in private equity, hedge funds, and global wealth management. Currently, she leads ESG initiatives, advises governments, teaches future asset managers, and founded ZiVA Wealth, a financial education platform for women.",
+//   "category": "Speaker Event",
+//   "rsvpLink": "https://docs.google.com/forms/d/e/1FAIpQLSfrPDpdt5v5vceeYTxgq3pz7-N_7HBpsK0iOwDO5_kw38gB5A/viewform"
+// },
+//   {
+//     title: "New York Stock Exchange Site Visit (Session 2)",
+//     date: "20260410T190000Z",
+//     endDate: "20260410T210000Z",
+//     displayDate: "April 10, 2026",
+//     dayOfWeek: "Friday",
+//     time: "3:00 PM",
+//     location: "New York Stock Exchange",
+//     fullAddress: "11 Wall St, New York, NY 10005",
+//     description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
+//     category: "Site Visit",
+//     rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
+//   },
     {
     title: "Evercore Office Visit with Ahmet Yetis",
     date: "20260416T130000", // April 16, 1:00 PM

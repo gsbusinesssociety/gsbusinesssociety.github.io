@@ -1,6 +1,7 @@
 import React from 'react';
 
 const UPCOMING_EVENTS = [
+  
   //   {
   //   title: "McKinsey & Company Talent Acquisition Event",
   //   date: "20260402T190000",
@@ -14,62 +15,43 @@ const UPCOMING_EVENTS = [
   //   category: "Talent Acquisition",
   //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdehSOJI5GODH6IaAg4jSRlGmUU9EoF15hqWn0yGbl8LSkAXQ/viewform"
   // },
-  // {
-  //   title: "New York Stock Exchange Site Visit (Session 2)",
-  //   date: "20260403T190000Z",
-  //   endDate: "20260403T210000Z",
-  //   displayDate: "April 3, 2026",
-  //   dayOfWeek: "Friday",
-  //   time: "3:00 PM",
-  //   location: "New York Stock Exchange",
-  //   fullAddress: "11 Wall St, New York, NY 10005",
-  //   description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
-  //   category: "Site Visit",
-  //   rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
+  //   {
+  //   title: "Evercore Office Visit with Ahmet Yetis",
+  //   date: "20260416T130000", // April 16, 1:00 PM
+  //   endDate: "20260416T143000 ", // April 16, 2:30 PM
+  //   dayOfWeek: "Thursday",
+  //   displayDate: "April 16, 2026",
+  //   time: "1:00 PM - 2:30 PM",
+  //   location: "Evercore Headquarters",
+  //   fullAddress: "55 E 52nd St, New York, NY 10055",
+  //   description: "  Join us for an inside look at Evercore, one of WallStreet's most respected independent investment banks. We'll be hearing from Ahmet Yetis, Senior Managing Director in Private Capital Advisory and a 20+ year veteran. Don't miss your chance to go behind the scenes and connect with a leader at the top of the industry.",
+  //   category: "Office Visit",
+  //   rsvpLink: "https://forms.gle/4VMVGujbMzcdf37y9"
   // },
-//     {
-//   "title": "Finance Careers in the Age of AI",
-//   "date": "20260408T180000",
-//   "endDate": "20260408T200000",
-//   "displayDate": "April 8, 2026",
-//   "dayOfWeek": "Wednesday",
-//   "time": "6:00 PM – 8:00 PM",
-//   "location": "SCEP 414",
-//   "fullAddress": "SCEP 414, Columbia University (exact building details not specified)",
-//   "description": "Join Orina Chang, a Columbia GS alum with 30 years of experience on Wall Street at Carlyle, Oppenheimer Funds, and Morgan Stanley. She brings deep expertise in private equity, hedge funds, and global wealth management. Currently, she leads ESG initiatives, advises governments, teaches future asset managers, and founded ZiVA Wealth, a financial education platform for women.",
-//   "category": "Speaker Event",
-//   "rsvpLink": "https://docs.google.com/forms/d/e/1FAIpQLSfrPDpdt5v5vceeYTxgq3pz7-N_7HBpsK0iOwDO5_kw38gB5A/viewform"
-// },
-//   {
-//     title: "New York Stock Exchange Site Visit (Session 2)",
-//     date: "20260410T190000Z",
-//     endDate: "20260410T210000Z",
-//     displayDate: "April 10, 2026",
-//     dayOfWeek: "Friday",
-//     time: "3:00 PM",
-//     location: "New York Stock Exchange",
-//     fullAddress: "11 Wall St, New York, NY 10005",
-//     description: "Gain firsthand experience in real-world trading and investment. Learn how capital markets operate at the heart of global finance. Registrations reviewed on a rolling basis.",
-//     category: "Site Visit",
-//     rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLScuVzaBJXQUI88vP95bv9o7_CVJKQ3AsjHF8twSdmZH4CFSeg/viewform"
-//   },
     {
-    title: "Evercore Office Visit with Ahmet Yetis",
-    date: "20260416T130000", // April 16, 1:00 PM
-    endDate: "20260416T143000 ", // April 16, 2:30 PM
-    dayOfWeek: "Thursday",
-    displayDate: "April 16, 2026",
-    time: "1:00 PM - 2:30 PM",
-    location: "Evercore Headquarters",
-    fullAddress: "55 E 52nd St, New York, NY 10055",
-    description: "  Join us for an inside look at Evercore, one of WallStreet's most respected independent investment banks. We'll be hearing from Ahmet Yetis, Senior Managing Director in Private Capital Advisory and a 20+ year veteran. Don't miss your chance to go behind the scenes and connect with a leader at the top of the industry.",
-    category: "Office Visit",
-    rsvpLink: "https://forms.gle/4VMVGujbMzcdf37y9"
-  },
-
+  title: "Ask an Incoming Analyst: Peer-to-Peer Panel",
+  date: "20260422T190000", 
+  endDate: "20260422T210000",
+  dayOfWeek: "Wednesday",
+  displayDate: "Wednesday, April 22, 2026",
+  time: "7:00 PM - 9:00 PM",
+  location: "MLK 610 (91 Claremont Ave)",
+  fullAddress: "91 Claremont Ave, New York, NY 10027", 
+  description: "Join GSBS, GSRA, and CQBS for a panel with students who landed roles at JPM, MS, Goldman, McKinsey, and more. Learn the honest truth about navigating recruiting directly from those who just did it.",
+  category: "Peer Mentorship",
+  rsvpLink: "https://linktr.ee/gsbs_columbia"
+}
 ];
 
 const PAST_EVENTS = [
+  {
+    title: "Finance Careers in the Age of AI with Orina Chang",
+    date: "April 8, 2026",
+    description: "Partnered with Columbia EVG to host Wall Street veteran Orina Chang. We discussed how AI is reshaping private equity and hedge funds, drawing on her 30 years of experience at Carlyle, Morgan Stanley, and Oppenheimer Funds.",
+    category: "Speaker Event",
+    image: "/orina-chang-event.jpeg", 
+    link: "https://www.linkedin.com/posts/the-columbia-gs-business-society_last-week-gsbs-partnered-with-columbia-enterprise-activity-7451842352786132992-P5Ou?utm_source=share&utm_medium=member_desktop&rcm=ACoAABY3M8EB69xaH0QG60BC3VGy1Lc8o8jeAaQ" 
+  },
   {
     title: "Insight Partners x CQBS: Venture Capital & Growth Equity",
     date: "March 26, 2026",

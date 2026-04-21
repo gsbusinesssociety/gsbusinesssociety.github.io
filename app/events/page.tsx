@@ -45,6 +45,14 @@ const UPCOMING_EVENTS = [
 
 const PAST_EVENTS = [
   {
+    title: "Breaking into McKinsey with Özgü Kokal",
+    date: "April 2, 2026",
+    description: "An intimate session with McKinsey Associate Özgü Kokal. We discussed the realities of top-tier consulting, how AI is impacting real client engagements, and navigating the industry from a non-traditional background.",
+    category: "Speaker Event",
+    image: "/mckinsey-session.jpg", // Add a photo of the group or speaker
+    link: "https://www.linkedin.com/posts/the-columbia-gs-business-society_last-week-gsbs-hosted-%C3%B6zg%C3%BC-kokal-a-columbia-activity-7447865206954680321-tI2E"
+  },
+  {
     title: "Finance Careers in the Age of AI with Orina Chang",
     date: "April 8, 2026",
     description: "Partnered with Columbia EVG to host Wall Street veteran Orina Chang. We discussed how AI is reshaping private equity and hedge funds, drawing on her 30 years of experience at Carlyle, Morgan Stanley, and Oppenheimer Funds.",
@@ -76,7 +84,7 @@ const PAST_EVENTS = [
     image: "/launch-event.jpeg",
     link: "https://www.linkedin.com/posts/gx2173_columbia-general-studies-business-society-ugcPost-7432836934500061184-DS-A?utm_source=share&utm_medium=member_desktop&rcm=ACoAABY3M8EB69xaH0QG60BC3VGy1Lc8o8jeAaQ"
   }
-];
+]
 
 export default function EventsPage() {
   return (

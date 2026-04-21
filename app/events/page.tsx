@@ -49,7 +49,7 @@ const PAST_EVENTS = [
     date: "April 2, 2026",
     description: "An intimate session with McKinsey Associate Özgü Kokal. We discussed the realities of top-tier consulting, how AI is impacting real client engagements, and navigating the industry from a non-traditional background.",
     category: "Speaker Event",
-    image: "/mckinsey-session.jpg", // Add a photo of the group or speaker
+    image: "/mckinsey-session.jpeg", // Add a photo of the group or speaker
     link: "https://www.linkedin.com/posts/the-columbia-gs-business-society_last-week-gsbs-hosted-%C3%B6zg%C3%BC-kokal-a-columbia-activity-7447865206954680321-tI2E"
   },
   {

@@ -1,7 +1,19 @@
 import React from 'react';
 
 const UPCOMING_EVENTS = [
-  
+//  {
+//   title: "Ask an Incoming Analyst: Peer-to-Peer Panel",
+//   date: "20260422T190000", 
+//   endDate: "20260422T210000",
+//   dayOfWeek: "Wednesday",
+//   displayDate: "Wednesday, April 22, 2026",
+//   time: "7:00 PM - 9:00 PM",
+//   location: "MLK 610 (91 Claremont Ave)",
+//   fullAddress: "91 Claremont Ave, New York, NY 10027", 
+//   description: "Join GSBS, GSRA, and CQBS for a panel with students who landed roles at JPM, MS, Goldman, McKinsey, and more. Learn the honest truth about navigating recruiting directly from those who just did it.",
+//   category: "Peer Mentorship",
+//   rsvpLink: "https://linktr.ee/gsbs_columbia"
+// },
   //   {
   //   title: "McKinsey & Company Talent Acquisition Event",
   //   date: "20260402T190000",
@@ -28,19 +40,7 @@ const UPCOMING_EVENTS = [
   //   category: "Office Visit",
   //   rsvpLink: "https://forms.gle/4VMVGujbMzcdf37y9"
   // },
-    {
-  title: "Ask an Incoming Analyst: Peer-to-Peer Panel",
-  date: "20260422T190000", 
-  endDate: "20260422T210000",
-  dayOfWeek: "Wednesday",
-  displayDate: "Wednesday, April 22, 2026",
-  time: "7:00 PM - 9:00 PM",
-  location: "MLK 610 (91 Claremont Ave)",
-  fullAddress: "91 Claremont Ave, New York, NY 10027", 
-  description: "Join GSBS, GSRA, and CQBS for a panel with students who landed roles at JPM, MS, Goldman, McKinsey, and more. Learn the honest truth about navigating recruiting directly from those who just did it.",
-  category: "Peer Mentorship",
-  rsvpLink: "https://linktr.ee/gsbs_columbia"
-}
+//    
 ];
 
 const PAST_EVENTS = [

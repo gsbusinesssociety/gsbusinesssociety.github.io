@@ -1,6 +1,7 @@
 import React from 'react';
 
-const UPCOMING_EVENTS = [
+const UPCOMING_EVENTS: any[] = [];
+
 //  {
 //   title: "Ask an Incoming Analyst: Peer-to-Peer Panel",
 //   date: "20260422T190000", 
@@ -41,7 +42,7 @@ const UPCOMING_EVENTS = [
   //   rsvpLink: "https://forms.gle/4VMVGujbMzcdf37y9"
   // },
 //    
-];
+
 
 const PAST_EVENTS = [
   {

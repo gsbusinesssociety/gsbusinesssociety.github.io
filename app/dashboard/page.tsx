@@ -148,17 +148,6 @@ export default function DashboardPage() {
         timeoutPromise
       ]);
       
-      // Trigger Welcome Email
-      try {
-        await fetch('/api/send-welcome', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: sanitizedEmail, name: nameInput.trim() })
-        });
-      } catch (emailErr) {
-        console.error("Failed to send welcome email:", emailErr);
-      }
-      
       setAdminStatus('success');
       setAdminMessage(`${sanitizedEmail} has been added to the whitelist!`);
       setEmailInput('');

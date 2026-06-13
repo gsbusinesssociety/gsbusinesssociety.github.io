@@ -10,6 +10,13 @@ service cloud.firestore {
              get(/databases/$(database)/documents/members/$(request.auth.token.email)).data.role == 'admin';
     }
 
+    function isRecruiter() {
+      return request.auth != null &&
+             request.auth.token.email != null &&
+             exists(/databases/$(database)/documents/members/$(request.auth.token.email)) &&
+             get(/databases/$(database)/documents/members/$(request.auth.token.email)).data.role == 'recruiter';
+    }
+
     // Helper function to check if caller is logged in
     function isAuthenticated() {
       return request.auth != null;
@@ -19,6 +26,12 @@ service cloud.firestore {
     // Anyone logged in can read it (to check their own access)
     // Only admins can modify
     match /members/{memberId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || (isAuthenticated() && request.auth.token.email == memberId);
+    }
+
+    // Internships Collection
+    match /internships/{internshipId} {
       allow read: if isAuthenticated();
       allow write: if isAdmin();
     }

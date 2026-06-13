@@ -10,6 +10,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   isAdmin: boolean;
+  userRole: string | null;
   signOut: () => Promise<void>;
 }
 
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   isAdmin: false,
+  userRole: null,
   signOut: async () => {},
 });
 
@@ -25,6 +27,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -45,11 +48,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           ]) as any;
           
           if (memberDoc.exists()) {
+            const role = memberDoc.data().role;
             setUser(currentUser);
-            setIsAdmin(memberDoc.data().role === "admin");
+            setUserRole(role);
+            setIsAdmin(role === "admin");
           } else {
             await firebaseSignOut(auth);
             setUser(null);
+            setUserRole(null);
             setIsAdmin(false);
           }
         } catch (err: any) {
@@ -57,10 +63,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           // FALLBACK: If database is offline/missing, allow login as admin to view the UI
           setUser(currentUser);
           setIsAdmin(true);
+          setUserRole("admin");
         }
       } else {
         setUser(null);
         setIsAdmin(false);
+        setUserRole(null);
       }
       setLoading(false);
     });
@@ -71,11 +79,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = async () => {
     await firebaseSignOut(auth);
     setIsAdmin(false);
+    setUserRole(null);
     router.push("/");
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAdmin, signOut }}>
+    <AuthContext.Provider value={{ user, loading, isAdmin, userRole, signOut }}>
       {children}
     </AuthContext.Provider>
   );

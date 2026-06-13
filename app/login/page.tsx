@@ -23,7 +23,9 @@ export default function LoginPage() {
       // Restrict to columbia.edu (handles aliases like @lionmail.columbia.edu)
       if (email && !email.toLowerCase().endsWith("columbia.edu")) {
         await auth.signOut();
-        setError("Please sign in with your @columbia.edu email address.");
+        const msg = "Please sign in with your @columbia.edu email address.";
+        setError(msg);
+        alert(msg);
         return;
       }
 
@@ -33,14 +35,18 @@ export default function LoginPage() {
         const memberDoc = await getDoc(doc(db, "members", sanitizedEmail));
         if (!memberDoc.exists()) {
           await auth.signOut();
-          setError("Your account is not on the approved members list. Please contact the club admins.");
+          const msg = "Your account is not on the approved members list. Please contact the club admins.";
+          setError(msg);
+          alert(msg);
           return;
         }
       }
 
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Failed to sign in. Please try again.");
+      const msg = err.message || "Failed to sign in. Please try again.";
+      setError(msg);
+      alert("System Error: " + msg);
     }
   };
 

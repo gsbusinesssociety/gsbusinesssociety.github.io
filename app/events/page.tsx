@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
-
-const UPCOMING_EVENTS: any[] = [];
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 // Example of an upcoming event structure for when they need to be populated:
 // {
@@ -63,6 +63,22 @@ const PAST_EVENTS = [
 ];
 
 export default function EventsPage() {
+  const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const snap = await getDocs(collection(db, "events"));
+        if (!snap.empty) {
+          setUpcomingEvents(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+        }
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      }
+    };
+    fetchEvents();
+  }, []);
+
   return (
     <main className="min-h-screen transition-colors duration-500 pb-32 relative">
 
@@ -72,9 +88,9 @@ export default function EventsPage() {
           Upcoming Events
         </p>
 
-        {UPCOMING_EVENTS.length > 0 ? (
+        {upcomingEvents.length > 0 ? (
           <div className="space-y-6">
-            {UPCOMING_EVENTS.map((event, index) => {
+            {upcomingEvents.map((event, index) => {
               const calendarLocation = encodeURIComponent(event.fullAddress || event.location);
               const gCalLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.date}/${event.endDate}&details=${encodeURIComponent(event.description)}&location=${calendarLocation}`;
 

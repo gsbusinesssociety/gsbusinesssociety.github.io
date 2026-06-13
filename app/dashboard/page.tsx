@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { collection, getDocs, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle } from "lucide-react";
 
@@ -30,12 +30,28 @@ export default function DashboardPage() {
   const [tips, setTips] = useState<any[]>([]);
   const [newsletters, setNewsletters] = useState<any[]>([]);
   const [membersList, setMembersList] = useState<any[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
   const [fetching, setFetching] = useState(true);
 
   // Admin Panel states
   const [emailInput, setEmailInput] = useState("");
   const [adminStatus, setAdminStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [adminMessage, setAdminMessage] = useState("");
+
+  const [tipTitle, setTipTitle] = useState("");
+  const [tipContent, setTipContent] = useState("");
+  
+  const [newsTitle, setNewsTitle] = useState("");
+  const [newsDate, setNewsDate] = useState("");
+
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDisplayDate, setEventDisplayDate] = useState("");
+  const [eventDayOfWeek, setEventDayOfWeek] = useState("");
+  const [eventTime, setEventTime] = useState("");
+  const [eventLocation, setEventLocation] = useState("");
+  const [eventCategory, setEventCategory] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [eventRSVPLink, setEventRSVPLink] = useState("");
 
   useEffect(() => {
     if (!loading && !user) {
@@ -68,7 +84,7 @@ export default function DashboardPage() {
         if (newsSnap.empty) setNewsletters(PLACEHOLDER_NEWSLETTERS);
         else setNewsletters(newsSnap.docs.map((d: any) => ({ id: d.id, ...d.data() })));
 
-        // If admin, fetch members list
+        // If admin, fetch members list and contact messages
         if (isAdmin) {
           const membersSnap = await Promise.race([
             getDocs(collection(db, "members")),
@@ -77,6 +93,15 @@ export default function DashboardPage() {
           
           if (membersSnap.empty) setMembersList(PLACEHOLDER_MEMBERS);
           else setMembersList(membersSnap.docs.map((d: any) => ({ id: d.id, ...d.data() })));
+
+          const messagesSnap = await Promise.race([
+            getDocs(collection(db, "contact_messages")),
+            timeoutPromise
+          ]) as any;
+          
+          if (!messagesSnap.empty) {
+            setMessages(messagesSnap.docs.map((d: any) => ({ id: d.id, ...d.data() })));
+          }
         }
 
       } catch (err) {
@@ -148,6 +173,65 @@ export default function DashboardPage() {
         setAdminStatus('idle');
         setAdminMessage('');
       }, 5000);
+    }
+  };
+
+  const handleAddTip = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const docRef = await addDoc(collection(db, "tips"), {
+        title: tipTitle,
+        content: tipContent,
+        createdAt: serverTimestamp()
+      });
+      setTips(prev => [...prev, { id: docRef.id, title: tipTitle, content: tipContent }]);
+      setTipTitle('');
+      setTipContent('');
+    } catch (err) {
+      console.error("Error adding tip:", err);
+    }
+  };
+
+  const handleAddNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const docRef = await addDoc(collection(db, "newsletters"), {
+        title: newsTitle,
+        date: newsDate,
+        createdAt: serverTimestamp()
+      });
+      setNewsletters(prev => [...prev, { id: docRef.id, title: newsTitle, date: newsDate }]);
+      setNewsTitle('');
+      setNewsDate('');
+    } catch (err) {
+      console.error("Error adding newsletter:", err);
+    }
+  };
+
+  const handleAddEvent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, "events"), {
+        title: eventTitle,
+        displayDate: eventDisplayDate,
+        dayOfWeek: eventDayOfWeek,
+        time: eventTime,
+        location: eventLocation,
+        category: eventCategory,
+        description: eventDescription,
+        rsvpLink: eventRSVPLink,
+        // Fallbacks for calendar link
+        date: "20260101T000000",
+        endDate: "20260101T000000",
+        fullAddress: eventLocation,
+        createdAt: serverTimestamp()
+      });
+      setEventTitle(''); setEventDisplayDate(''); setEventDayOfWeek(''); setEventTime(''); setEventLocation(''); setEventCategory(''); setEventDescription(''); setEventRSVPLink('');
+      setAdminMessage('Event added successfully!');
+      setTimeout(() => setAdminMessage(''), 3000);
+    } catch (err) {
+      console.error("Error adding event:", err);
+      setAdminMessage('Error adding event');
     }
   };
 
@@ -244,6 +328,110 @@ export default function DashboardPage() {
                   ))
                 )}
               </div>
+            </div>
+          </div>
+
+          <div className="mt-10 glass-panel p-6 rounded-xl">
+            <h3 className="font-semibold text-lg mb-4 text-white">Contact Messages Inbox</h3>
+            <div className="overflow-y-auto max-h-[400px] pr-2 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+              {messages.length === 0 ? (
+                <p className="text-sm text-[var(--accent-grey)] text-center mt-4 mb-4">No messages yet.</p>
+              ) : (
+                messages.map((msg, idx) => (
+                  <div key={idx} className="p-4 rounded-lg bg-white/5 border border-white/5">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <p className="text-white font-medium">{msg.name} <span className="text-sm text-gray-400 font-normal">({msg.email})</span></p>
+                        {msg.organization && <p className="text-[12px] text-[var(--columbia-blue-light)]">{msg.organization}</p>}
+                      </div>
+                      <span className="text-[10px] text-gray-500">
+                        {msg.createdAt?.seconds ? new Date(msg.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}
+                      </span>
+                    </div>
+                    <p className="text-sm text-[var(--accent-grey)] whitespace-pre-wrap">{msg.message}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 mt-10">
+            {/* Add Tip Form */}
+            <div className="glass-panel p-6 rounded-xl">
+              <h3 className="font-semibold text-lg mb-4 text-white">Add Interview Tip</h3>
+              <form onSubmit={handleAddTip} className="space-y-4">
+                <input
+                  type="text"
+                  required
+                  value={tipTitle}
+                  onChange={(e) => setTipTitle(e.target.value)}
+                  placeholder="Tip Title"
+                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                />
+                <textarea
+                  required
+                  value={tipContent}
+                  onChange={(e) => setTipContent(e.target.value)}
+                  placeholder="Tip Content"
+                  rows={3}
+                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner resize-none"
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
+                >
+                  Publish Tip
+                </button>
+              </form>
+            </div>
+
+            {/* Add Newsletter Form */}
+            <div className="glass-panel p-6 rounded-xl">
+              <h3 className="font-semibold text-lg mb-4 text-white">Add Newsletter</h3>
+              <form onSubmit={handleAddNewsletter} className="space-y-4">
+                <input
+                  type="text"
+                  required
+                  value={newsTitle}
+                  onChange={(e) => setNewsTitle(e.target.value)}
+                  placeholder="e.g. October 2026: Mid-Term Milestones"
+                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                />
+                <input
+                  type="text"
+                  required
+                  value={newsDate}
+                  onChange={(e) => setNewsDate(e.target.value)}
+                  placeholder="e.g. Oct 1, 2026"
+                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
+                >
+                  Publish Newsletter
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div className="mt-10">
+            {/* Add Event Form */}
+            <div className="glass-panel p-6 rounded-xl">
+              <h3 className="font-semibold text-lg mb-4 text-white">Add Upcoming Event</h3>
+              <form onSubmit={handleAddEvent} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" required value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} placeholder="Event Title" className="col-span-1 md:col-span-2 w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventDisplayDate} onChange={(e) => setEventDisplayDate(e.target.value)} placeholder="Display Date (e.g. Wednesday, April 22, 2026)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventDayOfWeek} onChange={(e) => setEventDayOfWeek(e.target.value)} placeholder="Day of Week (e.g. Wednesday)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventTime} onChange={(e) => setEventTime(e.target.value)} placeholder="Time (e.g. 7:00 PM - 9:00 PM)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} placeholder="Location (e.g. MLK 610)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventCategory} onChange={(e) => setEventCategory(e.target.value)} placeholder="Category (e.g. Panel)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="url" required value={eventRSVPLink} onChange={(e) => setEventRSVPLink(e.target.value)} placeholder="RSVP Link (e.g. Luma, Google Form)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+                <textarea required value={eventDescription} onChange={(e) => setEventDescription(e.target.value)} placeholder="Event Description" rows={3} className="col-span-1 md:col-span-2 w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner resize-none" />
+                <button type="submit" className="col-span-1 md:col-span-2 w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all">
+                  Publish Event
+                </button>
+              </form>
             </div>
           </div>
         </motion.div>

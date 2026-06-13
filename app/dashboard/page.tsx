@@ -183,76 +183,66 @@ export default function DashboardPage() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16 border border-emerald-500/20 bg-emerald-500/5 rounded-3xl p-8 relative overflow-hidden"
+          className="mb-16"
         >
-          <div className="absolute top-0 right-0 p-8 opacity-5 text-emerald-500 pointer-events-none">
-            <ShieldCheck size={160} />
-          </div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-2">
-              <ShieldCheck className="text-emerald-400" size={24} />
-              <h2 className="text-2xl font-serif text-emerald-400">Admin Control Panel</h2>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+              <ShieldCheck size={20} />
             </div>
-            <p className="text-[var(--accent-grey)] mb-8 max-w-2xl text-sm leading-relaxed">
-              You have administrator privileges. Use this panel to manually approve new members to the Columbia GS Business Society platform.
-            </p>
+            <h2 className="text-2xl font-serif">Admin Control Panel</h2>
+          </div>
 
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Whitelist Form */}
-              <div className="glass-panel bg-black/20 p-6 rounded-2xl border border-emerald-500/10">
-                <h3 className="flex items-center gap-2 text-lg font-semibold mb-6 text-white">
-                  <PlusCircle size={18} className="text-emerald-400" />
-                  Whitelist a New Member
-                </h3>
-                <form onSubmit={handleAddMember} className="space-y-5">
-                  <div>
-                    <input
-                      type="email"
-                      required
-                      value={emailInput}
-                      onChange={(e) => setEmailInput(e.target.value)}
-                      placeholder="student@columbia.edu"
-                      className="w-full bg-black/40 border border-white/5 px-4 py-3.5 focus:outline-none focus:border-emerald-500/50 text-white text-sm placeholder:text-white/20 rounded-xl transition-all"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={adminStatus === 'loading'}
-                    className="w-full flex items-center justify-center gap-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-medium text-sm px-6 py-3.5 rounded-xl transition-all border border-emerald-500/30 hover:border-emerald-500/50"
-                  >
-                    {adminStatus === 'loading' ? 'Processing...' : 'Approve Member'}
-                  </button>
-                  {adminMessage && (
-                    <p className={`text-sm text-center ${adminStatus === 'error' ? 'text-orange-400' : 'text-emerald-400'}`}>
-                      {adminMessage}
-                    </p>
-                  )}
-                </form>
-              </div>
-
-              {/* Member List */}
-              <div className="glass-panel bg-black/20 p-6 rounded-2xl border border-emerald-500/10 flex flex-col h-full min-h-[250px] max-h-[350px]">
-                <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-white">
-                  <Users size={18} className="text-emerald-400" />
-                  Approved Members Directory
-                </h3>
-                <div className="overflow-y-auto pr-2 space-y-2 flex-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                  {membersList.length === 0 ? (
-                    <p className="text-sm text-gray-500 text-center mt-10">No members found.</p>
-                  ) : (
-                    membersList.map((m, idx) => (
-                      <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                        <span className="text-sm text-gray-300">{m.email}</span>
-                        <span className={`text-[10px] px-2.5 py-1 rounded-md uppercase font-bold tracking-wider ${
-                          m.role === 'admin' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-white/10 text-gray-400 border border-white/10'
-                        }`}>
-                          {m.role || 'member'}
-                        </span>
-                      </div>
-                    ))
-                  )}
+          <div className="grid md:grid-cols-2 gap-10">
+            {/* Whitelist Form */}
+            <div className="glass-panel p-6 rounded-xl">
+              <h3 className="font-semibold text-lg mb-4 text-white">Whitelist a Member</h3>
+              <p className="text-[14px] text-[var(--accent-grey)] mb-6 font-light">
+                Enter the exact Columbia email address of the student to grant them access.
+              </p>
+              <form onSubmit={handleAddMember} className="space-y-4">
+                <div>
+                  <input
+                    type="email"
+                    required
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    placeholder="student@columbia.edu"
+                    className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                  />
                 </div>
+                <button
+                  type="submit"
+                  disabled={adminStatus === 'loading'}
+                  className="w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] active:scale-[0.98] disabled:opacity-50"
+                >
+                  {adminStatus === 'loading' ? 'Processing...' : 'Approve Member'}
+                </button>
+                {adminMessage && (
+                  <p className={`text-sm text-center mt-2 ${adminStatus === 'error' ? 'text-red-400' : 'text-[var(--columbia-blue-light)]'}`}>
+                    {adminMessage}
+                  </p>
+                )}
+              </form>
+            </div>
+
+            {/* Member List */}
+            <div className="glass-panel p-6 rounded-xl flex flex-col h-full max-h-[300px]">
+              <h3 className="font-semibold text-lg mb-4 text-white">Approved Directory</h3>
+              <div className="overflow-y-auto pr-2 space-y-2 flex-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                {membersList.length === 0 ? (
+                  <p className="text-sm text-[var(--accent-grey)] text-center mt-10">No members found.</p>
+                ) : (
+                  membersList.map((m, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                      <span className="text-sm text-gray-200">{m.email}</span>
+                      <span className={`text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider ${
+                        m.role === 'admin' ? 'bg-[var(--columbia-blue-light)]/20 text-[var(--columbia-blue-light)]' : 'bg-white/10 text-gray-400'
+                      }`}>
+                        {m.role || 'member'}
+                      </span>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

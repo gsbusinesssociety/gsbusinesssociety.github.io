@@ -20,8 +20,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col transition-colors duration-300">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col transition-colors duration-300" suppressHydrationWarning>
         <AuthProvider>
           <Navbar />
           <GoogleAnalytics gaId="G-ZY4HTMYZ76" />

@@ -501,12 +501,9 @@ export default function DashboardPage() {
                   <p className="text-sm text-[var(--accent-grey)] text-center mt-10">No members found.</p>
                 ) : (
                   membersList.map((m, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                      <div className="flex flex-col">
-                        <span className="text-sm text-gray-200">{m.name || 'No Name'}</span>
-                        <span className="text-xs text-[var(--columbia-blue-light)]">{m.email}</span>
-                      </div>
-                      <span className={`text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider ${
+                    <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                      <span className="text-sm text-gray-200 truncate flex-1">{m.email}</span>
+                      <span className={`shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider ${
                         m.role === 'admin' ? 'bg-[var(--columbia-blue-light)]/20 text-[var(--columbia-blue-light)]' : 
                         m.role === 'recruiter' ? 'bg-purple-500/20 text-purple-400' : 
                         'bg-white/10 text-gray-400'

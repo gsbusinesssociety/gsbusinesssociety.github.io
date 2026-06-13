@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #222222;      /* Slightly darker than #333 for better contrast */
-  /* This is a slightly deeper Columbia Blue for accessibility on white */
-  --columbia-blue: #0072CE;   /* Official Columbia Blue (Pantone 292 is too light for text) */
-  --accent-grey: #545659;     /* Darkened from #6D6E71 to pass 4.5:1 ratio */
+  /* Default to Dark Mode aesthetics, even in light mode, or make the whole site dark by default */
+  /* We will override light mode to look premium, but keep dark mode as the primary vibe */
+  --background: #09090b;
+  --foreground: #fafafa;
+  --columbia-blue: #0072CE;
+  --columbia-blue-light: #B9D9EB;
+  --accent-grey: #a1a1aa;
+  
+  /* Additional premium variables */
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(9, 9, 11, 0.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;    /* Standard Material Dark depth */
-    --foreground: #FFFFFF;
-    /* A very light version of Columbia Blue for dark mode text/icons */
-    --columbia-blue: #B9D9EB; 
-    --accent-grey: #A1A1A1;
-  }
+/* Force dark mode styling globally as requested by "dark mode dominant" */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(0, 114, 206, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(0, 114, 206, 0.05), transparent 25%);
+  background-attachment: fixed;
 }
 
-/* app/globals.css */
 @layer base {
   button, input, textarea, select, option {
     font-family: inherit !important;
   }
+}
+
+.glass-panel {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
 }

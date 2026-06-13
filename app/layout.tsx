@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "General Studies Business Society",
@@ -21,12 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col transition-colors duration-300">
-        <Navbar />
-        <GoogleAnalytics gaId="G-ZY4HTMYZ76" />
+        <AuthProvider>
+          <Navbar />
+          <GoogleAnalytics gaId="G-ZY4HTMYZ76" />
 
-        <main className="flex-grow">
-          {children}
-        </main>
+          <main className="flex-grow">
+            {children}
+          </main>
 
         <footer className="bg-[var(--background)] border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-6 py-16">
@@ -68,6 +70,7 @@ export default function RootLayout({
 
           </div>
         </footer>
+        </AuthProvider>
       </body>
     </html>
   );

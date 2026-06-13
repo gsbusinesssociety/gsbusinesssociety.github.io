@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { db } from '../../firebase/config';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Newsletter() {
   const [email, setEmail] = useState('');
@@ -11,51 +13,49 @@ export default function Newsletter() {
     setStatus('loading');
 
     try {
-      const response = await fetch("https://formspree.io/f/xdaleqqe", {
-        method: 'POST',
-        body: JSON.stringify({ email }),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+      // Use setDoc with the email as the Document ID so it ensures uniqueness
+      await setDoc(doc(db, 'newsletter_subscribers', email.toLowerCase()), {
+        email: email.toLowerCase(),
+        subscribedAt: serverTimestamp(),
       });
 
-      if (response.ok) {
-        setStatus('success');
-        setEmail('');
-      } else {
-        setStatus('error');
-      }
+      setStatus('success');
+      setEmail('');
     } catch (err) {
+      console.error("Error subscribing:", err);
       setStatus('error');
     }
   };
 
   return (
-    <section id="newsletter" className="py-24 bg-[var(--background)] transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+    <section id="newsletter" className="py-32 relative overflow-hidden">
+      
+      {/* Background Glow */}
+      <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-[var(--columbia-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-10 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="glass-panel p-10 md:p-16 rounded-3xl grid md:grid-cols-2 gap-16 items-center">
 
           {/* LEFT — Copy */}
-          <div className="space-y-5">
-            <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[var(--columbia-blue)]">
+          <div className="space-y-6">
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--columbia-blue-light)]">
               Newsletter
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl text-[var(--foreground)] leading-tight">
+            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
               Stay close to the community.
             </h2>
-            <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed max-w-sm">
-              Members receive early access to event invitations, RSVP links, and post-event recaps -- along with occasional spotlights on people doing interesting work.
+            <p className="text-[var(--accent-grey)] text-[15px] md:text-[16px] leading-relaxed max-w-sm font-light">
+              Members receive early access to event invitations, RSVP links, and post-event recaps—along with occasional spotlights on people doing interesting work.
             </p>
 
-            <ul className="pt-2 space-y-3">
+            <ul className="pt-2 space-y-4">
               {[
                 'Upcoming events & RSVP links',
                 'Member and alumni spotlights',
                 'Recaps from recent programming',
               ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-[var(--accent-grey)]">
-                  <span className="mt-[6px] shrink-0 w-1 h-1 rounded-full bg-[var(--columbia-blue)]" />
+                <li key={item} className="flex items-center gap-4 text-[14px] text-white">
+                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-[var(--columbia-blue-light)] shadow-[0_0_8px_rgba(185,217,235,0.6)]" />
                   {item}
                 </li>
               ))}
@@ -64,10 +64,10 @@ export default function Newsletter() {
 
           {/* RIGHT — Form */}
           <div>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="email-field" className="block text-xs font-medium text-[var(--foreground)] mb-2 tracking-wide">
-                  Email address
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-3">
+                <label htmlFor="email-field" className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--accent-grey)]">
+                  Email Address
                 </label>
                 <input
                   id="email-field"
@@ -77,43 +77,51 @@ export default function Newsletter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="uni@columbia.edu"
-                  className="w-full px-4 py-3.5 bg-gray-50 dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-700 text-[var(--foreground)] text-sm rounded-lg focus:outline-none focus:border-[var(--columbia-blue)] focus:ring-2 focus:ring-[var(--columbia-blue)]/10 transition-all placeholder:text-gray-400"
+                  className="w-full bg-white/5 border border-white/10 px-4 py-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="relative w-full bg-[#0072CE] hover:bg-[#005da8] active:scale-[0.99] text-white font-semibold py-3.5 px-6 rounded-lg text-sm transition-all duration-200 disabled:opacity-70 shadow-sm"
+                className="group w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100"
               >
                 <span className={`transition-opacity duration-200 ${status === 'loading' ? 'opacity-0' : 'opacity-100'}`}>
                   Subscribe
                 </span>
-                {status === 'loading' && (
+                {status === 'loading' ? (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
                   </div>
+                ) : (
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
                 )}
               </button>
 
-              <p className="text-[11px] text-gray-400 dark:text-gray-500">
-                No spam. Unsubscribe at any time.
-              </p>
+              <div className="flex justify-between items-center">
+                <p className="text-[11px] text-white/40 font-light">
+                  No spam. Unsubscribe at any time.
+                </p>
 
-              <div className="h-6">
-                {status === 'success' && (
-                  <p className="text-[var(--columbia-blue)] font-serif italic text-[15px] animate-in fade-in slide-in-from-bottom-1 duration-400">
-                    You're on the list.
-                  </p>
-                )}
-                {status === 'error' && (
-                  <p className="text-red-500 dark:text-red-400 text-sm animate-in fade-in duration-300">
-                    Something went wrong — please try again.
-                  </p>
-                )}
+                <div className="h-4">
+                  {status === 'success' && (
+                    <p className="text-[var(--columbia-blue-light)] font-serif italic text-[14px]">
+                      You're on the list.
+                    </p>
+                  )}
+                  {status === 'error' && (
+                    <p className="text-red-400 text-xs">
+                      Error—please try again.
+                    </p>
+                  )}
+                </div>
               </div>
             </form>
           </div>

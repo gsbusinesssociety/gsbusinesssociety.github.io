@@ -2,20 +2,20 @@ import Link from "next/link";
 import Newsletter from "./components/Newsletter";
 
 const programs = [
-    {
-    label: "Speaker & Recruiting Events",
+  {
+    label: "Alumni Mentorship",
     description:
-      "Mixers with professionals from McKinsey, Morgan Stanley, and beyond.",
+      "Direct access to GS alumni who have successfully navigated the exact paths you are pursuing.",
   },
   {
-    label: "Site Visits",
+    label: "Interview Prep",
     description:
-      "Behind-the-scenes access to firms like the NYSE trading floor and Insight Partners",
+      "Rigorous, highly-tailored preparation frameworks for technical and behavioral interviews across top firms.",
   },
   {
-    label: "Panel Discussions",
+    label: "Industry Guides",
     description:
-      "Cnversations about non-traditional paths into finance, consulting, and business.",
+      "Curated insider knowledge and step-by-step roadmaps designed specifically for the condensed timelines of GS students.",
   },
 ];
 
@@ -36,73 +36,64 @@ const ArrowRight = () => (
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--background)] transition-colors duration-300">
-
+    <main className="min-h-screen transition-colors duration-500">
       {/* ── OPENING ─────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 pt-24 pb-32">
+      <section className="max-w-7xl mx-auto px-6 pt-32 pb-32 relative">
+        {/* Glow effect behind text */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--columbia-blue)] rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-pulse-slow pointer-events-none"></div>
 
-        {/* Eyebrow */}
-        <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--columbia-blue)] mb-8">
-          Columbia University
-        </p>
+        <div className="relative z-10 animate-fade-in-up">
+          {/* Eyebrow */}
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--columbia-blue-light)] mb-8">
+            Columbia University
+          </p>
 
-        {/* Headline */}
-        <h1 className="font-serif text-5xl md:text-6xl lg:text-[4.5rem] text-[var(--foreground)] leading-[1.08] max-w-3xl mb-10">
-          General Studies Business Society
-        </h1>
+          {/* Headline */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5rem] text-white leading-[1.08] max-w-4xl mb-10 tracking-tight">
+            General Studies Business Society
+          </h1>
 
-        {/* Body — give it room */}
-        <p className="text-[var(--accent-grey)] text-lg leading-[1.8] max-w-xl mb-14">
-          GS students come from every kind of background -- veterans, career
-          changers, transfer students, working professionals. GSBS exists to
-          give that community the access, connections, and professional
-          foundation.
-        </p>
-
-        {/* CTAs */}
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 bg-[#0072CE] hover:bg-[#005da8] text-white font-semibold text-sm px-7 py-3.5 rounded-lg transition-all duration-200 shadow-sm active:scale-[0.99]"
-          >
-            Upcoming events <ArrowRight />
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent-grey)] hover:text-[var(--foreground)] border border-gray-200 dark:border-gray-700 px-7 py-3.5 rounded-lg transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
-          >
-            Partner with us <ArrowRight />
-          </Link>
+          {/* Body */}
+          <div className="space-y-6 text-[var(--accent-grey)] text-lg md:text-[1.15rem] leading-[1.8] max-w-3xl mb-14 font-light">
+            <p>
+              We started this society because the traditional recruiting timeline wasn't built for us. 
+              General Studies students don't follow a normal pattern—many of us are here for only two years, arriving as highly qualified, seasoned professionals.
+            </p>
+            <p>
+              Yet, despite that experience, navigating the competitive Columbia club scene can be incredibly difficult. 
+              GSBS is here to bridge that gap. We are the premier business society dedicated entirely to students with unique, non-traditional trajectories.
+            </p>
+          </div>
         </div>
-
       </section>
 
       {/* ── WHAT WE DO ──────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 py-32">
-
-        <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--columbia-blue)] mb-12">
+      <section className="max-w-7xl mx-auto px-6 py-32 relative z-10">
+        <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--columbia-blue-light)] mb-16 text-center">
           What We Do
         </p>
 
         {/* Three columns on desktop, stacked on mobile */}
-        <div className="grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-100 dark:divide-gray-800">
-          {programs.map((p) => (
-            <div key={p.label} className="py-10 md:py-0 md:px-10 first:md:pl-0 last:md:pr-0">
-              <h3 className="font-serif text-2xl text-[var(--foreground)] mb-4">
+        <div className="grid md:grid-cols-3 gap-8">
+          {programs.map((p, i) => (
+            <div 
+              key={p.label} 
+              className="glass-panel p-8 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,114,206,0.15)] group"
+              style={{ animationDelay: `${i * 150}ms` }}
+            >
+              <h3 className="font-serif text-2xl text-white mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
                 {p.label}
               </h3>
-              <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed">
+              <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                 {p.description}
               </p>
             </div>
           ))}
         </div>
-
       </section>
 
       {/* ── NEWSLETTER ──────────────────────────────────────────────────── */}
       <Newsletter />
-
     </main>
   );
 }

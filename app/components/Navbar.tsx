@@ -1,10 +1,11 @@
-/* Navbar*/
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
+import { motion } from "framer-motion";
 
 const InstagramIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -19,12 +20,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
+  const { user, loading, isAdmin } = useAuth();
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Events', href: '/events' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: "Home", href: "/" },
+    { name: "Events", href: "/events" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {
@@ -32,11 +34,11 @@ export default function Navbar() {
       if (window.innerWidth >= 768) setIsOpen(false);
     };
     const handleScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -44,39 +46,25 @@ export default function Navbar() {
     <nav
       className={`sticky top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? 'bg-[var(--background)]/95 backdrop-blur-md shadow-[0_1px_24px_0_rgba(0,0,0,0.07)] border-b border-gray-100 dark:border-gray-800'
-          : 'bg-[var(--background)]/80 backdrop-blur-sm border-b border-transparent'
+          ? "bg-[var(--background)]/70 backdrop-blur-xl shadow-[0_1px_30px_0_rgba(0,0,0,0.3)] border-b border-[var(--card-border)]"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-
-{/* LOGO */}
-        <Link 
-          href="/" 
-          className="group flex items-center p-1"
-        >
+        {/* LOGO */}
+        <Link href="/" className="group flex items-center p-1">
           <Image
             src="/big.png"
             alt="GS Business Society"
-            // Increased dimensions for more prominence
-            width={180} 
+            width={180}
             height={52}
-            className="
-              object-contain 
-              priority
-              dark:brightness-0 dark:invert 
-              /* Smooth transitions for all effects */
-              transition-all duration-300 ease-out
-              /* The subtle hover: slight scale and a soft drop-shadow */
-              group-hover:scale-105 
-              group-hover:drop-shadow-[0_0_8px_rgba(117,178,221,0.4)]
-              group-active:scale-95
-            "
+            className="object-contain priority dark:brightness-0 dark:invert transition-all duration-500 ease-out group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(185,217,235,0.3)]"
             priority
           />
         </Link>
+        
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-2">
           {navLinks.map((link, i) => {
             const isActive = pathname === link.href;
             return (
@@ -87,62 +75,78 @@ export default function Navbar() {
                 onMouseLeave={() => setHoveredIndex(null)}
                 className={`relative px-4 py-2 text-[13px] font-medium rounded-md transition-colors duration-200 group ${
                   isActive
-                    ? 'text-[var(--columbia-blue)]'
-                    : 'text-[var(--accent-grey)] hover:text-[var(--foreground)]'
+                    ? "text-[var(--columbia-blue-light)]"
+                    : "text-[var(--accent-grey)] hover:text-white"
                 }`}
               >
-                {/* hover pill */}
                 <span
-                  className={`absolute inset-0 rounded-md bg-[var(--columbia-blue)]/6 transition-opacity duration-200 ${
-                    hoveredIndex === i ? 'opacity-100' : 'opacity-0'
+                  className={`absolute inset-0 rounded-md bg-[var(--columbia-blue-light)]/10 transition-opacity duration-200 ${
+                    hoveredIndex === i ? "opacity-100" : "opacity-0"
                   }`}
                 />
                 <span className="relative">{link.name}</span>
-                {/* animated underline */}
                 <span
-                  className={`absolute bottom-1 left-4 right-4 h-[1.5px] bg-[var(--columbia-blue)] rounded-full transition-all duration-300 origin-left ${
+                  className={`absolute bottom-1 left-4 right-4 h-[1.5px] bg-[var(--columbia-blue-light)] rounded-full transition-all duration-300 origin-left ${
                     isActive
-                      ? 'scale-x-100 opacity-100'
-                      : 'scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-60'
+                      ? "scale-x-100 opacity-100"
+                      : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-60"
                   }`}
                 />
               </Link>
             );
           })}
 
-          {/* INSTAGRAM */}
           <a
             href="https://www.instagram.com/gsbs_columbia/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className="ml-3 p-2 rounded-md text-[var(--accent-grey)] hover:text-[var(--columbia-blue)] hover:bg-[var(--columbia-blue)]/6 transition-all duration-200 hover:scale-110 active:scale-95"
+            className="ml-2 p-2 rounded-md text-[var(--accent-grey)] hover:text-white hover:bg-white/5 transition-all duration-200 hover:scale-110 active:scale-95"
           >
             <InstagramIcon />
           </a>
+
+          {!loading && (
+            <div className="flex items-center gap-2 ml-4">
+              {isAdmin && (
+                <Link 
+                  href="/admin"
+                  className="px-4 py-2 text-[12px] font-semibold uppercase tracking-wider text-[var(--columbia-blue-light)] hover:text-white transition-colors duration-200"
+                >
+                  Admin
+                </Link>
+              )}
+              <Link 
+                href={user ? "/dashboard" : "/login"}
+                className="px-5 py-2 text-[13px] font-medium rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
+              >
+                {user ? "Dashboard" : "Member Login"}
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* MOBILE HAMBURGER */}
         <button
-          className="md:hidden text-[var(--foreground)] p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 focus:outline-none z-50"
+          className="md:hidden text-white p-2 rounded-md hover:bg-white/10 transition-colors duration-200 focus:outline-none z-50"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
           <div className="w-5 h-4 relative flex flex-col justify-between">
-            <span className={`h-[1.5px] w-full bg-current transform transition-all duration-300 ease-in-out ${isOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
-            <span className={`h-[1.5px] bg-current transition-all duration-200 ease-in-out ${isOpen ? 'opacity-0 w-0' : 'opacity-100 w-full'}`} />
-            <span className={`h-[1.5px] w-full bg-current transform transition-all duration-300 ease-in-out ${isOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+            <span className={`h-[1.5px] w-full bg-current transform transition-all duration-300 ease-in-out ${isOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`h-[1.5px] bg-current transition-all duration-200 ease-in-out ${isOpen ? "opacity-0 w-0" : "opacity-100 w-full"}`} />
+            <span className={`h-[1.5px] w-full bg-current transform transition-all duration-300 ease-in-out ${isOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </div>
         </button>
       </div>
 
       {/* MOBILE MENU */}
       <div
-        className={`absolute top-20 left-0 w-full bg-[var(--background)]/98 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
-          isOpen ? 'max-h-[400px] opacity-100 shadow-xl' : 'max-h-0 opacity-0 pointer-events-none'
+        className={`absolute top-20 left-0 w-full bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--card-border)] transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
+          isOpen ? "max-h-[500px] opacity-100 shadow-2xl" : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="px-6 py-6 space-y-1">
+        <div className="px-6 py-6 space-y-2">
           {navLinks.map((link, i) => {
             const isActive = pathname === link.href;
             return (
@@ -150,35 +154,41 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                style={{ transitionDelay: isOpen ? `${i * 40}ms` : '0ms' }}
-                className={`flex items-center gap-2 px-3 py-3 rounded-md text-[13px] font-medium transition-all duration-300 ${
-                  isOpen ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
+                style={{ transitionDelay: isOpen ? `${i * 40}ms` : "0ms" }}
+                className={`flex items-center gap-2 px-3 py-3 rounded-xl text-[13px] font-medium transition-all duration-300 ${
+                  isOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0"
                 } ${
                   isActive
-                    ? 'text-[var(--columbia-blue)] bg-[var(--columbia-blue)]/6'
-                    : 'text-[var(--accent-grey)] hover:text-[var(--foreground)] hover:bg-gray-50 dark:hover:bg-gray-900'
+                    ? "text-[var(--columbia-blue-light)] bg-[var(--columbia-blue-light)]/10"
+                    : "text-[var(--accent-grey)] hover:text-white hover:bg-white/5"
                 }`}
               >
-                {isActive && <span className="w-1 h-1 rounded-full bg-[var(--columbia-blue)] inline-block" />}
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[var(--columbia-blue-light)] inline-block" />}
                 {link.name}
               </Link>
             );
           })}
 
-          {/* INSTAGRAM in mobile */}
-          <a
-            href="https://www.instagram.com/gsbs_columbia/"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setIsOpen(false)}
-            style={{ transitionDelay: isOpen ? `${navLinks.length * 40}ms` : '0ms' }}
-            className={`flex items-center gap-3 px-3 py-3 rounded-md text-[13px] font-medium text-[var(--accent-grey)] hover:text-[var(--columbia-blue)] hover:bg-[var(--columbia-blue)]/6 transition-all duration-300 ${
-              isOpen ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
-            }`}
-          >
-            <InstagramIcon />
-            Instagram
-          </a>
+          {!loading && (
+            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-white/5">
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 rounded-xl text-[13px] font-medium text-[var(--columbia-blue-light)] hover:bg-white/5 transition-all duration-300"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
+              <Link
+                href={user ? "/dashboard" : "/login"}
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-3 py-3 rounded-xl text-[13px] font-medium text-[var(--accent-grey)] hover:text-white hover:bg-white/5 transition-all duration-300"
+              >
+                {user ? "Dashboard" : "Member Login"}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

@@ -362,7 +362,7 @@ export default function DashboardPage() {
                   {membersList.filter(m => m.role === 'member').map((m, idx) => (
                     <tr key={idx} className="hover:bg-white/5 transition-colors">
                       <td className="py-4 pr-4 font-medium text-white">{m.name || 'N/A'}</td>
-                      <td className="py-4 px-4 text-gray-300">{m.email}</td>
+                      <td className="py-4 px-4 text-gray-300">{m.email || m.id}</td>
                       <td className="py-4 px-4 text-gray-300">{m.major || '-'}</td>
                       <td className="py-4 px-4 text-gray-300">{m.gradYear || '-'}</td>
                       <td className="py-4 px-4 text-right space-x-3">
@@ -502,7 +502,7 @@ export default function DashboardPage() {
                 ) : (
                   membersList.map((m, idx) => (
                     <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
-                      <span className="text-sm text-gray-200 truncate flex-1">{m.email}</span>
+                      <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
                       <span className={`shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider ${
                         m.role === 'admin' ? 'bg-[var(--columbia-blue-light)]/20 text-[var(--columbia-blue-light)]' : 
                         m.role === 'recruiter' ? 'bg-purple-500/20 text-purple-400' : 

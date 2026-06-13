@@ -42,8 +42,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setUser(null);
             setIsAdmin(false);
           }
-        } catch (err) {
+        } catch (err: any) {
           console.error("Error checking member access", err);
+          alert("Database Error: " + err.message);
           await firebaseSignOut(auth);
           setUser(null);
           setIsAdmin(false);

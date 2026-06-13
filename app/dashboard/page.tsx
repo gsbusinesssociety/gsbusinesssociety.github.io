@@ -35,6 +35,7 @@ export default function DashboardPage() {
 
   // Admin Panel states
   const [emailInput, setEmailInput] = useState("");
+  const [nameInput, setNameInput] = useState("");
   const [adminStatus, setAdminStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [adminMessage, setAdminMessage] = useState("");
 
@@ -139,6 +140,7 @@ export default function DashboardPage() {
       await Promise.race([
         setDoc(doc(db, "members", sanitizedEmail), {
           email: sanitizedEmail,
+          name: nameInput.trim(),
           role: "member",
           addedAt: serverTimestamp(),
           addedBy: user?.email
@@ -146,9 +148,21 @@ export default function DashboardPage() {
         timeoutPromise
       ]);
       
+      // Trigger Welcome Email
+      try {
+        await fetch('/api/send-welcome', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: sanitizedEmail, name: nameInput.trim() })
+        });
+      } catch (emailErr) {
+        console.error("Failed to send welcome email:", emailErr);
+      }
+      
       setAdminStatus('success');
       setAdminMessage(`${sanitizedEmail} has been added to the whitelist!`);
       setEmailInput('');
+      setNameInput('');
       
       // Optimistically add to local list so they don't have to refresh
       setMembersList(prev => [...prev, { id: sanitizedEmail, email: sanitizedEmail, role: "member" }]);
@@ -285,6 +299,14 @@ export default function DashboardPage() {
               </p>
               <form onSubmit={handleAddMember} className="space-y-4">
                 <div>
+                  <input
+                    type="text"
+                    required
+                    value={nameInput}
+                    onChange={(e) => setNameInput(e.target.value)}
+                    placeholder="Student Name"
+                    className="w-full bg-white/5 border border-white/10 px-4 py-3 mb-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                  />
                   <input
                     type="email"
                     required

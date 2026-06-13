@@ -108,14 +108,7 @@ export default function Navbar() {
 
           {!loading && (
             <div className="flex items-center gap-2 ml-4">
-              {isAdmin && (
-                <Link 
-                  href="/admin"
-                  className="px-4 py-2 text-[12px] font-semibold uppercase tracking-wider text-[var(--columbia-blue-light)] hover:text-white transition-colors duration-200"
-                >
-                  Admin
-                </Link>
-              )}
+
               <Link 
                 href={user ? "/dashboard" : "/login"}
                 className="px-5 py-2 text-[13px] font-medium rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
@@ -171,15 +164,7 @@ export default function Navbar() {
 
           {!loading && (
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-white/5">
-              {isAdmin && (
-                <Link
-                  href="/admin"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 px-3 py-3 rounded-xl text-[13px] font-medium text-[var(--columbia-blue-light)] hover:bg-white/5 transition-all duration-300"
-                >
-                  Admin Dashboard
-                </Link>
-              )}
+
               <Link
                 href={user ? "/dashboard" : "/login"}
                 onClick={() => setIsOpen(false)}

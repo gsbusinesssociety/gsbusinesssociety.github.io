@@ -32,7 +32,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser && currentUser.email) {
         try {
-          const memberDoc = await getDoc(doc(db, "members", currentUser.email));
+          const sanitizedEmail = currentUser.email.toLowerCase().trim();
+          const memberDoc = await getDoc(doc(db, "members", sanitizedEmail));
           if (memberDoc.exists()) {
             setUser(currentUser);
             setIsAdmin(memberDoc.data().role === "admin");

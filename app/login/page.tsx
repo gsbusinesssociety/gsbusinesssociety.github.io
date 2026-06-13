@@ -20,8 +20,8 @@ export default function LoginPage() {
       const result = await signInWithPopup(auth, provider);
       const email = result.user.email;
 
-      // Restrict to @columbia.edu
-      if (email && !email.endsWith("@columbia.edu")) {
+      // Restrict to columbia.edu (handles aliases like @lionmail.columbia.edu)
+      if (email && !email.toLowerCase().endsWith("columbia.edu")) {
         await auth.signOut();
         setError("Please sign in with your @columbia.edu email address.");
         return;
@@ -29,7 +29,8 @@ export default function LoginPage() {
 
       // Check if they are an approved member
       if (email) {
-        const memberDoc = await getDoc(doc(db, "members", email));
+        const sanitizedEmail = email.toLowerCase().trim();
+        const memberDoc = await getDoc(doc(db, "members", sanitizedEmail));
         if (!memberDoc.exists()) {
           await auth.signOut();
           setError("Your account is not on the approved members list. Please contact the club admins.");

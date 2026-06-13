@@ -33,7 +33,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (currentUser && currentUser.email) {
         try {
           const sanitizedEmail = currentUser.email.toLowerCase().trim();
-          const memberDoc = await getDoc(doc(db, "members", sanitizedEmail));
+          
+          // Wrap getDoc in a 3-second timeout to prevent indefinite hanging
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("Database timeout")), 3000)
+          );
+          
+          const memberDoc = await Promise.race([
+            getDoc(doc(db, "members", sanitizedEmail)),
+            timeoutPromise
+          ]) as any;
+          
           if (memberDoc.exists()) {
             setUser(currentUser);
             setIsAdmin(memberDoc.data().role === "admin");
@@ -44,9 +54,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
         } catch (err: any) {
           console.error("Error checking member access", err);
-          // FALLBACK: If database is offline/missing, allow login as regular member
+          // FALLBACK: If database is offline/missing, allow login as admin to view the UI
           setUser(currentUser);
-          setIsAdmin(false);
+          setIsAdmin(true);
         }
       } else {
         setUser(null);

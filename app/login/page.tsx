@@ -33,7 +33,16 @@ export default function LoginPage() {
       if (email) {
         try {
           const sanitizedEmail = email.toLowerCase().trim();
-          const memberDoc = await getDoc(doc(db, "members", sanitizedEmail));
+          
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("Database timeout")), 3000)
+          );
+          
+          const memberDoc = await Promise.race([
+            getDoc(doc(db, "members", sanitizedEmail)),
+            timeoutPromise
+          ]) as any;
+          
           if (!memberDoc.exists()) {
             await auth.signOut();
             const msg = "Your account is not on the approved members list. Please contact the club admins.";

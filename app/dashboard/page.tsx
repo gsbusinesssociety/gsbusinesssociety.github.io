@@ -494,24 +494,64 @@ export default function DashboardPage() {
             </div>
 
             {/* Member List */}
-            <div className="glass-panel p-6 rounded-xl flex flex-col h-full max-h-[300px]">
+            <div className="glass-panel p-6 rounded-xl flex flex-col h-full max-h-[400px]">
               <h3 className="font-semibold text-lg mb-4 text-white">Approved Directory</h3>
-              <div className="overflow-y-auto pr-2 space-y-2 flex-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+              <div className="overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                 {membersList.length === 0 ? (
                   <p className="text-sm text-[var(--accent-grey)] text-center mt-10">No members found.</p>
                 ) : (
-                  membersList.map((m, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
-                      <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
-                      <span className={`shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider ${
-                        m.role === 'admin' ? 'bg-[var(--columbia-blue-light)]/20 text-[var(--columbia-blue-light)]' : 
-                        m.role === 'recruiter' ? 'bg-purple-500/20 text-purple-400' : 
-                        'bg-white/10 text-gray-400'
-                      }`}>
-                        {m.role || 'member'}
-                      </span>
-                    </div>
-                  ))
+                  <div className="space-y-6">
+                    {/* Admins */}
+                    {membersList.filter(m => m.role === 'admin').length > 0 && (
+                      <div>
+                        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 border-b border-white/10 pb-1">Admins</h4>
+                        <div className="space-y-2">
+                          {membersList.filter(m => m.role === 'admin').map((m, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                              <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
+                              <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-[var(--columbia-blue-light)]/20 text-[var(--columbia-blue-light)]">
+                                Admin
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Recruiters */}
+                    {membersList.filter(m => m.role === 'recruiter').length > 0 && (
+                      <div>
+                        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 border-b border-white/10 pb-1">Recruiters</h4>
+                        <div className="space-y-2">
+                          {membersList.filter(m => m.role === 'recruiter').map((m, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                              <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
+                              <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-purple-500/20 text-purple-400">
+                                Recruiter
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Members */}
+                    {membersList.filter(m => !m.role || m.role === 'member').length > 0 && (
+                      <div>
+                        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 border-b border-white/10 pb-1">Members</h4>
+                        <div className="space-y-2">
+                          {membersList.filter(m => !m.role || m.role === 'member').map((m, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                              <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
+                              <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-white/10 text-gray-400">
+                                Member
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             </div>

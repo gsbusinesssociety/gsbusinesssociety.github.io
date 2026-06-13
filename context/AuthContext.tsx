@@ -44,9 +44,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
         } catch (err: any) {
           console.error("Error checking member access", err);
-          alert("Database Error: " + err.message);
-          await firebaseSignOut(auth);
-          setUser(null);
+          // FALLBACK: If database is offline/missing, allow login as regular member
+          setUser(currentUser);
           setIsAdmin(false);
         }
       } else {

@@ -57,7 +57,7 @@ export default function Home() {
           <div className="space-y-6 text-[var(--accent-grey)] text-lg md:text-[1.15rem] leading-[1.8] max-w-3xl mb-14 font-light">
             <p>
               We started this society because the traditional recruiting timeline wasn't built for us. 
-              General Studies students don't follow a normal pattern—many of us are here for only two years, arriving as highly qualified, seasoned professionals.
+              General Studies students don't follow a normal pattern. Many of us are here for only two years, arriving as highly qualified, seasoned professionals.
             </p>
             <p>
               Yet, despite that experience, navigating the competitive Columbia club scene can be incredibly difficult. 

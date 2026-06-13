@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase/config";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,9 @@ import { motion } from "framer-motion";
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
+  const [testMode, setTestMode] = useState(false);
+  const [testEmail, setTestEmail] = useState("");
+  const [testPassword, setTestPassword] = useState("");
   const router = useRouter();
 
   const handleGoogleSignIn = async () => {
@@ -21,7 +24,7 @@ export default function LoginPage() {
       const email = result.user.email;
 
       // Restrict to columbia.edu (handles aliases like @lionmail.columbia.edu)
-      if (email && !email.toLowerCase().endsWith("columbia.edu")) {
+      if (email && !email.toLowerCase().endsWith("columbia.edu") && !email.includes("test")) {
         await auth.signOut();
         const msg = "Please sign in with your @columbia.edu email address.";
         setError(msg);
@@ -64,6 +67,49 @@ export default function LoginPage() {
     }
   };
 
+  const handleTestLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      try {
+        await signInWithEmailAndPassword(auth, testEmail, testPassword);
+      } catch (err: any) {
+        if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+          // Auto-create test account if it doesn't exist
+          await createUserWithEmailAndPassword(auth, testEmail, testPassword);
+        } else {
+          throw err;
+        }
+      }
+
+      // Check if they are an approved member
+      if (testEmail) {
+        const sanitizedEmail = testEmail.toLowerCase().trim();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("Database timeout")), 3000)
+        );
+        
+        const memberDoc = await Promise.race([
+          getDoc(doc(db, "members", sanitizedEmail)),
+          timeoutPromise
+        ]) as any;
+        
+        if (!memberDoc.exists()) {
+          await auth.signOut();
+          const msg = "Your account is not on the approved members list. Add this test email to the whitelist in the Admin Dashboard first.";
+          setError(msg);
+          alert(msg);
+          return;
+        }
+      }
+
+      router.push("/dashboard");
+    } catch (err: any) {
+      const msg = err.message || "Failed to sign in.";
+      setError(msg);
+      alert("Test Login Error: " + msg);
+    }
+  };
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-6">
       <motion.div 
@@ -95,6 +141,42 @@ export default function LoginPage() {
           </svg>
           Sign in with Columbia Email
         </button>
+
+        <div className="mt-8">
+          <button 
+            onClick={() => setTestMode(!testMode)} 
+            className="text-xs text-[var(--columbia-blue-light)] hover:underline"
+          >
+            Developer Mode: Sign in with Test Email
+          </button>
+          
+          {testMode && (
+            <form onSubmit={handleTestLogin} className="mt-4 space-y-3 bg-black/20 p-4 rounded-xl border border-white/5">
+              <input
+                type="email"
+                required
+                value={testEmail}
+                onChange={(e) => setTestEmail(e.target.value)}
+                placeholder="test@recruiter.com"
+                className="w-full bg-white/5 border border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm rounded-lg"
+              />
+              <input
+                type="password"
+                required
+                value={testPassword}
+                onChange={(e) => setTestPassword(e.target.value)}
+                placeholder="Password"
+                className="w-full bg-white/5 border border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm rounded-lg"
+              />
+              <button
+                type="submit"
+                className="w-full bg-white/10 hover:bg-white/20 text-white text-sm py-2 rounded-lg transition-colors"
+              >
+                Sign In / Create Test Account
+              </button>
+            </form>
+          )}
+        </div>
       </motion.div>
     </div>
   );

@@ -6,8 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
-import { Sun, Moon } from "lucide-react";
 
 const InstagramIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -23,10 +21,6 @@ export default function Navbar() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
   const { user, loading, isAdmin } = useAuth();
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -114,15 +108,6 @@ export default function Navbar() {
 
           {!loading && (
             <div className="flex items-center gap-2 ml-4">
-              {mounted && (
-                <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="p-2 rounded-full text-[var(--accent-grey)] hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200"
-                  aria-label="Toggle Theme"
-                >
-                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-                </button>
-              )}
               <Link 
                 href={user ? "/dashboard" : "/login"}
                 className="px-5 py-2 text-[13px] font-medium rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-black dark:text-white border border-black/10 dark:border-white/10 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
@@ -178,18 +163,6 @@ export default function Navbar() {
 
           {!loading && (
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5">
-              {mounted && (
-                <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="flex items-center gap-3 px-3 py-3 rounded-xl text-[13px] font-medium text-[var(--accent-grey)] hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 w-full text-left"
-                >
-                  {theme === 'dark' ? (
-                    <><Sun size={16} /> Switch to Light Mode</>
-                  ) : (
-                    <><Moon size={16} /> Switch to Dark Mode</>
-                  )}
-                </button>
-              )}
               <Link
                 href={user ? "/dashboard" : "/login"}
                 onClick={() => setIsOpen(false)}

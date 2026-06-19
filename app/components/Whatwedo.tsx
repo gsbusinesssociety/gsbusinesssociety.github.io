@@ -59,7 +59,7 @@ export default function WhatWeDo() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 bg-[#0072CE] hover:bg-[#005da8] text-white font-semibold text-sm px-6 py-3 rounded-lg transition-all duration-200 shadow-sm active:scale-[0.99]"
+            className="inline-flex items-center gap-2 bg-[#0072CE] hover:bg-[#005da8] text-black dark:text-white font-semibold text-sm px-6 py-3 rounded-lg transition-all duration-200 shadow-sm active:scale-[0.99]"
           >
             See upcoming events
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">

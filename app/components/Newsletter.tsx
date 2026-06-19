@@ -41,7 +41,7 @@ export default function Newsletter() {
             <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--columbia-blue-light)]">
               Newsletter
             </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
+            <h2 className="font-serif text-3xl md:text-5xl text-black dark:text-white leading-tight">
               Stay close to the community.
             </h2>
             <p className="text-[var(--accent-grey)] text-[15px] md:text-[16px] leading-relaxed max-w-sm font-light">
@@ -54,7 +54,7 @@ export default function Newsletter() {
                 'Member and alumni spotlights',
                 'Recaps from recent programming',
               ].map((item) => (
-                <li key={item} className="flex items-center gap-4 text-[14px] text-white">
+                <li key={item} className="flex items-center gap-4 text-[14px] text-black dark:text-white">
                   <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-[var(--columbia-blue-light)] shadow-[0_0_8px_rgba(185,217,235,0.6)]" />
                   {item}
                 </li>
@@ -77,7 +77,7 @@ export default function Newsletter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="uni@columbia.edu"
-                  className="w-full bg-white/5 border border-white/10 px-4 py-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
                 />
               </div>
 
@@ -106,7 +106,7 @@ export default function Newsletter() {
               </button>
 
               <div className="flex justify-between items-center">
-                <p className="text-[11px] text-white/40 font-light">
+                <p className="text-[11px] text-black dark:text-white/40 font-light">
                   No spam. Unsubscribe at any time.
                 </p>
 
@@ -117,7 +117,7 @@ export default function Newsletter() {
                     </p>
                   )}
                   {status === 'error' && (
-                    <p className="text-red-400 text-xs">
+                    <p className="text-red-600 dark:text-red-400 text-xs">
                       Error—please try again.
                     </p>
                   )}

@@ -84,7 +84,7 @@ export default function EventsPage() {
 
       {/* ── UPCOMING EVENTS ───────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 pt-32 pb-32 relative z-10">
-        <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--accent-grey)] mb-12 border-b border-white/10 pb-4">
+        <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--accent-grey)] mb-12 border-b border-black/10 dark:border-white/10 pb-4">
           Upcoming Events
         </p>
 
@@ -104,7 +104,7 @@ export default function EventsPage() {
                     <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--columbia-blue-light)] mb-2">
                       {event.dayOfWeek}
                     </p>
-                    <p className="font-serif text-white text-2xl leading-snug mb-2">
+                    <p className="font-serif text-black dark:text-white text-2xl leading-snug mb-2">
                       {event.displayDate}
                     </p>
                     <p className="text-[13px] text-[var(--accent-grey)] font-light">
@@ -114,16 +114,16 @@ export default function EventsPage() {
 
                   {/* Content column */}
                   <div>
-                    <p className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-semibold tracking-[0.18em] uppercase text-white mb-4">
+                    <p className="inline-block px-3 py-1 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-[9px] font-semibold tracking-[0.18em] uppercase text-black dark:text-white mb-4">
                       {event.category}
                     </p>
-                    <h3 className="font-serif text-3xl text-white leading-tight mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
+                    <h3 className="font-serif text-3xl text-black dark:text-white leading-tight mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
                       {event.title}
                     </h3>
                     <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed font-light mb-4">
                       {event.description}
                     </p>
-                    <div className="flex items-center gap-2 text-[13px] text-white/60 font-light">
+                    <div className="flex items-center gap-2 text-[13px] text-black dark:text-white/60 font-light">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
@@ -146,7 +146,7 @@ export default function EventsPage() {
                       href={gCalLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 text-sm font-medium text-white/70 hover:text-white bg-white/5 border border-white/10 hover:bg-white/10 px-6 py-3 rounded-xl transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
+                      className="inline-flex items-center justify-center gap-2 text-sm font-medium text-black dark:text-white/70 hover:text-black dark:text-white bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 px-6 py-3 rounded-xl transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
                     >
                       + Calendar
                     </a>
@@ -156,7 +156,7 @@ export default function EventsPage() {
             })}
           </div>
         ) : (
-          <div className="glass-panel p-10 rounded-3xl text-center border-dashed border-white/10">
+          <div className="glass-panel p-10 rounded-3xl text-center border-dashed border-black/10 dark:border-white/10">
             <p className="text-[var(--accent-grey)] text-[15px] font-light">
               New events for the upcoming semester will be announced shortly.
             </p>
@@ -166,7 +166,7 @@ export default function EventsPage() {
 
       {/* ── PAST HIGHLIGHTS ───────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 relative z-10">
-        <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--accent-grey)] mb-12 border-b border-white/10 pb-4">
+        <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--accent-grey)] mb-12 border-b border-black/10 dark:border-white/10 pb-4">
           Past Highlights
         </p>
 
@@ -177,13 +177,13 @@ export default function EventsPage() {
               className="group glass-panel p-6 rounded-3xl flex flex-col h-full transition-all duration-500 hover:bg-white/[0.04]"
             >
               {/* Image */}
-              <div className="relative aspect-video bg-white/5 mb-6 overflow-hidden rounded-xl ring-1 ring-white/5">
+              <div className="relative aspect-video bg-black/5 dark:bg-white/5 mb-6 overflow-hidden rounded-xl ring-1 ring-white/5">
                 <img
                   src={event.image}
                   alt={event.title}
                   className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-[9px] font-semibold uppercase tracking-widest text-white">
+                <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 text-[9px] font-semibold uppercase tracking-widest text-black dark:text-white">
                   {event.category}
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function EventsPage() {
 
               {/* Content */}
               <div className="flex flex-col flex-grow">
-                <h3 className="font-serif text-2xl text-white leading-tight mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
+                <h3 className="font-serif text-2xl text-black dark:text-white leading-tight mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
                   {event.title}
                 </h3>
                 <p className="text-[14px] text-[var(--accent-grey)] font-light leading-relaxed mb-8 flex-grow">
@@ -205,7 +205,7 @@ export default function EventsPage() {
                   href={event.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white hover:text-[var(--columbia-blue-light)] transition-colors duration-300 w-fit group/link"
+                  className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-black dark:text-white hover:text-[var(--columbia-blue-light)] transition-colors duration-300 w-fit group/link"
                 >
                   View on LinkedIn
                   <span className="group-hover/link:translate-x-1 transition-transform duration-300">

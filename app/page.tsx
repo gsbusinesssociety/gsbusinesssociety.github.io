@@ -49,7 +49,7 @@ export default function Home() {
           </p>
 
           {/* Headline */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5rem] text-white leading-[1.08] max-w-4xl mb-10 tracking-tight">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5rem] text-black dark:text-white leading-[1.08] max-w-4xl mb-10 tracking-tight">
             General Studies Business Society
           </h1>
 
@@ -78,13 +78,13 @@ export default function Home() {
           {programs.map((p, i) => (
             <div 
               key={p.label} 
-              className="glass-panel p-8 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,114,206,0.15)] group"
+              className="glass-panel p-8 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[0.05] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,114,206,0.15)] group"
               style={{ animationDelay: `${i * 150}ms` }}
             >
-              <h3 className="font-serif text-2xl text-white mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
+              <h3 className="font-serif text-2xl text-black dark:text-white mb-4 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
                 {p.label}
               </h3>
-              <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+              <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
                 {p.description}
               </p>
             </div>

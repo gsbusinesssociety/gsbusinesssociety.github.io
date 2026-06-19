@@ -33,10 +33,10 @@ export default function AboutPage() {
               href={member.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-center text-center p-4 rounded-2xl hover:bg-white/[0.03] transition-all duration-300"
+              className="group flex flex-col items-center text-center p-4 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[0.03] transition-all duration-300"
             >
               {/* Photo */}
-              <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-white/5 mb-5 grayscale group-hover:grayscale-0 ring-1 ring-white/10 group-hover:ring-[var(--columbia-blue-light)]/50 group-hover:shadow-[0_0_20px_rgba(185,217,235,0.2)] transition-all duration-500 group-hover:-translate-y-1">
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-black/5 dark:bg-white/5 mb-5 grayscale group-hover:grayscale-0 ring-1 ring-black/10 dark:ring-white/10 group-hover:ring-[var(--columbia-blue-light)]/50 group-hover:shadow-[0_0_20px_rgba(185,217,235,0.2)] transition-all duration-500 group-hover:-translate-y-1">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -45,7 +45,7 @@ export default function AboutPage() {
               </div>
 
               {/* Name */}
-              <p className="font-serif text-[16px] text-white leading-tight mb-1 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
+              <p className="font-serif text-[16px] text-black dark:text-white leading-tight mb-1 group-hover:text-[var(--columbia-blue-light)] transition-colors duration-300">
                 {member.name}
               </p>
 
@@ -69,7 +69,7 @@ export default function AboutPage() {
           <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[var(--columbia-blue-light)] mb-4">
             Get Involved
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl text-white leading-tight mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-black dark:text-white leading-tight mb-6">
             Join the board.
           </h2>
           <p className="text-[var(--accent-grey)] text-[16px] leading-relaxed mx-auto max-w-xl mb-8">
@@ -77,7 +77,7 @@ export default function AboutPage() {
             every semester. If you're a GS student looking to build the org from
             the inside, we'd love to hear from you.
           </p>
-          <div className="inline-block px-6 py-3 rounded-full border border-white/10 bg-white/5 text-[13px] text-[var(--accent-grey)] italic">
+          <div className="inline-block px-6 py-3 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-[13px] text-[var(--accent-grey)] italic">
             Applications open each semester
           </div>
         </div>

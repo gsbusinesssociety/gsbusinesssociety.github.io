@@ -339,18 +339,18 @@ export default function DashboardPage() {
           </div>
           <button 
             onClick={signOut}
-            className="flex items-center gap-2 text-sm text-[var(--accent-grey)] hover:text-white transition-colors glass-panel px-4 py-2 rounded-lg"
+            className="flex items-center gap-2 text-sm text-[var(--accent-grey)] hover:text-black dark:text-white transition-colors glass-panel px-4 py-2 rounded-lg"
           >
             <LogOut size={16} /> Sign Out
           </button>
         </div>
         
         <div className="glass-panel p-6 rounded-xl">
-            <h2 className="text-2xl font-serif mb-6 text-white">GSBS Resume Book</h2>
+            <h2 className="text-2xl font-serif mb-6 text-black dark:text-white">GSBS Resume Book</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-white/10 text-[var(--columbia-blue-light)] uppercase tracking-wider text-xs">
+                  <tr className="border-b border-black/10 dark:border-white/10 text-[var(--columbia-blue-light)] uppercase tracking-wider text-xs">
                     <th className="pb-3 pr-4">Name</th>
                     <th className="pb-3 px-4">Email</th>
                     <th className="pb-3 px-4">Major</th>
@@ -360,14 +360,14 @@ export default function DashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-white/5 text-sm">
                   {membersList.filter(m => m.role === 'member').map((m, idx) => (
-                    <tr key={idx} className="hover:bg-white/5 transition-colors">
-                      <td className="py-4 pr-4 font-medium text-white">{m.name || 'N/A'}</td>
-                      <td className="py-4 px-4 text-gray-300">{m.email || m.id}</td>
-                      <td className="py-4 px-4 text-gray-300">{m.major || '-'}</td>
-                      <td className="py-4 px-4 text-gray-300">{m.gradYear || '-'}</td>
+                    <tr key={idx} className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                      <td className="py-4 pr-4 font-medium text-black dark:text-white">{m.name || 'N/A'}</td>
+                      <td className="py-4 px-4 text-gray-700 dark:text-gray-300">{m.email || m.id}</td>
+                      <td className="py-4 px-4 text-gray-700 dark:text-gray-300">{m.major || '-'}</td>
+                      <td className="py-4 px-4 text-gray-700 dark:text-gray-300">{m.gradYear || '-'}</td>
                       <td className="py-4 px-4 text-right space-x-3">
-                        {m.linkedIn ? <a href={m.linkedIn} target="_blank" rel="noreferrer" className="text-[var(--columbia-blue-light)] hover:text-white transition-colors">LinkedIn</a> : <span className="text-gray-600">No LinkedIn</span>}
-                        {m.resumeLink ? <a href={m.resumeLink} target="_blank" rel="noreferrer" className="text-emerald-400 hover:text-white transition-colors">Resume</a> : <span className="text-gray-600">No Resume</span>}
+                        {m.linkedIn ? <a href={m.linkedIn} target="_blank" rel="noreferrer" className="text-[var(--columbia-blue-light)] hover:text-black dark:text-white transition-colors">LinkedIn</a> : <span className="text-gray-600">No LinkedIn</span>}
+                        {m.resumeLink ? <a href={m.resumeLink} target="_blank" rel="noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:text-black dark:text-white transition-colors">Resume</a> : <span className="text-gray-600">No Resume</span>}
                       </td>
                     </tr>
                   ))}
@@ -393,7 +393,7 @@ export default function DashboardPage() {
         </div>
         <button 
           onClick={signOut}
-          className="flex items-center gap-2 text-sm text-[var(--accent-grey)] hover:text-white transition-colors glass-panel px-4 py-2 rounded-lg"
+          className="flex items-center gap-2 text-sm text-[var(--accent-grey)] hover:text-black dark:text-white transition-colors glass-panel px-4 py-2 rounded-lg"
         >
           <LogOut size={16} /> Sign Out
         </button>
@@ -416,10 +416,10 @@ export default function DashboardPage() {
             Keep your profile updated. This information is shared securely with our partner recruiters in the GSBS Resume Book.
           </p>
           <form onSubmit={handleUpdateProfile} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" value={profileMajor} onChange={(e) => setProfileMajor(e.target.value)} placeholder="Major (e.g. Economics)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-            <input type="text" value={profileGradYear} onChange={(e) => setProfileGradYear(e.target.value)} placeholder="Graduation Year (e.g. 2026)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-            <input type="url" value={profileLinkedIn} onChange={(e) => setProfileLinkedIn(e.target.value)} placeholder="LinkedIn URL" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-            <input type="url" value={profileResume} onChange={(e) => setProfileResume(e.target.value)} placeholder="Resume Link (Google Drive, Dropbox, etc.)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
+            <input type="text" value={profileMajor} onChange={(e) => setProfileMajor(e.target.value)} placeholder="Major (e.g. Economics)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+            <input type="text" value={profileGradYear} onChange={(e) => setProfileGradYear(e.target.value)} placeholder="Graduation Year (e.g. 2026)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+            <input type="url" value={profileLinkedIn} onChange={(e) => setProfileLinkedIn(e.target.value)} placeholder="LinkedIn URL" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+            <input type="url" value={profileResume} onChange={(e) => setProfileResume(e.target.value)} placeholder="Resume Link (Google Drive, Dropbox, etc.)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
             <div className="col-span-1 md:col-span-2 mt-2">
               <button type="submit" disabled={profileStatus === 'loading'} className="bg-[var(--columbia-blue)] text-[#0a192f] hover:bg-[var(--columbia-blue-light)] font-semibold text-sm px-6 py-3 rounded-xl transition-all w-full md:w-auto min-w-[150px]">
                 {profileStatus === 'loading' ? 'Saving...' : profileStatus === 'success' ? 'Saved!' : 'Save Profile'}
@@ -437,7 +437,7 @@ export default function DashboardPage() {
           className="mb-16"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+            <div className="p-2 bg-emerald-500/10 dark:bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-400">
               <ShieldCheck size={20} />
             </div>
             <h2 className="text-2xl font-serif">Admin Control Panel</h2>
@@ -446,7 +446,7 @@ export default function DashboardPage() {
           <div className="grid md:grid-cols-2 gap-10">
             {/* Whitelist Form */}
             <div className="glass-panel p-6 rounded-xl">
-              <h3 className="font-semibold text-lg mb-4 text-white">Whitelist a Member</h3>
+              <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Whitelist a Member</h3>
               <p className="text-[14px] text-[var(--accent-grey)] mb-6 font-light">
                 Enter the exact Columbia email address of the student to grant them access.
               </p>
@@ -458,12 +458,12 @@ export default function DashboardPage() {
                     value={nameInput}
                     onChange={(e) => setNameInput(e.target.value)}
                     placeholder="Student Name"
-                    className="w-full bg-white/5 border border-white/10 px-4 py-3 mb-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                    className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 mb-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
                   />
                   <select
                     value={roleInput}
                     onChange={(e) => setRoleInput(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 px-4 py-3 mb-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm rounded-xl transition-all shadow-inner"
+                    className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 mb-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-all shadow-inner"
                   >
                     <option value="member" className="bg-gray-800">Member</option>
                     <option value="admin" className="bg-gray-800">Admin</option>
@@ -475,7 +475,7 @@ export default function DashboardPage() {
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     placeholder="student@columbia.edu"
-                    className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                    className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
                   />
                 </div>
                 <button
@@ -486,7 +486,7 @@ export default function DashboardPage() {
                   {adminStatus === 'loading' ? 'Processing...' : 'Approve Member'}
                 </button>
                 {adminMessage && (
-                  <p className={`text-sm text-center mt-2 ${adminStatus === 'error' ? 'text-red-400' : 'text-[var(--columbia-blue-light)]'}`}>
+                  <p className={`text-sm text-center mt-2 ${adminStatus === 'error' ? 'text-red-600 dark:text-red-400' : 'text-[var(--columbia-blue-light)]'}`}>
                     {adminMessage}
                   </p>
                 )}
@@ -495,7 +495,7 @@ export default function DashboardPage() {
 
             {/* Member List */}
             <div className="glass-panel p-6 rounded-xl flex flex-col h-full max-h-[400px]">
-              <h3 className="font-semibold text-lg mb-4 text-white">Approved Directory</h3>
+              <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Approved Directory</h3>
               <div className="overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                 {membersList.length === 0 ? (
                   <p className="text-sm text-[var(--accent-grey)] text-center mt-10">No members found.</p>
@@ -504,11 +504,11 @@ export default function DashboardPage() {
                     {/* Admins */}
                     {membersList.filter(m => m.role === 'admin').length > 0 && (
                       <div>
-                        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 border-b border-white/10 pb-1">Admins</h4>
+                        <h4 className="text-[11px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2 border-b border-black/10 dark:border-white/10 pb-1">Admins</h4>
                         <div className="space-y-2">
                           {membersList.filter(m => m.role === 'admin').map((m, idx) => (
-                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
-                              <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
+                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                              <span className="text-sm text-gray-800 dark:text-gray-200 truncate flex-1">{m.email || m.id}</span>
                               <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-[var(--columbia-blue-light)]/20 text-[var(--columbia-blue-light)]">
                                 Admin
                               </span>
@@ -521,11 +521,11 @@ export default function DashboardPage() {
                     {/* Recruiters */}
                     {membersList.filter(m => m.role === 'recruiter').length > 0 && (
                       <div>
-                        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 border-b border-white/10 pb-1">Recruiters</h4>
+                        <h4 className="text-[11px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2 border-b border-black/10 dark:border-white/10 pb-1">Recruiters</h4>
                         <div className="space-y-2">
                           {membersList.filter(m => m.role === 'recruiter').map((m, idx) => (
-                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
-                              <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
+                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                              <span className="text-sm text-gray-800 dark:text-gray-200 truncate flex-1">{m.email || m.id}</span>
                               <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-purple-500/20 text-purple-400">
                                 Recruiter
                               </span>
@@ -538,12 +538,12 @@ export default function DashboardPage() {
                     {/* Members */}
                     {membersList.filter(m => !m.role || m.role === 'member').length > 0 && (
                       <div>
-                        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 border-b border-white/10 pb-1">Members</h4>
+                        <h4 className="text-[11px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2 border-b border-black/10 dark:border-white/10 pb-1">Members</h4>
                         <div className="space-y-2">
                           {membersList.filter(m => !m.role || m.role === 'member').map((m, idx) => (
-                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors overflow-hidden gap-2">
-                              <span className="text-sm text-gray-200 truncate flex-1">{m.email || m.id}</span>
-                              <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-white/10 text-gray-400">
+                            <div key={idx} className="flex items-center justify-between p-2.5 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors overflow-hidden gap-2">
+                              <span className="text-sm text-gray-800 dark:text-gray-200 truncate flex-1">{m.email || m.id}</span>
+                              <span className="shrink-0 text-[10px] px-2 py-1 rounded-md uppercase font-semibold tracking-wider bg-black/10 dark:bg-white/10 text-gray-600 dark:text-gray-400">
                                 Member
                               </span>
                             </div>
@@ -558,16 +558,16 @@ export default function DashboardPage() {
           </div>
 
           <div className="mt-10 glass-panel p-6 rounded-xl">
-            <h3 className="font-semibold text-lg mb-4 text-white">Contact Messages Inbox</h3>
+            <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Contact Messages Inbox</h3>
             <div className="overflow-y-auto max-h-[400px] pr-2 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               {messages.length === 0 ? (
                 <p className="text-sm text-[var(--accent-grey)] text-center mt-4 mb-4">No messages yet.</p>
               ) : (
                 messages.map((msg, idx) => (
-                  <div key={idx} className="p-4 rounded-lg bg-white/5 border border-white/5">
+                  <div key={idx} className="p-4 rounded-lg bg-black/5 dark:bg-white/5 border border-white/5">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <p className="text-white font-medium">{msg.name} <span className="text-sm text-gray-400 font-normal">({msg.email})</span></p>
+                        <p className="text-black dark:text-white font-medium">{msg.name} <span className="text-sm text-gray-600 dark:text-gray-400 font-normal">({msg.email})</span></p>
                         {msg.organization && <p className="text-[12px] text-[var(--columbia-blue-light)]">{msg.organization}</p>}
                       </div>
                       <span className="text-[10px] text-gray-500">
@@ -584,7 +584,7 @@ export default function DashboardPage() {
           <div className="grid md:grid-cols-2 gap-10 mt-10">
             {/* Add Tip Form */}
             <div className="glass-panel p-6 rounded-xl">
-              <h3 className="font-semibold text-lg mb-4 text-white">Add Interview Tip</h3>
+              <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Add Interview Tip</h3>
               <form onSubmit={handleAddTip} className="space-y-4">
                 <input
                   type="text"
@@ -592,7 +592,7 @@ export default function DashboardPage() {
                   value={tipTitle}
                   onChange={(e) => setTipTitle(e.target.value)}
                   placeholder="Tip Title"
-                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
                 />
                 <textarea
                   required
@@ -600,11 +600,11 @@ export default function DashboardPage() {
                   onChange={(e) => setTipContent(e.target.value)}
                   placeholder="Tip Content"
                   rows={3}
-                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner resize-none"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner resize-none"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
+                  className="w-full bg-black/10 dark:bg-white/10 text-black dark:text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
                 >
                   Publish Tip
                 </button>
@@ -613,7 +613,7 @@ export default function DashboardPage() {
 
             {/* Add Newsletter Form */}
             <div className="glass-panel p-6 rounded-xl">
-              <h3 className="font-semibold text-lg mb-4 text-white">Add Newsletter</h3>
+              <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Add Newsletter</h3>
               <form onSubmit={handleAddNewsletter} className="space-y-4">
                 <input
                   type="text"
@@ -621,7 +621,7 @@ export default function DashboardPage() {
                   value={newsTitle}
                   onChange={(e) => setNewsTitle(e.target.value)}
                   placeholder="e.g. October 2026: Mid-Term Milestones"
-                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
                 />
                 <input
                   type="text"
@@ -629,11 +629,11 @@ export default function DashboardPage() {
                   value={newsDate}
                   onChange={(e) => setNewsDate(e.target.value)}
                   placeholder="e.g. Oct 1, 2026"
-                  className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
+                  className="w-full bg-black/10 dark:bg-white/10 text-black dark:text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
                 >
                   Publish Newsletter
                 </button>
@@ -644,17 +644,17 @@ export default function DashboardPage() {
           <div className="mt-10">
             {/* Add Event Form */}
             <div className="glass-panel p-6 rounded-xl">
-              <h3 className="font-semibold text-lg mb-4 text-white">Add Upcoming Event</h3>
+              <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Add Upcoming Event</h3>
               <form onSubmit={handleAddEvent} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" required value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} placeholder="Event Title" className="col-span-1 md:col-span-2 w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={eventDisplayDate} onChange={(e) => setEventDisplayDate(e.target.value)} placeholder="Display Date (e.g. Wednesday, April 22, 2026)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={eventDayOfWeek} onChange={(e) => setEventDayOfWeek(e.target.value)} placeholder="Day of Week (e.g. Wednesday)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={eventTime} onChange={(e) => setEventTime(e.target.value)} placeholder="Time (e.g. 7:00 PM - 9:00 PM)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} placeholder="Location (e.g. MLK 610)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={eventCategory} onChange={(e) => setEventCategory(e.target.value)} placeholder="Category (e.g. Panel)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="url" required value={eventRSVPLink} onChange={(e) => setEventRSVPLink(e.target.value)} placeholder="RSVP Link (e.g. Luma, Google Form)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <textarea required value={eventDescription} onChange={(e) => setEventDescription(e.target.value)} placeholder="Event Description" rows={3} className="col-span-1 md:col-span-2 w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner resize-none" />
-                <button type="submit" className="col-span-1 md:col-span-2 w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all">
+                <input type="text" required value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} placeholder="Event Title" className="col-span-1 md:col-span-2 w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventDisplayDate} onChange={(e) => setEventDisplayDate(e.target.value)} placeholder="Display Date (e.g. Wednesday, April 22, 2026)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventDayOfWeek} onChange={(e) => setEventDayOfWeek(e.target.value)} placeholder="Day of Week (e.g. Wednesday)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventTime} onChange={(e) => setEventTime(e.target.value)} placeholder="Time (e.g. 7:00 PM - 9:00 PM)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} placeholder="Location (e.g. MLK 610)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={eventCategory} onChange={(e) => setEventCategory(e.target.value)} placeholder="Category (e.g. Panel)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="url" required value={eventRSVPLink} onChange={(e) => setEventRSVPLink(e.target.value)} placeholder="RSVP Link (e.g. Luma, Google Form)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <textarea required value={eventDescription} onChange={(e) => setEventDescription(e.target.value)} placeholder="Event Description" rows={3} className="col-span-1 md:col-span-2 w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner resize-none" />
+                <button type="submit" className="col-span-1 md:col-span-2 w-full bg-black/10 dark:bg-white/10 text-black dark:text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all">
                   Publish Event
                 </button>
               </form>
@@ -662,14 +662,14 @@ export default function DashboardPage() {
 
             {/* Add Internship Form */}
             <div className="glass-panel p-6 rounded-xl mt-10 md:mt-0">
-              <h3 className="font-semibold text-lg mb-4 text-white">Post Internship</h3>
+              <h3 className="font-semibold text-lg mb-4 text-black dark:text-white">Post Internship</h3>
               <form onSubmit={handleAddInternship} className="space-y-4">
-                <input type="text" required value={internshipTitle} onChange={(e) => setInternshipTitle(e.target.value)} placeholder="Job Title (e.g. Summer Analyst)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={internshipCompany} onChange={(e) => setInternshipCompany(e.target.value)} placeholder="Company (e.g. Goldman Sachs)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="url" required value={internshipLink} onChange={(e) => setInternshipLink(e.target.value)} placeholder="Application Link" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <input type="text" required value={internshipDeadline} onChange={(e) => setInternshipDeadline(e.target.value)} placeholder="Deadline (e.g. Oct 15, 2026)" className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner" />
-                <textarea required value={internshipDesc} onChange={(e) => setInternshipDesc(e.target.value)} placeholder="Brief Description" rows={2} className="w-full bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm placeholder:text-white/20 rounded-xl transition-all shadow-inner resize-none" />
-                <button type="submit" className="w-full bg-white/10 text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all">
+                <input type="text" required value={internshipTitle} onChange={(e) => setInternshipTitle(e.target.value)} placeholder="Job Title (e.g. Summer Analyst)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={internshipCompany} onChange={(e) => setInternshipCompany(e.target.value)} placeholder="Company (e.g. Goldman Sachs)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="url" required value={internshipLink} onChange={(e) => setInternshipLink(e.target.value)} placeholder="Application Link" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <input type="text" required value={internshipDeadline} onChange={(e) => setInternshipDeadline(e.target.value)} placeholder="Deadline (e.g. Oct 15, 2026)" className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner" />
+                <textarea required value={internshipDesc} onChange={(e) => setInternshipDesc(e.target.value)} placeholder="Brief Description" rows={2} className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner resize-none" />
+                <button type="submit" className="w-full bg-black/10 dark:bg-white/10 text-black dark:text-white hover:bg-white/20 font-semibold text-sm px-6 py-3 rounded-xl transition-all">
                   Post Internship
                 </button>
               </form>
@@ -720,7 +720,7 @@ export default function DashboardPage() {
                   <h3 className="font-semibold text-lg group-hover:text-purple-400 transition-colors">{nl.title}</h3>
                   <p className="text-[var(--accent-grey)] text-xs mt-1">{nl.date}</p>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                <div className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
                   <span className="text-xl">→</span>
                 </div>
               </div>
@@ -735,7 +735,7 @@ export default function DashboardPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+            <div className="p-2 bg-emerald-500/10 dark:bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-400">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
             </div>
             <h2 className="text-2xl font-serif">Exclusive Internships</h2>
@@ -743,12 +743,12 @@ export default function DashboardPage() {
           <div className="flex flex-col gap-4">
             {internships.map((job) => (
               <a href={job.link} target="_blank" rel="noreferrer" key={job.id} className="glass-panel p-6 rounded-xl block hover:border-emerald-500/30 transition-all group">
-                <h3 className="font-semibold text-lg group-hover:text-emerald-400 transition-colors">{job.title}</h3>
+                <h3 className="font-semibold text-lg group-hover:text-emerald-600 dark:text-emerald-400 transition-colors">{job.title}</h3>
                 <p className="text-[var(--columbia-blue-light)] text-sm mb-2">{job.company}</p>
                 <p className="text-[var(--accent-grey)] text-xs mb-3">{job.description}</p>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-gray-400">Deadline: {job.deadline}</span>
-                  <span className="text-emerald-400 group-hover:underline">Apply &rarr;</span>
+                  <span className="text-gray-600 dark:text-gray-400">Deadline: {job.deadline}</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 group-hover:underline">Apply &rarr;</span>
                 </div>
               </a>
             ))}

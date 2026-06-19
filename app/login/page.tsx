@@ -124,7 +124,7 @@ export default function LoginPage() {
         </p>
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-lg text-sm mb-6">
+          <div className="bg-red-500/10 dark:bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm mb-6">
             {error}
           </div>
         )}
@@ -158,7 +158,7 @@ export default function LoginPage() {
                 value={testEmail}
                 onChange={(e) => setTestEmail(e.target.value)}
                 placeholder="test@recruiter.com"
-                className="w-full bg-white/5 border border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm rounded-lg"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-lg"
               />
               <input
                 type="password"
@@ -166,11 +166,11 @@ export default function LoginPage() {
                 value={testPassword}
                 onChange={(e) => setTestPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full bg-white/5 border border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-white text-sm rounded-lg"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-lg"
               />
               <button
                 type="submit"
-                className="w-full bg-white/10 hover:bg-white/20 text-white text-sm py-2 rounded-lg transition-colors"
+                className="w-full bg-black/10 dark:bg-white/10 hover:bg-white/20 text-black dark:text-white text-sm py-2 rounded-lg transition-colors"
               >
                 Sign In / Create Test Account
               </button>

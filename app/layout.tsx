@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/app/components/Navbar";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { AuthProvider } from "@/context/AuthContext";
-import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "General Studies Business Society",
@@ -21,10 +20,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col transition-colors duration-300" suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <AuthProvider>
+    <html lang="en" className="scroll-smooth">
+      <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col transition-colors duration-300">
+        <AuthProvider>
           <Navbar />
           <GoogleAnalytics gaId="G-ZY4HTMYZ76" />
 
@@ -73,7 +71,6 @@ export default function RootLayout({
           </div>
         </footer>
         </AuthProvider>
-        </ThemeProvider>
       </body>
     </html>
   );

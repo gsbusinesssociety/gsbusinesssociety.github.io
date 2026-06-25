@@ -9,9 +9,8 @@ import { motion } from "framer-motion";
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
-  const [testMode, setTestMode] = useState(false);
-  const [testEmail, setTestEmail] = useState("");
-  const [testPassword, setTestPassword] = useState("");
+  const [recruiterEmail, setRecruiterEmail] = useState("");
+  const [recruiterPassword, setRecruiterPassword] = useState("");
   const router = useRouter();
 
   const handleGoogleSignIn = async () => {
@@ -67,23 +66,14 @@ export default function LoginPage() {
     }
   };
 
-  const handleTestLogin = async (e: React.FormEvent) => {
+  const handleRecruiterLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      try {
-        await signInWithEmailAndPassword(auth, testEmail, testPassword);
-      } catch (err: any) {
-        if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
-          // Auto-create test account if it doesn't exist
-          await createUserWithEmailAndPassword(auth, testEmail, testPassword);
-        } else {
-          throw err;
-        }
-      }
+      await signInWithEmailAndPassword(auth, recruiterEmail, recruiterPassword);
 
       // Check if they are an approved member
-      if (testEmail) {
-        const sanitizedEmail = testEmail.toLowerCase().trim();
+      if (recruiterEmail) {
+        const sanitizedEmail = recruiterEmail.toLowerCase().trim();
         const timeoutPromise = new Promise((_, reject) => 
           setTimeout(() => reject(new Error("Database timeout")), 3000)
         );
@@ -93,9 +83,9 @@ export default function LoginPage() {
           timeoutPromise
         ]) as any;
         
-        if (!memberDoc.exists()) {
+        if (!memberDoc.exists() || memberDoc.data().role !== 'recruiter') {
           await auth.signOut();
-          const msg = "Your account is not on the approved members list. Add this test email to the whitelist in the Admin Dashboard first.";
+          const msg = "Your account is not authorized as a recruiter. Please contact the club admins.";
           setError(msg);
           alert(msg);
           return;
@@ -106,7 +96,7 @@ export default function LoginPage() {
     } catch (err: any) {
       const msg = err.message || "Failed to sign in.";
       setError(msg);
-      alert("Test Login Error: " + msg);
+      alert("Login Error: " + msg);
     }
   };
 
@@ -142,40 +132,37 @@ export default function LoginPage() {
           Sign in with Columbia Email
         </button>
 
-        <div className="mt-8">
-          <button 
-            onClick={() => setTestMode(!testMode)} 
-            className="text-xs text-[var(--columbia-blue-light)] hover:underline"
-          >
-            Developer Mode: Sign in with Test Email
-          </button>
+        <div className="mt-10">
+          <div className="relative flex items-center py-5">
+            <div className="flex-grow border-t border-black/10 dark:border-white/10"></div>
+            <span className="flex-shrink-0 mx-4 text-xs font-semibold uppercase tracking-wider text-[var(--accent-grey)]">For Recruiters</span>
+            <div className="flex-grow border-t border-black/10 dark:border-white/10"></div>
+          </div>
           
-          {testMode && (
-            <form onSubmit={handleTestLogin} className="mt-4 space-y-3 bg-black/20 p-4 rounded-xl border border-white/5">
-              <input
-                type="email"
-                required
-                value={testEmail}
-                onChange={(e) => setTestEmail(e.target.value)}
-                placeholder="test@recruiter.com"
-                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-lg"
-              />
-              <input
-                type="password"
-                required
-                value={testPassword}
-                onChange={(e) => setTestPassword(e.target.value)}
-                placeholder="Password"
-                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-lg"
-              />
-              <button
-                type="submit"
-                className="w-full bg-black/10 dark:bg-white/10 hover:bg-white/20 text-black dark:text-white text-sm py-2 rounded-lg transition-colors"
-              >
-                Sign In / Create Test Account
-              </button>
-            </form>
-          )}
+          <form onSubmit={handleRecruiterLogin} className="space-y-3">
+            <input
+              type="email"
+              required
+              value={recruiterEmail}
+              onChange={(e) => setRecruiterEmail(e.target.value)}
+              placeholder="Partner Email"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-all"
+            />
+            <input
+              type="password"
+              required
+              value={recruiterPassword}
+              onChange={(e) => setRecruiterPassword(e.target.value)}
+              placeholder="Password"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-all"
+            />
+            <button
+              type="submit"
+              className="w-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-[var(--accent-grey)] hover:text-black dark:hover:text-white font-medium text-sm py-3 rounded-xl transition-all duration-200"
+            >
+              Sign In to Recruiter Portal
+            </button>
+          </form>
         </div>
       </motion.div>
     </div>

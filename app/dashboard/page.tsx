@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { collection, getDocs, getDoc, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle } from "lucide-react";
+import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download } from "lucide-react";
+import * as XLSX from "xlsx";
 
 const PLACEHOLDER_TIPS = [
   { id: 1, title: "Mastering the IB Technical Interview", content: "Focus on the 400 questions guide. Don't memorize, understand the underlying accounting principles." },
@@ -317,6 +318,47 @@ export default function DashboardPage() {
     }
   };
 
+  const formatDataForExport = () => {
+    return membersList.filter(m => m.role === 'member').map(m => ({
+      Name: m.name || 'N/A',
+      Email: m.email || m.id,
+      Major: m.major || '-',
+      'Grad Year': m.gradYear || '-',
+      LinkedIn: m.linkedIn || '',
+      'Resume Link': m.resumeLink || ''
+    }));
+  };
+
+  const handleExportCSV = () => {
+    const data = formatDataForExport();
+    if (data.length === 0) return alert("No data to export");
+    
+    const headers = Object.keys(data[0]);
+    const csvContent = [
+      headers.join(','),
+      ...data.map(row => headers.map(header => `"${(row as any)[header]}"`).join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'gsbs_resume_book.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExportExcel = () => {
+    const data = formatDataForExport();
+    if (data.length === 0) return alert("No data to export");
+    
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Resume Book");
+    XLSX.writeFile(workbook, "gsbs_resume_book.xlsx");
+  };
+
   if (loading || fetching || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -346,7 +388,23 @@ export default function DashboardPage() {
         </div>
         
         <div className="glass-panel p-6 rounded-xl">
-            <h2 className="text-2xl font-serif mb-6 text-black dark:text-white">GSBS Resume Book</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+              <h2 className="text-2xl font-serif text-black dark:text-white">GSBS Resume Book</h2>
+              <div className="flex gap-2">
+                <button 
+                  onClick={handleExportCSV}
+                  className="flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-black dark:text-white border border-black/10 dark:border-white/10 transition-colors"
+                >
+                  <Download size={14} /> Export CSV
+                </button>
+                <button 
+                  onClick={handleExportExcel}
+                  className="flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-sm"
+                >
+                  <Download size={14} /> Export Excel
+                </button>
+              </div>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>

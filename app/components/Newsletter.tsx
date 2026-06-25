@@ -77,7 +77,7 @@ export default function Newsletter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="uni@columbia.edu"
-                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 rounded-xl transition-all shadow-inner"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:placeholder:text-white/20 rounded-xl transition-all shadow-inner"
                 />
               </div>
 

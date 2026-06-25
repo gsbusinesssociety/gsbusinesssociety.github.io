@@ -7,15 +7,15 @@
 
 :root {
   /* Premium Light Mode Aesthetics */
-  --background: #F8FAFC; /* Slate 50 for a very cool, premium light feel */
+  --background: #F0F4F8; /* Soft icy Columbia Blue tint */
   --foreground: #0F172A; /* Slate 900 for high contrast text */
   --columbia-blue: #0072CE;
   --columbia-blue-light: #B9D9EB;
   --accent-grey: #64748B; /* Slate 500 for better visibility in light mode */
   
-  --card-bg: rgba(255, 255, 255, 0.7);
-  --card-border: rgba(0, 0, 0, 0.05);
-  --glass-bg: rgba(248, 250, 252, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.4);
+  --card-border: rgba(0, 0, 0, 0.03);
+  --glass-bg: rgba(240, 244, 248, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {

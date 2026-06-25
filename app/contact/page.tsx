@@ -88,7 +88,7 @@ export default function ContactPage() {
                     required
                     type="text"
                     placeholder="Jane Doe"
-                    className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 transition-colors"
+                    className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:placeholder:text-white/20 transition-colors"
                   />
                 </div>
                 <div className="space-y-3">
@@ -97,7 +97,7 @@ export default function ContactPage() {
                     name="organization"
                     type="text"
                     placeholder="Company or institution"
-                    className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 transition-colors"
+                    className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:placeholder:text-white/20 transition-colors"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ export default function ContactPage() {
                   required
                   type="email"
                   placeholder="name@company.com"
-                  className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 transition-colors"
+                  className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:placeholder:text-white/20 transition-colors"
                 />
               </div>
 
@@ -120,7 +120,7 @@ export default function ContactPage() {
                   required
                   rows={4}
                   placeholder="How can we help?"
-                  className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:text-white/20 transition-colors resize-none"
+                  className="w-full bg-transparent border-b border-black/10 dark:border-white/10 py-2 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm placeholder:text-black dark:placeholder:text-white/20 transition-colors resize-none"
                 />
               </div>
 

@@ -14,7 +14,7 @@ const BOARD_MEMBERS = [
   { name: "Tom Rosenzweig", role: "Head of Finance", school: "GS '28", linkedin: "https://www.linkedin.com/in/tom-rosenzweig-073219339/", image: "/board/head-of-finance.jpeg" },
   { name: "Gal Winter", role: "Co-head of Education", school: "GS '28", linkedin: "https://www.linkedin.com/in/galwinter/", image: "/board/head-of-education2.jpeg" },
   { name: "Julia Zhang", role: "Co-head of Education", school: "CC '28", linkedin: "https://www.linkedin.com/in/julia-zhang-2298a4354", image: "/board/head-of-education1.jpeg" },
-  { name: "William Hamilton", role: "Co-head of Communication", school: "GS '30", linkedin: "https://linkedin.com", image: "/board/head-of-communications2.jpeg" },
+  { name: "William Hamilton", role: "Co-head of Communication", school: "GS '30", linkedin: "https://www.linkedin.com/in/williamwesthamilton/", image: "/board/head-of-communications2.jpeg" },
 ];
 
 const ALUMNI = [

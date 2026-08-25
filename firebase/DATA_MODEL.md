@@ -102,3 +102,29 @@ a doc in `members` whose **ID is the lowercased email**, with `role: "admin"`.
 The ID must be lowercase — rules normalise the caller's email to lowercase
 before comparing, and a mixed-case doc ID will never match.
 
+## Testing the rules
+
+The ruleset is the only thing standing between a recruiting cycle and either a
+lockout or a leak of student PII, so it has a test suite. Run it before every
+rules deploy:
+
+```bash
+npm test
+```
+
+That runs the export unit tests, then boots the Firestore emulator and exercises
+49 rules cases across all five roles — including the ones that matter most:
+an applicant cannot read another applicant's file, a recruiter cannot see
+applications at all, a reviewer cannot write in someone else's name, and nobody
+can promote themselves to admin.
+
+The suite is checked against deliberate rule breakage: mutating a rule makes the
+corresponding tests fail, so a green run means something.
+
+**Java note.** The emulator needs a JDK. `firebase-tools` is pinned to v13
+because v14+ requires Java 21, and this project was set up on a machine with
+Java 11. If you upgrade to Java 21 or later, you can unpin it:
+
+```bash
+npm install --save-dev firebase-tools@latest
+```

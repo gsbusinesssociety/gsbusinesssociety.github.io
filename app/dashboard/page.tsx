@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { collection, getDocs, getDoc, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download } from "lucide-react";
+import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download, ClipboardList } from "lucide-react";
+import ApplicantTracker from "../components/dashboard/ApplicantTracker";
 import { downloadCsv, downloadXlsx } from "../lib/exportRows";
+import { getRecruitmentConfig } from "../lib/applications";
 
 const PLACEHOLDER_TIPS = [
   { id: 1, title: "Mastering the IB Technical Interview", content: "Focus on the 400 questions guide. Don't memorize, understand the underlying accounting principles." },
@@ -25,7 +27,7 @@ const PLACEHOLDER_MEMBERS = [
 ];
 
 export default function DashboardPage() {
-  const { user, loading, isAdmin, userRole, authError, retry, signOut } = useAuth();
+  const { user, loading, isAdmin, isBoard, userRole, authError, retry, signOut } = useAuth();
   const router = useRouter();
   
   const [tips, setTips] = useState<any[]>([]);
@@ -33,6 +35,10 @@ export default function DashboardPage() {
   const [membersList, setMembersList] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
   const [fetching, setFetching] = useState(true);
+
+  // Which recruiting cycle the tracker shows. Lives in Firestore so the board can
+  // roll to a new season without a redeploy.
+  const [cycle, setCycle] = useState<string | null>(null);
 
   // Admin Panel states
   const [emailInput, setEmailInput] = useState("");
@@ -89,6 +95,19 @@ export default function DashboardPage() {
       router.push("/apply");
     }
   }, [user, userRole, authError, loading, router]);
+
+  useEffect(() => {
+    if (!isBoard) return;
+    let cancelled = false;
+    getRecruitmentConfig()
+      .then((config) => {
+        if (!cancelled) setCycle(config?.cycle ?? null);
+      })
+      .catch((err) => console.error("Could not load recruitment config", err));
+    return () => {
+      cancelled = true;
+    };
+  }, [isBoard]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -508,6 +527,36 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Admin Section (Only visible to Admins) */}
+      {/* Recruiting tracker — admins and board reviewers, never recruiters */}
+      {isBoard && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-20"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <ClipboardList className="text-[var(--columbia-blue-light)]" size={20} />
+            <h2 className="text-2xl font-serif">Recruiting</h2>
+          </div>
+          {cycle ? (
+            <ApplicantTracker
+              cycle={cycle}
+              reviewerEmail={(user.email ?? "").toLowerCase().trim()}
+              reviewerName={user.displayName || user.email || "Board member"}
+            />
+          ) : (
+            <div className="glass-panel p-6 rounded-xl">
+              <p className="text-[var(--foreground)] text-sm mb-1">No recruiting cycle configured.</p>
+              <p className="text-[var(--accent-grey)] text-sm">
+                An admin needs to create the <code className="text-[var(--foreground)]">config/recruitment</code>{" "}
+                document in Firebase before applications can be opened or tracked.
+              </p>
+            </div>
+          )}
+        </motion.div>
+      )}
+
       {isAdmin && (
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

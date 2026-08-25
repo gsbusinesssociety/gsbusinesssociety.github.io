@@ -64,6 +64,25 @@ export default function Home() {
               GSBS is here to bridge that gap. We are the premier business society dedicated entirely to students with unique, non-traditional trajectories.
             </p>
           </div>
+
+          {/* Recruiting CTA */}
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href="/apply"
+              className="group inline-flex items-center gap-2 bg-[var(--foreground)] text-[var(--background)] font-semibold text-sm px-8 py-3.5 rounded-xl hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+            >
+              Apply to join
+              <span className="group-hover:translate-x-1 transition-transform duration-300">
+                <ArrowRight />
+              </span>
+            </Link>
+            <Link
+              href="/events"
+              className="inline-flex items-center px-8 py-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--foreground)] font-medium text-sm transition-all duration-200"
+            >
+              See what we do
+            </Link>
+          </div>
         </div>
       </section>
 

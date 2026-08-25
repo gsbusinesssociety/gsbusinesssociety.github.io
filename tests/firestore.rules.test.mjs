@@ -478,6 +478,73 @@ describe("reviews", () => {
   });
 });
 
+// ── Who is allowed to apply at all ───────────────────────────────────
+
+describe("who can apply", () => {
+  // The rules gate on identity and ownership, not on membership. Anyone signed
+  // in may file their own application for the open cycle. These tests pin that
+  // down so a future change to it is a deliberate one.
+  const payloadFor = (email) => ({
+    ...applicantPayload(),
+    email,
+    cycle: CYCLE,
+  });
+
+  it("lets an existing member apply", async () => {
+    await assertSucceeds(
+      setDoc(doc(as(MEMBER), "applications", `${CYCLE}_${MEMBER}`), payloadFor(MEMBER))
+    );
+  });
+
+  it("lets a board reviewer apply", async () => {
+    await assertSucceeds(
+      setDoc(doc(as(BOARD), "applications", `${CYCLE}_${BOARD}`), payloadFor(BOARD))
+    );
+  });
+
+  // External hiring partners are not candidates. Enforced in the rules rather
+  // than only in /apply, so skipping the UI doesn't skip the check.
+  it("stops a recruiter applying", async () => {
+    await assertFails(
+      setDoc(doc(as(RECRUITER), "applications", `${CYCLE}_${RECRUITER}`), payloadFor(RECRUITER))
+    );
+  });
+
+  it("still stops any of them reading someone else's application", async () => {
+    await seed(async (db) => {
+      await setDoc(doc(db, "applications", APP_ID), applicantPayload({ status: "submitted" }));
+    });
+    await assertFails(getDoc(doc(as(MEMBER), "applications", APP_ID)));
+    await assertFails(getDoc(doc(as(RECRUITER), "applications", APP_ID)));
+  });
+});
+
+// ── What a non-member can reach ──────────────────────────────────────
+
+describe("a signed-in non-member", () => {
+  beforeEach(async () => {
+    await seed(async (db) => {
+      await setDoc(doc(db, "tips", "t1"), { title: "Tip" });
+      await setDoc(doc(db, "newsletters", "n1"), { title: "News" });
+      await setDoc(doc(db, "internships", "i1"), { title: "Job" });
+    });
+  });
+
+  it("reaches nothing the member dashboard is built from", async () => {
+    const db = as(APPLICANT);
+    await assertFails(getDocs(collection(db, "tips")));
+    await assertFails(getDocs(collection(db, "newsletters")));
+    await assertFails(getDocs(collection(db, "internships")));
+    await assertFails(getDocs(collection(db, "members")));
+    await assertFails(getDocs(collection(db, "contact_messages")));
+  });
+
+  it("can still read the public surfaces", async () => {
+    await assertSucceeds(getDoc(doc(as(APPLICANT), "config", "recruitment")));
+    await assertSucceeds(getDocs(collection(as(APPLICANT), "events")));
+  });
+});
+
 // ── Contact form ─────────────────────────────────────────────────────
 
 describe("contact_messages", () => {

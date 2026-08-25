@@ -119,6 +119,9 @@ service cloud.firestore {
       // submission overwrites the first rather than creating a duplicate.
       allow create: if isAdmin()
                     || (isAuthenticated()
+                    // Recruiters are external hiring partners, not candidates.
+                    // /apply turns them away too, but the boundary belongs here.
+                    && !hasRole('recruiter')
                     && cycleIsOpen()
                     && request.resource.data.email == callerEmail()
                     && request.resource.data.cycle == config().cycle

@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: ["master"]
+
+# A newer push supersedes an in-flight run on the same branch.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Test and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # The export tests import a .ts module directly and rely on Node's native
+      # type stripping, which is only unflagged from 22.18. The deploy workflow
+      # builds on Node 20; that is fine for building but would fail these tests.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      # The Firestore emulator is a Java process. firebase-tools is pinned to v13
+      # (see firebase/DATA_MODEL.md), which needs Java 11 or later.
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache Firestore emulator
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/firebase/emulators
+          key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-firebase-emulators-
+
+      # Export unit tests, then the security rules against the emulator.
+      - name: Run tests
+        run: npm test
+
+      # Deliberately built with placeholder Firebase config rather than the real
+      # secrets. The values are NEXT_PUBLIC_* and end up in the client bundle
+      # anyway, but keeping them out of PR builds means this job also passes on
+      # pull requests from forks, where secrets are unavailable. Nothing here
+      # talks to Firebase — the build only needs config that parses.
+      - name: Build
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: AIzaSyCIPlaceholderKeyForBuildOnly00000
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: placeholder.firebaseapp.com
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: placeholder
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: placeholder.appspot.com
+          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: "000000000000"
+          NEXT_PUBLIC_FIREBASE_APP_ID: "1:000000000000:web:0000000000000000"
+        run: npx next build

@@ -128,9 +128,12 @@ export default function AboutPage() {
             every semester. If you're a GS student looking to build the org from
             the inside, we'd love to hear from you.
           </p>
-          <div className="inline-block px-6 py-3 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-[13px] text-[var(--accent-grey)] italic">
-            Applications open each semester
-          </div>
+          <Link
+            href="/apply"
+            className="inline-block px-8 py-3.5 rounded-xl bg-[var(--foreground)] text-[var(--background)] font-semibold text-[13px] hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+          >
+            Apply to join
+          </Link>
         </div>
       </section>
 

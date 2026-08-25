@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:rules": "firebase emulators:exec --only firestore \"node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/firestore.rules.test.mjs\"",
+    "test:unit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/exportRows.test.mjs",
+    "test": "npm run test:unit && npm run test:rules"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
@@ -20,12 +23,14 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "firebase-tools": "^13.35.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

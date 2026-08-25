@@ -1,65 +1,177 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-  
-    // Helper function to check if the caller is an admin
-    function isAdmin() {
-      return request.auth != null &&
-             request.auth.token.email != null &&
-             exists(/databases/$(database)/documents/members/$(request.auth.token.email)) &&
-             get(/databases/$(database)/documents/members/$(request.auth.token.email)).data.role == 'admin';
-    }
 
-    function isRecruiter() {
-      return request.auth != null &&
-             request.auth.token.email != null &&
-             exists(/databases/$(database)/documents/members/$(request.auth.token.email)) &&
-             get(/databases/$(database)/documents/members/$(request.auth.token.email)).data.role == 'recruiter';
-    }
+    // ── Identity helpers ────────────────────────────────────────────────
+    // NOTE: `isAuthenticated()` is deliberately NOT used as a stand-in for
+    // membership. Applicants sign in with a real Columbia account and stay
+    // signed in, so being authenticated no longer implies being a member.
 
-    // Helper function to check if caller is logged in
     function isAuthenticated() {
-      return request.auth != null;
+      return request.auth != null && request.auth.token.email != null;
     }
 
-    // Members Collection
-    // Anyone logged in can read it (to check their own access)
-    // Only admins can modify
+    // Doc IDs are written lowercased by the client, but the token email is not
+    // normalised by the provider — compare and look up in one casing only.
+    function callerEmail() {
+      return request.auth.token.email.lower();
+    }
+
+    function memberPath() {
+      return /databases/$(database)/documents/members/$(callerEmail());
+    }
+
+    // True only for accounts with a record in `members` — i.e. anyone the board
+    // has explicitly admitted, in any role.
+    function isMember() {
+      return isAuthenticated() && exists(memberPath());
+    }
+
+    function hasRole(role) {
+      return isMember() && get(memberPath()).data.role == role;
+    }
+
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    // Sees applicant data. Recruiters are external partners and are excluded.
+    function isBoard() {
+      return isAdmin() || hasRole('board');
+    }
+
+    // ── Members ─────────────────────────────────────────────────────────
     match /members/{memberId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin() || (isAuthenticated() && request.auth.token.email == memberId);
+      // Own record is readable so the client can resolve its own role; the full
+      // directory (names, emails, resume links) stays members-only.
+      allow read: if isMember() || (isAuthenticated() && callerEmail() == memberId);
+
+      // Admission and revocation are admin-only. Self-service was previously
+      // allowed here, which let any signed-in account mint itself a doc with
+      // role 'admin'.
+      allow create, delete: if isAdmin();
+
+      // Members may edit their own profile, but never their own role.
+      allow update: if isAdmin()
+                    || (isAuthenticated()
+                        && callerEmail() == memberId
+                        && request.resource.data.diff(resource.data).affectedKeys()
+                             .hasOnly(['name', 'major', 'gradYear', 'linkedIn', 'resumeLink']));
     }
 
-    // Internships Collection
+    // ── Member-only content ─────────────────────────────────────────────
     match /internships/{internshipId} {
-      allow read: if isAuthenticated();
+      allow read: if isMember();
       allow write: if isAdmin();
     }
 
-    // Events Collection
-    // Publicly readable so the Events page works for anyone
-    // Only admins can modify
+    match /tips/{tipId} {
+      allow read: if isMember();
+      allow write: if isAdmin();
+    }
+
+    match /newsletters/{newsletterId} {
+      allow read: if isMember();
+      allow write: if isAdmin();
+    }
+
+    // ── Recruitment config ──────────────────────────────────────────────
+    // Publicly readable so /apply can tell visitors whether we're open without
+    // a redeploy; the site is a static export, so this is the only way to change
+    // the window without a full CI build.
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Applications ────────────────────────────────────────────────────
+    match /applications/{appId} {
+
+      // Keep in sync with ApplicationDraft in app/lib/applications.ts. Anything
+      // not listed here — cycle, email, publicStage, the pipeline — is out of
+      // the applicant's reach.
+      function applicantFields() {
+        return ['name', 'pronouns', 'phone', 'school', 'gradYear', 'major',
+                'linkedIn', 'resumeLink', 'positions', 'responses',
+                'status', 'updatedAt', 'submittedAt'];
+      }
+
+      function config() {
+        return get(/databases/$(database)/documents/config/recruitment).data;
+      }
+
+      // Fails closed: if the config doc is missing, nothing is accepted.
+      function cycleIsOpen() {
+        return exists(/databases/$(database)/documents/config/recruitment)
+               && config().isOpen == true
+               && request.time < config().closesAt;
+      }
+
+      function isOwner() {
+        return isAuthenticated() && callerEmail() == resource.data.email;
+      }
+
+      // Board reads every application; the applicant reads only their own.
+      allow read: if isBoard()
+                  || (isAuthenticated() && callerEmail() == resource.data.email);
+
+      // The doc ID pins the application to one person and one cycle, so a second
+      // submission overwrites the first rather than creating a duplicate.
+      allow create: if isAdmin()
+                    || (isAuthenticated()
+                    && cycleIsOpen()
+                    && request.resource.data.email == callerEmail()
+                    && request.resource.data.cycle == config().cycle
+                    && appId == request.resource.data.cycle + '_' + callerEmail()
+                    && request.resource.data.status in ['draft', 'submitted']
+                    && request.resource.data.keys().hasOnly(applicantFields().concat(['cycle', 'email'])));
+
+      // Editable only while it is still a draft and the window is still open.
+      // Once submitted there is no applicant-side write path at all.
+      allow update: if isAdmin()
+                    // Reviewers may tell the applicant where they stand, but may
+                    // not edit what the applicant wrote.
+                    || (isBoard()
+                        && request.resource.data.diff(resource.data).affectedKeys()
+                             .hasOnly(['publicStage', 'publicStageAt']))
+                    || (isOwner()
+                        && resource.data.status == 'draft'
+                        && cycleIsOpen()
+                        && request.resource.data.status in ['draft', 'submitted']
+                        && request.resource.data.diff(resource.data).affectedKeys()
+                             .hasOnly(applicantFields()));
+
+      allow delete: if isAdmin();
+    }
+
+    // Board-only pipeline state. Held in a subcollection rather than a field on
+    // the application so that moving someone to 'rejected' in the tracker does
+    // not leak the outcome to the applicant before the board has written to them.
+    match /applications/{appId}/pipeline/{stateId} {
+      allow read, write: if isBoard();
+    }
+
+    // Candid scores and notes. Deliberately unreadable by the applicant.
+    match /applications/{appId}/reviews/{reviewerEmail} {
+      allow read: if isBoard();
+      allow create, update: if isBoard() && reviewerEmail == callerEmail();
+      allow delete: if isAdmin();
+    }
+
+    // Collection-group read so the tracker can load every pipeline doc for a
+    // cycle in one query instead of one read per application.
+    match /{path=**}/pipeline/{stateId} {
+      allow read: if isBoard();
+    }
+
+    // ── Events ──────────────────────────────────────────────────────────
+    // Publicly readable so the Events page works for anyone.
     match /events/{eventId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Tips and Newsletters
-    // Readable by logged in members
-    // Writable by admins
-    match /tips/{tipId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin();
-    }
-    
-    match /newsletters/{newsletterId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin();
-    }
-
-    // Contact Messages
-    // Anyone can submit a message (create)
-    // Only admins can read or delete them
+    // ── Contact messages ────────────────────────────────────────────────
     match /contact_messages/{messageId} {
       allow create: if true;
       allow read, update, delete: if isAdmin();

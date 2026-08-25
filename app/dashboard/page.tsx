@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { collection, getDocs, getDoc, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download } from "lucide-react";
-import * as XLSX from "xlsx";
+import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download, ClipboardList } from "lucide-react";
+import ApplicantTracker from "../components/dashboard/ApplicantTracker";
+import { downloadCsv, downloadXlsx } from "../lib/exportRows";
+import { getRecruitmentConfig } from "../lib/applications";
 
 const PLACEHOLDER_TIPS = [
   { id: 1, title: "Mastering the IB Technical Interview", content: "Focus on the 400 questions guide. Don't memorize, understand the underlying accounting principles." },
@@ -25,7 +27,7 @@ const PLACEHOLDER_MEMBERS = [
 ];
 
 export default function DashboardPage() {
-  const { user, loading, isAdmin, userRole, signOut } = useAuth();
+  const { user, loading, isAdmin, isBoard, userRole, authError, retry, signOut } = useAuth();
   const router = useRouter();
   
   const [tips, setTips] = useState<any[]>([]);
@@ -33,6 +35,10 @@ export default function DashboardPage() {
   const [membersList, setMembersList] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
   const [fetching, setFetching] = useState(true);
+
+  // Which recruiting cycle the tracker shows. Lives in Firestore so the board can
+  // roll to a new season without a redeploy.
+  const [cycle, setCycle] = useState<string | null>(null);
 
   // Admin Panel states
   const [emailInput, setEmailInput] = useState("");
@@ -76,10 +82,32 @@ export default function DashboardPage() {
   const [eventRSVPLink, setEventRSVPLink] = useState("");
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (loading) return;
+    // An unresolved role is not the same as being signed out — it gets an
+    // explanation and a retry below rather than a bounce to the login screen.
+    if (authError) return;
+    if (!user) {
       router.push("/login");
+      return;
     }
-  }, [user, loading, router]);
+    // Applicants are signed in but have no membership record and no dashboard.
+    if (userRole === "applicant") {
+      router.push("/apply");
+    }
+  }, [user, userRole, authError, loading, router]);
+
+  useEffect(() => {
+    if (!isBoard) return;
+    let cancelled = false;
+    getRecruitmentConfig()
+      .then((config) => {
+        if (!cancelled) setCycle(config?.cycle ?? null);
+      })
+      .catch((err) => console.error("Could not load recruitment config", err));
+    return () => {
+      cancelled = true;
+    };
+  }, [isBoard]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -332,34 +360,45 @@ export default function DashboardPage() {
   const handleExportCSV = () => {
     const data = formatDataForExport();
     if (data.length === 0) return alert("No data to export");
-    
-    const headers = Object.keys(data[0]);
-    const csvContent = [
-      headers.join(','),
-      ...data.map(row => headers.map(header => `"${(row as any)[header]}"`).join(','))
-    ].join('\n');
-    
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'gsbs_resume_book.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadCsv(data, 'gsbs_resume_book.csv');
   };
 
   const handleExportExcel = () => {
     const data = formatDataForExport();
     if (data.length === 0) return alert("No data to export");
-    
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Resume Book");
-    XLSX.writeFile(workbook, "gsbs_resume_book.xlsx");
+    downloadXlsx(data, "Resume Book", "gsbs_resume_book.xlsx");
   };
 
-  if (loading || fetching || !user) {
+  if (!loading && authError) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center px-6">
+        <div className="glass-panel p-10 rounded-2xl w-full max-w-md text-center">
+          <h1 className="font-serif text-2xl mb-3 text-[var(--foreground)]">
+            {authError.retryable ? "We couldn't load your access" : "Access unavailable"}
+          </h1>
+          <p className="text-[var(--accent-grey)] text-sm mb-8">{authError.message}</p>
+          <div className="flex flex-col gap-3">
+            {authError.retryable && (
+              <button
+                onClick={retry}
+                className="w-full bg-[var(--foreground)] text-[var(--background)] font-semibold text-sm py-3 rounded-xl transition-opacity hover:opacity-90"
+              >
+                Try again
+              </button>
+            )}
+            <button
+              onClick={() => router.push("/login")}
+              className="w-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-[var(--accent-grey)] hover:text-black dark:hover:text-white font-medium text-sm py-3 rounded-xl transition-all"
+            >
+              Back to sign in
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading || fetching || !user || userRole === "applicant") {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-pulse flex space-x-2">
@@ -488,6 +527,36 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Admin Section (Only visible to Admins) */}
+      {/* Recruiting tracker — admins and board reviewers, never recruiters */}
+      {isBoard && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-20"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <ClipboardList className="text-[var(--columbia-blue-light)]" size={20} />
+            <h2 className="text-2xl font-serif">Recruiting</h2>
+          </div>
+          {cycle ? (
+            <ApplicantTracker
+              cycle={cycle}
+              reviewerEmail={(user.email ?? "").toLowerCase().trim()}
+              reviewerName={user.displayName || user.email || "Board member"}
+            />
+          ) : (
+            <div className="glass-panel p-6 rounded-xl">
+              <p className="text-[var(--foreground)] text-sm mb-1">No recruiting cycle configured.</p>
+              <p className="text-[var(--accent-grey)] text-sm">
+                An admin needs to create the <code className="text-[var(--foreground)]">config/recruitment</code>{" "}
+                document in Firebase before applications can be opened or tracked.
+              </p>
+            </div>
+          )}
+        </motion.div>
+      )}
+
       {isAdmin && (
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -524,8 +593,9 @@ export default function DashboardPage() {
                     className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 mb-4 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-all shadow-inner"
                   >
                     <option value="member" className="bg-gray-800">Member</option>
+                    <option value="board" className="bg-gray-800">Board (reviews applications)</option>
                     <option value="admin" className="bg-gray-800">Admin</option>
-                    <option value="recruiter" className="bg-gray-800">Recruiter</option>
+                    <option value="recruiter" className="bg-gray-800">Recruiter (external partner)</option>
                   </select>
                   <input
                     type="email"

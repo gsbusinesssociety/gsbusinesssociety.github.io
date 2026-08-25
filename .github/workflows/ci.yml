@@ -19,13 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # The export tests import a .ts module directly and rely on Node's native
       # type stripping, which is only unflagged from 22.18. The deploy workflow
       # builds on Node 20; that is fine for building but would fail these tests.
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "22"
           cache: npm
@@ -33,7 +33,7 @@ jobs:
       # The Firestore emulator is a Java process. firebase-tools is pinned to v13
       # (see firebase/DATA_MODEL.md), which needs Java 11 or later.
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "21"
@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Cache Firestore emulator
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/firebase/emulators
           key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('package-lock.json') }}

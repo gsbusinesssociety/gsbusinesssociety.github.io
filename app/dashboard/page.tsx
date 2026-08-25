@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { collection, getDocs, getDoc, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import * as XLSX from "xlsx";
 import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download } from "lucide-react";
+import { downloadCsv, downloadXlsx } from "../lib/exportRows";
 
 const PLACEHOLDER_TIPS = [
   { id: 1, title: "Mastering the IB Technical Interview", content: "Focus on the 400 questions guide. Don't memorize, understand the underlying accounting principles." },
@@ -341,31 +341,13 @@ export default function DashboardPage() {
   const handleExportCSV = () => {
     const data = formatDataForExport();
     if (data.length === 0) return alert("No data to export");
-    
-    const headers = Object.keys(data[0]);
-    const csvContent = [
-      headers.join(','),
-      ...data.map(row => headers.map(header => `"${(row as any)[header]}"`).join(','))
-    ].join('\n');
-    
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'gsbs_resume_book.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadCsv(data, 'gsbs_resume_book.csv');
   };
 
   const handleExportExcel = () => {
     const data = formatDataForExport();
     if (data.length === 0) return alert("No data to export");
-    
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Resume Book");
-    XLSX.writeFile(workbook, "gsbs_resume_book.xlsx");
+    downloadXlsx(data, "Resume Book", "gsbs_resume_book.xlsx");
   };
 
   if (!loading && authError) {

@@ -1,65 +1,83 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-  
-    // Helper function to check if the caller is an admin
-    function isAdmin() {
-      return request.auth != null &&
-             request.auth.token.email != null &&
-             exists(/databases/$(database)/documents/members/$(request.auth.token.email)) &&
-             get(/databases/$(database)/documents/members/$(request.auth.token.email)).data.role == 'admin';
-    }
 
-    function isRecruiter() {
-      return request.auth != null &&
-             request.auth.token.email != null &&
-             exists(/databases/$(database)/documents/members/$(request.auth.token.email)) &&
-             get(/databases/$(database)/documents/members/$(request.auth.token.email)).data.role == 'recruiter';
-    }
+    // ── Identity helpers ────────────────────────────────────────────────
+    // NOTE: `isAuthenticated()` is deliberately NOT used as a stand-in for
+    // membership. Applicants sign in with a real Columbia account and stay
+    // signed in, so being authenticated no longer implies being a member.
 
-    // Helper function to check if caller is logged in
     function isAuthenticated() {
-      return request.auth != null;
+      return request.auth != null && request.auth.token.email != null;
     }
 
-    // Members Collection
-    // Anyone logged in can read it (to check their own access)
-    // Only admins can modify
+    // Doc IDs are written lowercased by the client, but the token email is not
+    // normalised by the provider — compare and look up in one casing only.
+    function callerEmail() {
+      return request.auth.token.email.lower();
+    }
+
+    function memberPath() {
+      return /databases/$(database)/documents/members/$(callerEmail());
+    }
+
+    // True only for accounts with a record in `members` — i.e. anyone the board
+    // has explicitly admitted, in any role.
+    function isMember() {
+      return isAuthenticated() && exists(memberPath());
+    }
+
+    function hasRole(role) {
+      return isMember() && get(memberPath()).data.role == role;
+    }
+
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    // ── Members ─────────────────────────────────────────────────────────
     match /members/{memberId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin() || (isAuthenticated() && request.auth.token.email == memberId);
+      // Own record is readable so the client can resolve its own role; the full
+      // directory (names, emails, resume links) stays members-only.
+      allow read: if isMember() || (isAuthenticated() && callerEmail() == memberId);
+
+      // Admission and revocation are admin-only. Self-service was previously
+      // allowed here, which let any signed-in account mint itself a doc with
+      // role 'admin'.
+      allow create, delete: if isAdmin();
+
+      // Members may edit their own profile, but never their own role.
+      allow update: if isAdmin()
+                    || (isAuthenticated()
+                        && callerEmail() == memberId
+                        && request.resource.data.diff(resource.data).affectedKeys()
+                             .hasOnly(['name', 'major', 'gradYear', 'linkedIn', 'resumeLink']));
     }
 
-    // Internships Collection
+    // ── Member-only content ─────────────────────────────────────────────
     match /internships/{internshipId} {
-      allow read: if isAuthenticated();
+      allow read: if isMember();
       allow write: if isAdmin();
     }
 
-    // Events Collection
-    // Publicly readable so the Events page works for anyone
-    // Only admins can modify
+    match /tips/{tipId} {
+      allow read: if isMember();
+      allow write: if isAdmin();
+    }
+
+    match /newsletters/{newsletterId} {
+      allow read: if isMember();
+      allow write: if isAdmin();
+    }
+
+    // ── Events ──────────────────────────────────────────────────────────
+    // Publicly readable so the Events page works for anyone.
     match /events/{eventId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Tips and Newsletters
-    // Readable by logged in members
-    // Writable by admins
-    match /tips/{tipId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin();
-    }
-    
-    match /newsletters/{newsletterId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin();
-    }
-
-    // Contact Messages
-    // Anyone can submit a message (create)
-    // Only admins can read or delete them
+    // ── Contact messages ────────────────────────────────────────────────
     match /contact_messages/{messageId} {
       allow create: if true;
       allow read, update, delete: if isAdmin();

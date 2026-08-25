@@ -83,6 +83,23 @@ closesAt   timestamp  <deadline>
 positions  array      ["General Member", "Junior Board — Events", ...]
 ```
 
+### Indexes
+
+Only one composite index is declared, for the tracker's main query
+(`cycle` + `status` equality, ordered by `submittedAt`).
+
+The tracker's other query — the collection-group read of `pipeline` filtered by
+`cycle` — needs **no** declared index. Firestore indexes every field
+automatically at both collection and collection-group scope, and a single
+equality filter with no ordering is already covered. Declaring it anyway is
+rejected at deploy time with *"this index is not necessary, configure using
+single field index controls"*. Add a composite index here only if that query
+gains a second filter or an `orderBy`.
+
+Note that the emulator does not enforce index requirements, so `npm test`
+passing says nothing about whether indexes are correct — only a real deploy
+does.
+
 Then deploy rules and indexes:
 
 ```bash

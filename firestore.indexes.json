@@ -17,16 +17,6 @@
           "order": "DESCENDING"
         }
       ]
-    },
-    {
-      "collectionGroup": "pipeline",
-      "queryScope": "COLLECTION_GROUP",
-      "fields": [
-        {
-          "fieldPath": "cycle",
-          "order": "ASCENDING"
-        }
-      ]
     }
   ],
   "fieldOverrides": []

@@ -132,9 +132,12 @@ service cloud.firestore {
       // submission overwrites the first rather than creating a duplicate.
       allow create: if isAdmin()
                     || (isAuthenticated()
-                    // Recruiters are external hiring partners, not candidates.
-                    // /apply turns them away too, but the boundary belongs here.
-                    && !hasRole('recruiter')
+                    // Applying is for people who are not in the society yet.
+                    // Anyone holding a membership record — member, board or
+                    // recruiter — is turned away here as well as by /apply, so
+                    // skipping the UI does not skip the check. Admins keep the
+                    // explicit bypass above for repairing an application by hand.
+                    && !isMember()
                     && cycleIsOpen()
                     && request.resource.data.email == callerEmail()
                     && request.resource.data.cycle == config().cycle

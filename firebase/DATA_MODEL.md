@@ -20,6 +20,12 @@ creates the record, and nobody can change their own role.
 A signed-in Columbia account with no `members` record is an **applicant**. That
 is a normal state, not an error.
 
+**Filing** an application is separate from reading one, and is for people who
+are not in the society yet. Anyone holding a `members` record — member, board
+or recruiter — is refused by the rules as well as by `/apply`, so skipping the
+UI does not skip the check. Admins keep an explicit bypass in the create rule
+so a broken or missing application can still be repaired by hand.
+
 > Recruiters are external hiring partners. They must never see applications —
 > this is the single most important property of the ruleset.
 

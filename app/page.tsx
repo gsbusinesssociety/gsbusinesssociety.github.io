@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Newsletter from "./components/Newsletter";
 
 const programs = [
@@ -18,21 +17,6 @@ const programs = [
       "Curated insider knowledge and step-by-step roadmaps designed specifically for the condensed timelines of GS students.",
   },
 ];
-
-const ArrowRight = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M5 12h14M12 5l7 7-7 7" />
-  </svg>
-);
 
 export default function Home() {
   return (
@@ -65,24 +49,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Recruiting CTA */}
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href="/apply"
-              className="group inline-flex items-center gap-2 bg-[var(--foreground)] text-[var(--background)] font-semibold text-sm px-8 py-3.5 rounded-xl hover:opacity-90 active:scale-[0.98] transition-all duration-200"
-            >
-              Apply to join
-              <span className="group-hover:translate-x-1 transition-transform duration-300">
-                <ArrowRight />
-              </span>
-            </Link>
-            <Link
-              href="/events"
-              className="inline-flex items-center px-8 py-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--foreground)] font-medium text-sm transition-all duration-200"
-            >
-              See what we do
-            </Link>
-          </div>
         </div>
       </section>
 

@@ -112,8 +112,21 @@ service cloud.firestore {
       }
 
       // Board reads every application; the applicant reads only their own.
+      //
+      // The second clause is guarded on `resource` because a first-time applicant
+      // has no document yet, and /apply reads it on load to decide what to render.
+      // Dereferencing a null resource throws, which denies, which made the page
+      // unusable for exactly the people it is for.
+      //
+      // The third clause covers that not-yet-created case by matching the document
+      // ID rather than stored data. Deriving ownership from the path keeps someone
+      // from probing whether a given person has applied, which a bare
+      // `resource == null` would allow.
       allow read: if isBoard()
-                  || (isAuthenticated() && callerEmail() == resource.data.email);
+                  || (isAuthenticated() && resource != null
+                      && callerEmail() == resource.data.email)
+                  || (isAuthenticated()
+                      && appId == config().cycle + '_' + callerEmail());
 
       // The doc ID pins the application to one person and one cycle, so a second
       // submission overwrites the first rather than creating a duplicate.

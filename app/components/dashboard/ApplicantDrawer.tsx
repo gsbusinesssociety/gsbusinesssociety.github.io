@@ -132,10 +132,10 @@ export default function ApplicantDrawer({
   // applicant is the thing most likely to go wrong while running a cycle.
   const undisclosedDecision = isTerminalStage(stage) && publicStage !== "decided";
 
-  // Portalled to <body> on purpose. The tracker is mounted inside a framer-motion
-  // wrapper, and a transformed ancestor becomes the containing block for
-  // position:fixed — which would pin this panel inside the card instead of over
-  // the viewport. Rendering outside that subtree is the only reliable fix.
+  // Portalled to <body> on purpose. Any transformed ancestor becomes the
+  // containing block for position:fixed — which would pin this panel inside the
+  // card instead of over the viewport. Rendering outside the tracker's subtree
+  // keeps that from depending on how the page above it is styled.
   if (typeof document === "undefined") return null;
 
   return createPortal(

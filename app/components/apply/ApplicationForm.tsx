@@ -311,7 +311,7 @@ export default function ApplicationForm({
             return (
               <label
                 key={position}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all text-sm ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-colors text-sm ${
                   selected
                     ? "border-[var(--columbia-blue-light)] bg-[var(--columbia-blue-light)]/10 text-[var(--foreground)]"
                     : "border-black/10 dark:border-white/10 text-[var(--accent-grey)] hover:border-black/20 dark:hover:border-white/20"

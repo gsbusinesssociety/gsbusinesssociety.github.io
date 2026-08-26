@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { collection, getDocs, getDoc, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { FileText, Lightbulb, LogOut, ShieldCheck, Users, PlusCircle, Download, ClipboardList } from "lucide-react";
@@ -401,11 +400,7 @@ export default function DashboardPage() {
   if (loading || fetching || !user || userRole === "applicant") {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse flex space-x-2">
-          <div className="w-3 h-3 bg-[var(--columbia-blue)] rounded-full"></div>
-          <div className="w-3 h-3 bg-[var(--columbia-blue)] rounded-full animation-delay-200"></div>
-          <div className="w-3 h-3 bg-[var(--columbia-blue)] rounded-full animation-delay-400"></div>
-        </div>
+        <p className="text-[var(--accent-grey)] text-sm">Loading…</p>
       </div>
     );
   }
@@ -497,11 +492,7 @@ export default function DashboardPage() {
       </div>
 
       {/* My Profile Section (For all members) */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-16"
-      >
+      <div className="mb-16">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -524,17 +515,12 @@ export default function DashboardPage() {
             </div>
           </form>
         </div>
-      </motion.div>
+      </div>
 
       {/* Admin Section (Only visible to Admins) */}
       {/* Recruiting tracker — admins and board reviewers, never recruiters */}
       {isBoard && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-20"
-        >
+        <div className="mb-20">
           <div className="flex items-center gap-3 mb-6">
             <ClipboardList className="text-[var(--columbia-blue-light)]" size={20} />
             <h2 className="text-2xl font-serif">Recruiting</h2>
@@ -554,15 +540,11 @@ export default function DashboardPage() {
               </p>
             </div>
           )}
-        </motion.div>
+        </div>
       )}
 
       {isAdmin && (
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-16"
-        >
+        <div className="mb-16">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-emerald-500/10 dark:bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-400">
               <ShieldCheck size={20} />
@@ -803,16 +785,12 @@ export default function DashboardPage() {
               </form>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
 
       <div className="grid md:grid-cols-3 gap-10">
         {/* Tips Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <div>
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-blue-500/10 rounded-lg text-[var(--columbia-blue-light)]">
               <Lightbulb size={20} />
@@ -827,14 +805,10 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Newsletters Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <div>
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400">
               <FileText size={20} />
@@ -854,14 +828,10 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Internships Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <div>
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-emerald-500/10 dark:bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-400">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
@@ -886,7 +856,7 @@ export default function DashboardPage() {
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

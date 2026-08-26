@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
-import { motion } from "framer-motion";
 
 const InstagramIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -140,17 +139,14 @@ export default function Navbar() {
         }`}
       >
         <div className="px-6 py-6 space-y-2">
-          {navLinks.map((link, i) => {
+          {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                style={{ transitionDelay: isOpen ? `${i * 40}ms` : "0ms" }}
-                className={`flex items-center gap-2 px-3 py-3 rounded-xl text-[13px] font-medium transition-all duration-300 ${
-                  isOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0"
-                } ${
+                className={`flex items-center gap-2 px-3 py-3 rounded-xl text-[13px] font-medium transition-colors duration-200 ${
                   isActive
                     ? "text-[var(--columbia-blue-light)] bg-[var(--columbia-blue-light)]/10"
                     : "text-[var(--accent-grey)] hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"

@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 
 export default function LoginPage() {
@@ -77,12 +76,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="glass-panel p-10 rounded-2xl w-full max-w-md text-center"
-      >
+      <div className="glass-panel p-10 rounded-2xl w-full max-w-md text-center">
         <h1 className="font-serif text-3xl mb-4 text-[var(--foreground)]">Member Login</h1>
         <p className="text-[var(--accent-grey)] mb-8 text-sm">
           Access exclusive insights, interview tips, and monthly newsletters.
@@ -126,7 +120,7 @@ export default function LoginPage() {
               value={recruiterEmail}
               onChange={(e) => setRecruiterEmail(e.target.value)}
               placeholder="Partner Email"
-              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-all"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-colors"
             />
             <input
               type="password"
@@ -135,7 +129,7 @@ export default function LoginPage() {
               value={recruiterPassword}
               onChange={(e) => setRecruiterPassword(e.target.value)}
               placeholder="Password"
-              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-all"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 px-4 py-3 focus:outline-none focus:border-[var(--columbia-blue-light)] text-black dark:text-white text-sm rounded-xl transition-colors"
             />
             <button
               type="submit"
@@ -146,7 +140,7 @@ export default function LoginPage() {
             </button>
           </form>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

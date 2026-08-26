@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import ApplicationForm, { type SaveState } from "../components/apply/ApplicationForm";
 import StatusTimeline from "../components/apply/StatusTimeline";
@@ -35,24 +34,13 @@ function describeWriteFailure(err: unknown): string {
 
 const Spinner = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
-    <div className="animate-pulse flex space-x-2">
-      <div className="w-3 h-3 bg-[var(--columbia-blue)] rounded-full"></div>
-      <div className="w-3 h-3 bg-[var(--columbia-blue)] rounded-full animation-delay-200"></div>
-      <div className="w-3 h-3 bg-[var(--columbia-blue)] rounded-full animation-delay-400"></div>
-    </div>
+    <p className="text-[var(--accent-grey)] text-sm">Loading…</p>
   </div>
 );
 
 function Panel({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="glass-panel p-10 md:p-14 rounded-3xl"
-    >
-      {children}
-    </motion.div>
+    <div className="glass-panel p-10 md:p-14 rounded-3xl">{children}</div>
   );
 }
 

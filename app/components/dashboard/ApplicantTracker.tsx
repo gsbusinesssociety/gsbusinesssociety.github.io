@@ -42,6 +42,10 @@ export default function ApplicantTracker({ cycle, reviewerEmail, reviewerName }:
   const [applications, setApplications] = useState<Application[]>([]);
   const [pipelines, setPipelines] = useState<Map<string, ApplicationPipeline>>(new Map());
   const [loadState, setLoadState] = useState<LoadState>("loading");
+  // Review counts and stages are supplementary. If only that query fails the
+  // table is still worth showing, so it degrades to a notice instead of taking
+  // the whole panel down with it.
+  const [pipelineFailed, setPipelineFailed] = useState(false);
   const [reloadCount, setReloadCount] = useState(0);
 
   const [search, setSearch] = useState("");
@@ -56,11 +60,19 @@ export default function ApplicantTracker({ cycle, reviewerEmail, reviewerName }:
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([listApplications(cycle), listPipelines(cycle)])
+    // The applications query is the one that must succeed; the pipeline query is
+    // allowed to fail on its own without costing the board the whole tracker.
+    const pipelinesOrEmpty = listPipelines(cycle).catch((err) => {
+      console.error("Could not load pipeline state", err);
+      return null;
+    });
+
+    Promise.all([listApplications(cycle), pipelinesOrEmpty])
       .then(([apps, pipes]) => {
         if (cancelled) return;
         setApplications(apps);
-        setPipelines(pipes);
+        setPipelines(pipes ?? new Map());
+        setPipelineFailed(pipes === null);
         setLoadState("ready");
       })
       .catch((err) => {
@@ -279,6 +291,15 @@ export default function ApplicantTracker({ cycle, reviewerEmail, reviewerName }:
             </button>
           </div>
         </div>
+
+        {pipelineFailed && (
+          <div className="mb-5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-amber-700 dark:text-amber-400">
+            Stages and review counts couldn&apos;t be loaded, so every row below shows
+            its default. Applications themselves are complete. This usually means the
+            <code className="mx-1">pipeline</code> collection-group index is still
+            building — check Firestore → Indexes, then refresh.
+          </div>
+        )}
 
         {/* ── Filters ─────────────────────────────────────────────── */}
         <div className="flex flex-wrap items-center gap-2 mb-5">

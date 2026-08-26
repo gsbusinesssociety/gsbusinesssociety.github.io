@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
-import { motion } from "framer-motion";
 
 const InstagramIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -26,9 +25,21 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Events", href: "/events" },
     { name: "About", href: "/about" },
-    { name: "Apply", href: "/apply" },
     { name: "Contact", href: "/contact" },
   ];
+
+  // A single entry point that resolves by role: applicants get their
+  // application, everyone with a membership record gets the dashboard, and a
+  // signed-out visitor is pointed at the thing we are actually recruiting for.
+  // /apply and /login each redirect on their own once the role is known, so a
+  // wrong guess here self-corrects rather than stranding anyone.
+  const authTarget = !user
+    ? { href: "/apply", label: "Apply" }
+    : userRole === "applicant"
+      ? { href: "/apply", label: "My Application" }
+      : userRole === "recruiter"
+        ? { href: "/dashboard", label: "Recruiter Portal" }
+        : { href: "/dashboard", label: "Dashboard" };
 
   useEffect(() => {
     const handleResize = () => {
@@ -110,10 +121,10 @@ export default function Navbar() {
           {!loading && (
             <div className="flex items-center gap-2 ml-4">
               <Link 
-                href={!user ? "/login" : userRole === "applicant" ? "/apply" : "/dashboard"}
+                href={authTarget.href}
                 className="px-5 py-2 text-[13px] font-medium rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-black dark:text-white border border-black/10 dark:border-white/10 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
               >
-                {!user ? "Member Login" : userRole === "applicant" ? "My Application" : "Dashboard"}
+                {authTarget.label}
               </Link>
             </div>
           )}
@@ -165,11 +176,11 @@ export default function Navbar() {
           {!loading && (
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5">
               <Link
-                href={!user ? "/login" : userRole === "applicant" ? "/apply" : "/dashboard"}
+                href={authTarget.href}
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 px-3 py-3 rounded-xl text-[13px] font-medium text-[var(--accent-grey)] hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300"
               >
-                {!user ? "Member Login" : userRole === "applicant" ? "My Application" : "Dashboard"}
+                {authTarget.label}
               </Link>
             </div>
           )}

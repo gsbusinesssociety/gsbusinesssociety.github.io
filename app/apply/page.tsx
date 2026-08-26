@@ -128,6 +128,17 @@ export default function ApplyPage() {
     };
   }, [reloadCount]);
 
+  // Anyone with a membership record belongs on the dashboard, not here. The nav
+  // sends signed-out visitors to /apply, so this is the other half of that: sign
+  // in from here as a member and you are forwarded on rather than shown a form
+  // you did not come for.
+  useEffect(() => {
+    if (authLoading || authError) return;
+    if (user && userRole && userRole !== "applicant") {
+      router.push("/dashboard");
+    }
+  }, [user, userRole, authError, authLoading, router]);
+
   const email = user?.email ?? null;
   const cycle = config?.cycle ?? null;
 
@@ -239,26 +250,9 @@ export default function ApplyPage() {
       );
     }
 
-    // Recruiters are external hiring partners, not candidates for the board.
-    if (userRole === "recruiter") {
-      return (
-        <Panel>
-          <h1 className="font-serif text-3xl text-[var(--foreground)] mb-4">
-            This one&apos;s for students
-          </h1>
-          <p className="text-[var(--accent-grey)] text-[15px] leading-relaxed mb-8">
-            You&apos;re signed in to a partner account. Head to the recruiter portal for
-            the resume book.
-          </p>
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="bg-[var(--foreground)] text-[var(--background)] font-semibold text-sm px-8 py-3 rounded-xl hover:opacity-90 transition-opacity"
-          >
-            Go to recruiter portal
-          </button>
-        </Panel>
-      );
-    }
+    // Signed in with a membership record: the effect above is forwarding them to
+    // the dashboard, so hold the spinner rather than flashing a form.
+    if (user && userRole && userRole !== "applicant") return <Spinner />;
 
     if (!user) {
       return (

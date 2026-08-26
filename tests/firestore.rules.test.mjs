@@ -310,6 +310,22 @@ describe("applications — applicant", () => {
     );
   });
 
+  // A first-time applicant has no document yet, and /apply reads it on load to
+  // decide between "new form", "resume draft" and "already submitted". If that
+  // read is denied, the page cannot render at all.
+  it("can read its own application before it exists", async () => {
+    await assertSucceeds(getDoc(doc(as(APPLICANT), "applications", APP_ID)));
+  });
+
+  // The path-based clause above must not become a way to ask "did this person
+  // apply?" — that is answerable from the difference between denied and not-found.
+  it("cannot probe whether someone else has applied", async () => {
+    await assertFails(getDoc(doc(as(APPLICANT), "applications", OTHER_APP_ID)));
+    await assertFails(
+      getDoc(doc(as(APPLICANT), "applications", `${CYCLE}_never.applied@columbia.edu`))
+    );
+  });
+
   it("can read its own application but not anyone else's", async () => {
     await seed(async (db) => {
       await setDoc(doc(db, "applications", APP_ID), applicantPayload());

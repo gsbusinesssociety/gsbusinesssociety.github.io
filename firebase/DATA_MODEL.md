@@ -95,12 +95,15 @@ Only one composite index is declared, for the tracker's main query
 (`cycle` + `status` equality, ordered by `submittedAt`).
 
 The tracker's other query — the collection-group read of `pipeline` filtered by
-`cycle` — needs **no** declared index. Firestore indexes every field
-automatically at both collection and collection-group scope, and a single
-equality filter with no ordering is already covered. Declaring it anyway is
-rejected at deploy time with *"this index is not necessary, configure using
-single field index controls"*. Add a composite index here only if that query
-gains a second filter or an `orderBy`.
+`cycle` — is **not** a composite index, but it does still need one. Automatic
+single-field indexing covers collection scope only; a collection-group query
+needs that field's index widened to `COLLECTION_GROUP` scope, which is done
+through `fieldOverrides` rather than `indexes`.
+
+Declaring it under `indexes` is rejected at deploy with *"this index is not
+necessary, configure using single field index controls"* — which means "wrong
+mechanism", not "not needed". Reading that as "not needed" is what left the
+recruiting panel unable to load.
 
 Note that the emulator does not enforce index requirements, so `npm test`
 passing says nothing about whether indexes are correct — only a real deploy

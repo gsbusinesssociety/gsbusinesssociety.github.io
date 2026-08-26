@@ -506,15 +506,23 @@ describe("who can apply", () => {
     cycle: CYCLE,
   });
 
-  it("lets an existing member apply", async () => {
-    await assertSucceeds(
+  it("stops an existing member applying", async () => {
+    await assertFails(
       setDoc(doc(as(MEMBER), "applications", `${CYCLE}_${MEMBER}`), payloadFor(MEMBER))
     );
   });
 
-  it("lets a board reviewer apply", async () => {
-    await assertSucceeds(
+  it("stops a board reviewer applying", async () => {
+    await assertFails(
       setDoc(doc(as(BOARD), "applications", `${CYCLE}_${BOARD}`), payloadFor(BOARD))
+    );
+  });
+
+  // Admins keep an explicit bypass so a broken or missing application can still
+  // be repaired by hand. It is the only way in for anyone with a record.
+  it("still lets an admin create an application on someone's behalf", async () => {
+    await assertSucceeds(
+      setDoc(doc(as(ADMIN), "applications", APP_ID), applicantPayload())
     );
   });
 

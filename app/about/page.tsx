@@ -7,7 +7,7 @@ const BOARD_MEMBERS = [
   { name: "Gavin Xue", role: "Founder and President", school: "GS '28", linkedin: "https://www.linkedin.com/in/gx2173", image: "/board/president.jpg" },
   { name: "Bayron Aguilar", role: "Founder and Vice President", school: "GS '29", linkedin: "https://linkedin.com/in/Bayron-Aguilar", image: "/board/vice-president1.jpeg" },
   { name: "Eren Yesiltepe", role: "Founder and Vice President", school: "GS '28", linkedin: "https://www.linkedin.com/in/erenyesiltepe/", image: "/board/vice-president2.jpeg" },
-
+  { name: "Joshua Becher", role: "", school: "GS '30", linkedin: "https://www.linkedin.com/in/joshua-becher/", image: "/board/head-of-development1.jpeg"}
   { name: "Mehdi Shakibapour", role: "Head of Technology", school: "GS '27", linkedin: "https://linkedin.com/in/mehdisha", image: "/board/head-of-technology.png" },
   { name: "Noah Kim", role: "Head of Marketing", school: "GS '27", linkedin: "https://www.linkedin.com/in/noah-kim-4075772b0", image: "/board/head-of-marketing.jpeg" },
   { name: "Fatine Mohattane", role: "Head of Events", school: "GS '27", linkedin: "https://www.linkedin.com/in/fatinemohattane/", image: "/board/head-of-events.jpeg" },
@@ -18,7 +18,7 @@ const BOARD_MEMBERS = [
 ];
 
 const ALUMNI = [
-  { name: "Thomas Ryder", role: "Co-head of Development", school: "Columbia Alumni '26", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1.jpeg" },
+  { name: "Thomas Ryder", role: "Co-head of Development", school: "Columbia Alumni '26", linkedin: "https://www.linkedin.com/in/tjr2162/", image: "/board/head-of-development1-alum.jpeg" },
 ];
 
 export default function AboutPage() {

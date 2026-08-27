@@ -39,7 +39,14 @@ export default function Navbar() {
       ? { href: "/apply", label: "My Application" }
       : userRole === "recruiter"
         ? { href: "/dashboard", label: "Recruiter Portal" }
-        : { href: "/dashboard", label: "Dashboard" };
+        : userRole // admin | board | member
+          ? { href: "/dashboard", label: "Dashboard" }
+          : null;
+
+  // Show the button only once we actually know who this is. A signed-in user
+  // whose role is still resolving (the membership lookup can be slow) would
+  // otherwise be shown "Dashboard" and sent there regardless of role.
+  const showAuthButton = !loading && authTarget !== null;
 
   useEffect(() => {
     const handleResize = () => {
@@ -118,9 +125,9 @@ export default function Navbar() {
             <InstagramIcon />
           </a>
 
-          {!loading && (
+          {showAuthButton && authTarget && (
             <div className="flex items-center gap-2 ml-4">
-              <Link 
+              <Link
                 href={authTarget.href}
                 className="px-5 py-2 text-[13px] font-medium rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-black dark:text-white border border-black/10 dark:border-white/10 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
               >
@@ -173,7 +180,7 @@ export default function Navbar() {
             );
           })}
 
-          {!loading && (
+          {showAuthButton && authTarget && (
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5">
               <Link
                 href={authTarget.href}

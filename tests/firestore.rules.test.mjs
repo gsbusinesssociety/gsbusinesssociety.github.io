@@ -22,6 +22,7 @@ import {
   collection,
   collectionGroup,
   setDoc,
+  serverTimestamp,
   updateDoc,
   deleteDoc,
   query,
@@ -578,6 +579,87 @@ describe("contact_messages", () => {
     );
     await assertFails(getDoc(doc(as(MEMBER), "contact_messages", "m1")));
     await assertSucceeds(getDoc(doc(as(ADMIN), "contact_messages", "m1")));
+  });
+});
+
+// ── Newsletter signup ────────────────────────────────────────────────
+
+describe("newsletter_subscribers", () => {
+  const SUB = "student@columbia.edu";
+
+  /** Exactly what app/components/Newsletter.tsx sends. */
+  const subscribe = (db, address = SUB, overrides = {}) =>
+    setDoc(doc(db, "newsletter_subscribers", address), {
+      email: address,
+      subscribedAt: serverTimestamp(),
+      ...overrides,
+    });
+
+  it("accepts a signup from a visitor who is not logged in", async () => {
+    await assertSucceeds(subscribe(anon()));
+  });
+
+  // The reason update is allowed at all. If this failed, the form could only
+  // look correct by reporting every permission error as success, which would
+  // also hide a broken deploy.
+  it("lets someone already on the list re-subscribe without an error", async () => {
+    await assertSucceeds(subscribe(anon()));
+    await assertSucceeds(subscribe(anon()));
+  });
+
+  it("keeps the address pinned to the document ID", async () => {
+    await assertFails(
+      subscribe(anon(), SUB, { email: "someone.else@columbia.edu" })
+    );
+  });
+
+  it("refuses anything beyond the two expected fields", async () => {
+    await assertFails(subscribe(anon(), SUB, { role: "admin" }));
+  });
+
+  it("refuses a client-chosen signup time", async () => {
+    await assertFails(
+      setDoc(doc(anon(), "newsletter_subscribers", SUB), {
+        email: SUB,
+        subscribedAt: Timestamp.fromMillis(0),
+      })
+    );
+  });
+
+  it("refuses an address that was not normalised to lowercase", async () => {
+    await assertFails(subscribe(anon(), "Student@Columbia.edu"));
+  });
+
+  it("refuses junk in place of an address", async () => {
+    await assertFails(subscribe(anon(), "not-an-email"));
+  });
+
+  // The list is for Columbia students. Newsletter.tsx turns these away in the
+  // UI first, with a message saying why; this is the check that actually binds.
+  it("refuses an address outside columbia.edu", async () => {
+    await assertFails(subscribe(anon(), "someone@gmail.com"));
+    await assertFails(subscribe(anon(), "someone@barnard.edu"));
+    await assertFails(subscribe(anon(), "someone@tc.columbia.edu"));
+    // Not fooled by columbia.edu appearing somewhere other than the domain.
+    await assertFails(subscribe(anon(), "columbia.edu@evil.com"));
+    await assertFails(subscribe(anon(), "someone@columbia.edu.evil.com"));
+  });
+
+  // The list is student PII. A public read would let anyone harvest it, or
+  // probe whether one specific person had signed up.
+  it("shows the list to admins and to nobody else", async () => {
+    await subscribe(anon());
+    await assertFails(getDocs(collection(anon(), "newsletter_subscribers")));
+    await assertFails(getDoc(doc(anon(), "newsletter_subscribers", SUB)));
+    await assertFails(getDoc(doc(as(MEMBER), "newsletter_subscribers", SUB)));
+    await assertSucceeds(getDoc(doc(as(ADMIN), "newsletter_subscribers", SUB)));
+    await assertSucceeds(getDocs(collection(as(ADMIN), "newsletter_subscribers")));
+  });
+
+  it("lets only an admin remove someone", async () => {
+    await subscribe(anon());
+    await assertFails(deleteDoc(doc(anon(), "newsletter_subscribers", SUB)));
+    await assertSucceeds(deleteDoc(doc(as(ADMIN), "newsletter_subscribers", SUB)));
   });
 });
 

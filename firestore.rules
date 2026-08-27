@@ -195,5 +195,48 @@ service cloud.firestore {
       allow create: if true;
       allow read, update, delete: if isAdmin();
     }
+
+    // ── Newsletter signup ───────────────────────────────────────────────
+    // The homepage form is open to visitors, so this has to accept an
+    // unauthenticated write. The doc ID is the subscriber's own address, which
+    // is what keeps the list free of duplicates.
+    match /newsletter_subscribers/{emailId} {
+
+      // Pinning `email` to the document ID means a writer can only ever touch
+      // the record belonging to the address they typed. Combined with the
+      // two-key allowlist, the entire writable surface is one timestamp on
+      // one's own record.
+      function isOwnSubscription() {
+        return request.resource.data.keys().hasOnly(['email', 'subscribedAt'])
+               && request.resource.data.email is string
+               && request.resource.data.email == emailId
+               && emailId == emailId.lower()
+               // Columbia addresses only — the list is for students. Note this
+               // is the exact domain, so barnard.edu and the tc/cumc/gsb
+               // subdomains are turned away; widen the pattern if that changes.
+               // Keep in sync with isColumbiaAddress() in Newsletter.tsx, which
+               // says so in the UI instead of letting this deny do it silently.
+               && emailId.matches('^[^@/]+@columbia[.]edu$')
+               && emailId.size() <= 254
+               // Forces serverTimestamp(); a client cannot backdate or
+               // forward-date when it joined the list.
+               && request.resource.data.subscribedAt == request.time;
+      }
+
+      // Update is allowed, not just create, and that is the point: re-entering
+      // an address that is already on the list has to actually succeed. If it
+      // were create-only, a returning subscriber would get PERMISSION_DENIED,
+      // and the client could only show them a success message by treating
+      // *every* denial as success — which would also swallow a genuinely
+      // broken rule or a failed deploy and report silent data loss as "you're
+      // on the list". Letting the idempotent re-write through keeps a denial
+      // meaning something is really wrong.
+      allow create, update: if isOwnSubscription();
+
+      // The list is a pile of student email addresses. Nobody enumerates it but
+      // an admin — note there is no public read even for one's own record, so
+      // it cannot be probed to find out whether a given person subscribed.
+      allow read, delete: if isAdmin();
+    }
   }
 }

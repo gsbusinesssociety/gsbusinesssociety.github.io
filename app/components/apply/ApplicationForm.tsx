@@ -27,6 +27,26 @@ interface Props {
 
 type FieldErrors = Record<string, string>;
 
+/** Where each error lives, so the summary can name it and jump to it. */
+const FIELD_LABELS: Record<string, string> = {
+  name: "Full name",
+  school: "School",
+  gradYear: "Graduation year",
+  major: "Major",
+  positions: "What you're applying for",
+  resumeLink: "Resume link",
+  linkedIn: "LinkedIn",
+};
+
+function describeError(key: string): { label: string; targetId: string } {
+  if (key.startsWith("responses.")) {
+    const id = key.slice("responses.".length);
+    const question = APPLICATION_QUESTIONS.find((q) => q.id === id);
+    return { label: question ? question.label : "Question", targetId: id };
+  }
+  return { label: FIELD_LABELS[key] ?? key, targetId: key };
+}
+
 function isUsableUrl(value: string): boolean {
   try {
     const url = new URL(value);
@@ -92,6 +112,11 @@ export default function ApplicationForm({
   const [errors, setErrors] = useState<FieldErrors>({});
   const [confirming, setConfirming] = useState(false);
 
+  // Set when a submit is refused, consumed by the effect below. Scrolling from
+  // inside the handler ran before React had rendered the new errors, so the
+  // first attempt scrolled nowhere and later ones jumped to a stale message.
+  const pendingScroll = useRef(false);
+
   // Autosave should react to the user's edits, not to the initial hydration.
   const dirty = useRef(false);
 
@@ -125,6 +150,14 @@ export default function ApplicationForm({
   }, []);
 
   useEffect(() => {
+    if (!pendingScroll.current) return;
+    pendingScroll.current = false;
+    document
+      .querySelector("[data-field-error]")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [errors]);
+
+  useEffect(() => {
     if (!dirty.current) return;
     const timer = setTimeout(() => onSaveDraft(draft), AUTOSAVE_DELAY_MS);
     return () => clearTimeout(timer);
@@ -139,9 +172,7 @@ export default function ApplicationForm({
 
     if (Object.keys(found).length > 0) {
       setConfirming(false);
-      document
-        .querySelector("[data-field-error]")
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      pendingScroll.current = true;
       return;
     }
 
@@ -152,6 +183,11 @@ export default function ApplicationForm({
     }
     onSubmit(draft);
   };
+
+  // Rendered next to the button, because that is where someone is looking when
+  // they press it. The per-field messages can be thousands of pixels away on a
+  // form this long, which made a refused submit look like nothing happening.
+  const errorList = Object.keys(errors).map((key) => ({ key, ...describeError(key) }));
 
   const fieldError = (key: string) =>
     errors[key] ? (
@@ -299,7 +335,7 @@ export default function ApplicationForm({
       </section>
 
       {/* ── Positions ─────────────────────────────────────────────── */}
-      <section className="space-y-6">
+      <section className="space-y-6" id="positions">
         <div>
           <h2 className="font-serif text-2xl text-[var(--foreground)]">What are you applying for?</h2>
           <p className="text-[var(--accent-grey)] text-sm mt-2">Select all that interest you.</p>
@@ -383,6 +419,37 @@ export default function ApplicationForm({
             </span>
           )}
         </div>
+
+        {errorList.length > 0 && (
+          <div
+            role="alert"
+            className="rounded-xl border border-red-500/30 bg-red-500/10 p-5 text-sm"
+          >
+            <p className="flex items-center gap-2 font-medium text-red-600 dark:text-red-400 mb-2">
+              <AlertCircle size={14} />
+              {errorList.length === 1
+                ? "One thing needs your attention before you can submit"
+                : `${errorList.length} things need your attention before you can submit`}
+            </p>
+            <ul className="space-y-1">
+              {errorList.map(({ key, label, targetId }) => (
+                <li key={key}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById(targetId);
+                      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+                      if (el instanceof HTMLElement) el.focus({ preventScroll: true });
+                    }}
+                    className="text-left text-[var(--accent-grey)] hover:text-[var(--foreground)] underline underline-offset-2 decoration-red-500/40 transition-colors"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {confirming && (
           <div className="rounded-xl border border-[var(--columbia-blue-light)]/40 bg-[var(--columbia-blue-light)]/10 p-5 text-sm">

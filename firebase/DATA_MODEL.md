@@ -75,6 +75,35 @@ never read these**, which is what lets reviewers be candid.
 `tips` / `newsletters` / `internships` (members only), `contact_messages`
 (anyone may create, admin-only to read).
 
+`tips`, `newsletters` and `internships` no longer have any UI. The dashboard was
+cut back to the directory, the weekly email and the contact inbox, so nothing
+reads or writes those three any more. The rules and any existing documents are
+left in place — deleting a ruleset for data that still exists only creates a
+hole to fall into later — but treat them as dormant. `events` is likewise
+console-only now: the public `/events` page still reads it, and the form that
+used to write it is gone.
+
+## The weekly email
+
+There is no send API. The site is a static export, so the admin panel builds the
+recipient list in the browser and hands a prefilled draft to the sender's own
+mail client — Gmail via a compose deep link, or the desktop client via
+`mailto:`. Members go in Bcc; the sender goes in To and keeps a copy.
+
+The list is assembled in [`../app/lib/emailList.ts`](../app/lib/emailList.ts)
+from the `members` collection, which is why an admin's read of the full
+directory matters beyond the resume book. Three things there are load-bearing
+and are covered by [`../tests/emailList.test.mjs`](../tests/emailList.test.mjs):
+
+- **Nobody lands in To but the sender.** A member's address in To would be
+  visible to all 100+ others, which is the one failure this feature could cause
+  that cannot be walked back.
+- **Address separators stay bare.** Percent-encoding the commas turns the whole
+  Bcc run into one malformed address, and the mail client reports nothing.
+- **A too-long `mailto:` is refused, not truncated.** The OS handoff caps near
+  2048 characters and silently drops the tail, so past that the UI disables the
+  Mail-app button and steers to Gmail or the clipboard.
+
 ## Setting up a cycle
 
 Applications **fail closed**: if `config/recruitment` is missing, nothing is

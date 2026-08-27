@@ -85,7 +85,7 @@ export default function LoginPage() {
       >
         <h1 className="font-serif text-3xl mb-4 text-[var(--foreground)]">Member Login</h1>
         <p className="text-[var(--accent-grey)] mb-8 text-sm">
-          Access exclusive insights, interview tips, and monthly newsletters.
+          Access monthly newsletters.
         </p>
 
         {message && (

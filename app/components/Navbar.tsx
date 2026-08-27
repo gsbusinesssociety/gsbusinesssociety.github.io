@@ -28,11 +28,11 @@ export default function Navbar() {
     { name: "Contact", href: "/contact" },
   ];
 
-  // A single entry point that resolves by role: applicants get their
-  // application, everyone with a membership record gets the dashboard, and a
-  // signed-out visitor is pointed at the thing we are actually recruiting for.
-  // /apply and /login each redirect on their own once the role is known, so a
-  // wrong guess here self-corrects rather than stranding anyone.
+  // A single entry point that resolves by role: signed-out visitors are pointed
+  // at what we're recruiting for, applicants get their application, and everyone
+  // with a membership record gets the dashboard. /apply and /dashboard each
+  // redirect on their own once the role is known, so a wrong guess here
+  // self-corrects rather than stranding anyone.
   const authTarget = !user
     ? { href: "/apply", label: "Apply" }
     : userRole === "applicant"

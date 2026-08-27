@@ -12,5 +12,5 @@ The GS Business Society (GSBS) is dedicated to bridging the gap between academic
 * **Framework:** [Next.js 15+](https://nextjs.org/) (App Router)
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 * **Deployment:** GitHub Pages via GitHub Actions
-* **Forms:** Formspree API
+* **Forms & data:** Cloud Firestore (contact, newsletter, applications)
 * **Language:** TypeScript

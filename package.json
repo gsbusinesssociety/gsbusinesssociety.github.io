@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:rules": "firebase emulators:exec --only firestore \"node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/firestore.rules.test.mjs\"",
-    "test:unit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/exportRows.test.mjs",
+    "test:unit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/exportRows.test.mjs tests/emailList.test.mjs",
     "test": "npm run test:unit && npm run test:rules"
   },
   "dependencies": {
@@ -19,7 +19,6 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "resend": "^6.12.4",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

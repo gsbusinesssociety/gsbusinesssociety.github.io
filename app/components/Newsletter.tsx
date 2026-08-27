@@ -4,18 +4,42 @@ import React, { useState } from 'react';
 import { db } from '../../firebase/config';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
+/**
+ * The list is for Columbia students, and the security rules enforce that. This
+ * has to agree with the `matches()` pattern on newsletter_subscribers in
+ * firestore.rules — it exists so a non-Columbia address is told why it was
+ * turned away, rather than being denied by the rules and landing in the generic
+ * error branch, which would invite someone to retry an address that can never
+ * work. A '/' cannot appear because doc() would read it as a path separator.
+ */
+const isColumbiaAddress = (address: string) =>
+  /^[^@/]+@columbia\.edu$/.test(address);
+
 export default function Newsletter() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'not-columbia'>('idle');
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // The doc ID is the address itself, so it has to be normalised the same way
+    // every time or the same person lands in the list twice.
+    const address = email.trim().toLowerCase();
+    if (!isColumbiaAddress(address)) {
+      setStatus('not-columbia');
+      return;
+    }
+
     setStatus('loading');
 
     try {
-      // Use setDoc with the email as the Document ID so it ensures uniqueness
-      await setDoc(doc(db, 'newsletter_subscribers', email.toLowerCase()), {
-        email: email.toLowerCase(),
+      // setDoc rather than addDoc so re-subscribing overwrites one's own record
+      // instead of adding a duplicate. The rules allow this same-address rewrite
+      // deliberately: it means a returning subscriber succeeds for real, and a
+      // permission error below still means something is actually broken rather
+      // than "you were already on the list".
+      await setDoc(doc(db, 'newsletter_subscribers', address), {
+        email: address,
         subscribedAt: serverTimestamp(),
       });
 
@@ -113,7 +137,12 @@ export default function Newsletter() {
                 <div className="h-4">
                   {status === 'success' && (
                     <p className="text-[var(--columbia-blue-light)] font-serif italic text-[14px]">
-                      You're on the list.
+                      You&apos;re on the list.
+                    </p>
+                  )}
+                  {status === 'not-columbia' && (
+                    <p className="text-red-600 dark:text-red-400 text-xs">
+                      Columbia address required.
                     </p>
                   )}
                   {status === 'error' && (

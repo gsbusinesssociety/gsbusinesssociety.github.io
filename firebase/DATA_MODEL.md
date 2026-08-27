@@ -29,6 +29,14 @@ so a broken or missing application can still be repaired by hand.
 > Recruiters are external hiring partners. They must never see applications —
 > this is the single most important property of the ruleset.
 
+**Recruiters can no longer sign in.** They authenticated with an email and
+password on `/login`, and that page is gone: sign-in now happens inline on
+`/apply` and `/dashboard`, and both offer Columbia Google accounts only. The
+`recruiter` role, its rules, and the Recruiter Portal view in the dashboard are
+all still here and still correct — an existing session resolves exactly as
+before — but nothing can start a new one. Restoring access means putting a
+password form back on one of those two pages, not rebuilding the role.
+
 ## Collections
 
 ### `config/recruitment`

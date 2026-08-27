@@ -11,6 +11,7 @@ import ApplicantTracker from "../components/dashboard/ApplicantTracker";
 import AdminPanel, { type ContactMessage } from "../components/dashboard/AdminPanel";
 import { downloadCsv, downloadXlsx } from "../lib/exportRows";
 import { getRecruitmentConfig } from "../lib/applications";
+import SignInButton from "../components/SignInButton";
 import { withTimeout } from "../lib/firestoreTimeout";
 import { roleOf, type DirectoryEntry } from "../lib/emailList";
 
@@ -49,12 +50,12 @@ export default function DashboardPage() {
   useEffect(() => {
     if (loading) return;
     // An unresolved role is not the same as being signed out — it gets an
-    // explanation and a retry below rather than a bounce to the login screen.
+    // explanation and a retry below rather than the sign-in panel, which would
+    // invite them to do again the thing that just failed.
     if (authError) return;
-    if (!user) {
-      router.push("/login");
-      return;
-    }
+    // A signed-out visitor is offered the sign-in panel below rather than sent
+    // somewhere else to do it — there is no login page to send them to.
+    if (!user) return;
     // Applicants are signed in but have no membership record and no dashboard.
     if (userRole === "applicant") {
       router.push("/apply");
@@ -193,12 +194,27 @@ export default function DashboardPage() {
               </button>
             )}
             <button
-              onClick={() => router.push("/login")}
+              onClick={() => router.push("/")}
               className="w-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-[var(--accent-grey)] hover:text-black dark:hover:text-white font-medium text-sm py-3 rounded-xl transition-all"
             >
-              Back to sign in
+              Back to the site
             </button>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!loading && !user) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center px-6">
+        <div className="glass-panel p-10 rounded-2xl w-full max-w-md text-center">
+          <h1 className="font-serif text-2xl mb-3 text-[var(--foreground)]">Member sign in</h1>
+          <p className="text-[var(--accent-grey)] text-sm mb-8">
+            Use your Columbia email. If you are applying rather than a member already, sign in
+            here and we will take you to your application.
+          </p>
+          <SignInButton fullWidth />
         </div>
       </div>
     );

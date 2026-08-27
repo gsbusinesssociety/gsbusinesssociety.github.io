@@ -28,18 +28,16 @@ export default function Navbar() {
     { name: "Contact", href: "/contact" },
   ];
 
-  // A single entry point that resolves by role: applicants get their
-  // application, everyone with a membership record gets the dashboard, and a
-  // signed-out visitor is pointed at the thing we are actually recruiting for.
-  // /apply and /login each redirect on their own once the role is known, so a
-  // wrong guess here self-corrects rather than stranding anyone.
-  const authTarget = !user
-    ? { href: "/apply", label: "Apply" }
-    : userRole === "applicant"
-      ? { href: "/apply", label: "My Application" }
-      : userRole === "recruiter"
-        ? { href: "/dashboard", label: "Recruiter Portal" }
-        : { href: "/dashboard", label: "Dashboard" };
+  // One button, one label, both destinations named on it — a visitor who has not
+  // signed in yet cannot be told which half is theirs, and guessing at it was
+  // producing four different labels for the same control.
+  //
+  // The href still resolves by role: applicants get their application, everyone
+  // with a membership record gets the dashboard. Both pages sign a visitor in
+  // where they stand and redirect once the role is known, so a wrong guess here
+  // self-corrects rather than stranding anyone.
+  const AUTH_LABEL = "Apply / Dashboard";
+  const authHref = !user || userRole === "applicant" ? "/apply" : "/dashboard";
 
   useEffect(() => {
     const handleResize = () => {
@@ -121,10 +119,10 @@ export default function Navbar() {
           {!loading && (
             <div className="flex items-center gap-2 ml-4">
               <Link 
-                href={authTarget.href}
+                href={authHref}
                 className="px-5 py-2 text-[13px] font-medium rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-black dark:text-white border border-black/10 dark:border-white/10 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
               >
-                {authTarget.label}
+                {AUTH_LABEL}
               </Link>
             </div>
           )}
@@ -176,11 +174,11 @@ export default function Navbar() {
           {!loading && (
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5">
               <Link
-                href={authTarget.href}
+                href={authHref}
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 px-3 py-3 rounded-xl text-[13px] font-medium text-[var(--accent-grey)] hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300"
               >
-                {authTarget.label}
+                {AUTH_LABEL}
               </Link>
             </div>
           )}
